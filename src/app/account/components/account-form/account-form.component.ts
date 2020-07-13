@@ -7,9 +7,9 @@ import {MatDialog} from '@angular/material/dialog';
 import {Observable, Subject} from 'rxjs';
 import {ManualProgressBarService} from '../../../progress-bar/manual-progress-bar.service';
 import {EmailValidatorService} from '../../validators/email-validator.service';
-import {DiscardDialogComponent} from '../../../dialog/discard-dialog/discard-dialog.component';
 import {AccountService} from '../../services/account.service';
 import {Account} from '../../../model/Account';
+import {WarningDialogComponent} from '../../../dialog/warning-dialog/warning-dialog.component';
 
 @Component({
     selector: 'app-account-form',
@@ -211,7 +211,9 @@ export class AccountFormComponent implements OnInit, AfterViewInit {
     }
 
     displayDialog() {
-        if (this.activePanel === this.NO_ACTIVE_PANEL) return;
+        if (this.activePanel === this.NO_ACTIVE_PANEL) {
+            return;
+        }
 
         /*prevent panel from closing*/
         switch (this.activePanel) {
@@ -224,17 +226,25 @@ export class AccountFormComponent implements OnInit, AfterViewInit {
         }
 
         this.discardChangesDialog().subscribe(discard => {
-            if (discard) this.cancel();
+            if (discard) {
+                this.cancel();
+            }
         });
     }
 
-    discardChangesDialog(): Observable<boolean>{
-        return this.dialogService.open(DiscardDialogComponent).afterClosed();
+    discardChangesDialog(): Observable<boolean> {
+        return this.dialogService.open(WarningDialogComponent, {
+            data: {
+                title: 'Confirm discard changes',
+                body: 'Are you sure you want to discard changes?',
+                action: 'Discard'
+            }
+        }).afterClosed();
     }
 
     public canDeactivate(): boolean | Observable<boolean> {
 
-        if(this.activePanel === this.NO_ACTIVE_PANEL){
+        if (this.activePanel === this.NO_ACTIVE_PANEL) {
             return true;
         }
 
@@ -244,11 +254,11 @@ export class AccountFormComponent implements OnInit, AfterViewInit {
         }));
     }
 
-    get firstName(): AbstractControl{
+    get firstName(): AbstractControl {
         return this.personalInfo.get(this.FIRST_NAME);
     }
 
-    get lastName(): AbstractControl{
+    get lastName(): AbstractControl {
         return this.personalInfo.get(this.LAST_NAME);
     }
 
