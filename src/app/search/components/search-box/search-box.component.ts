@@ -24,7 +24,7 @@ export class SearchBoxComponent implements OnInit {
         this.activatedRoute.queryParamMap.subscribe(params => {
             const query = params.get('query');
             this.search.setValue(query);
-        })
+        });
     }
 
     get search(): AbstractControl {
@@ -32,9 +32,22 @@ export class SearchBoxComponent implements OnInit {
     }
 
     public makeSearchRequest() {
+        const query = this.search.value;
+        const advanced = SearchBoxComponent.testForAdvancedSearch(query);
         this.router.navigate(
             ['/search'],
-            {queryParams: {query: this.search.value, page: 0}, queryParamsHandling: 'merge'}
+            {
+                queryParams: {query: query, page: 0, advanced: advanced},
+                queryParamsHandling: 'merge'
+            }
         );
+    }
+
+    private static testForAdvancedSearch(query: string): boolean {
+        if (!query) {
+            return false;
+        }
+        const special = /[+\-&|!(){}\[\]^"~*?:\\]/;
+        return special.test(query);
     }
 }
