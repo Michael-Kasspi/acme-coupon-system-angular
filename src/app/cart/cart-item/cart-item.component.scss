@@ -14,7 +14,9 @@ $accent: map-get($custom-theme, accent);
 }
 
 app-coupon-list-item {
+    width: 100%;
     margin-bottom: 16px;
+    display: block;
 }
 
 .cart-icon {
