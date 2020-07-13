@@ -22,7 +22,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     public resultPage: ResultPage<Coupon> = null;
     public companies: Company[] = null;
     public categories: Category[] = null;
-    public showFilters: boolean = false;
+    public activeFilters: boolean = false;
     private resolver$: Subscription = null;
 
     constructor(
@@ -33,6 +33,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        this.isFiltersActive();
         this.resolver$ = this.activatedRoute.data.subscribe(
             (data: {
                 resultPage: ResultPage<Coupon>,
@@ -56,7 +57,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
 
     public handlePageEvent(event: PageEvent) {
-        this.showFilters = false;
         this.commitSearch({
             size: event.pageSize,
             page: event.pageIndex
@@ -71,9 +71,11 @@ export class SearchComponent implements OnInit, OnDestroy {
             }
         }).afterClosed().subscribe((params: SearchOptionParams) => {
             if (!params) {
+                this.activeFilters = false;
                 return;
             }
             this.commitSearch(Object.assign(params, {page: 0}));
+            this.activeFilters = true;
         });
     }
 
@@ -88,5 +90,11 @@ export class SearchComponent implements OnInit, OnDestroy {
         if (this.resultPage && this.resultPage.empty && this.resultPage.totalElements > 0) {
             this.commitSearch({page: 0});
         }
+    }
+
+    private isFiltersActive(): void {
+        this.activatedRoute.queryParamMap.subscribe(params => {
+            this.activeFilters = !!(!!params.get('filter') || params.get('sort') || !!params.get('range'));
+        });
     }
 }

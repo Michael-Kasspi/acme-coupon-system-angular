@@ -1,8 +1,8 @@
 <div class="search-results">
     <div *ngIf="resultPage" class="search-paginator-wrapper">
-        <button (click)="openSearchFilters()" class="filters-btn" color="accent" mat-button>
+        <button (click)="openSearchFilters()" class="filters-btn" [color]="activeFilters ? 'primary' : 'accent'" mat-button>
             <mat-icon>tune</mat-icon>
-            ADVANCED
+            OPTIONS
         </button>
         <mat-paginator
             class="search-paginator"
