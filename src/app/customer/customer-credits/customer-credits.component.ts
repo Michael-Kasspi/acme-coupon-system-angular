@@ -13,15 +13,17 @@ import {ManualProgressBarService} from '../../progress-bar/manual-progress-bar.s
 })
 export class CustomerCreditsComponent implements OnInit {
 
-    balance: number = 0;
+    public readonly MAX_CREDIT: number = 100_000.00;
+    public readonly  MIN_CREDIT: number = 1_000.00;
+    public balance: number = 0;
 
     creditsForm = new FormGroup({
         creditsField: new FormControl(
-            1_000,
+            '',
             [
                 Validators.required,
-                Validators.min(1_000),
-                Validators.max(100_000)
+                Validators.min(this.MIN_CREDIT),
+                Validators.max(this.MAX_CREDIT)
             ])
     });
 
