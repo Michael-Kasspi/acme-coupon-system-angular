@@ -1,0 +1,33 @@
+.search-box-input .mat-form-field-infix {
+    border-top-width: 0;
+    padding: 0;
+}
+
+.search-box-input .mat-form-field-wrapper {
+    padding: 0;
+}
+
+.search-box-input .mat-input-element {
+    padding-bottom: 5px;
+    padding-left: 10px;
+    font-size: 18px;
+}
+
+.search-box-input .mat-button-ripple.mat-ripple{
+    left: 4px;
+    bottom: 6px;
+}
+
+.search-box-input mat-icon {
+    padding-bottom: 3px;
+}
+
+.search-box-input .mat-form-field-outline-thick, .mat-form-field-outline {
+    color: rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.12);
+    border-radius: 3px;
+}
+
+.search-box-input {
+    width: 100%;
+}

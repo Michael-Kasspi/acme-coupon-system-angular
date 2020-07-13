@@ -1,0 +1,18 @@
+<button *ngIf="!imageUrl && !imagePreview" type="button" mat-raised-button
+        (click)="openImageSelectDialog()">
+    {{(mode === UPLOAD_MODE ? 'Upload' : 'Select') + ' Image'}}
+</button>
+<div *ngIf="imageUrl || imagePreview" class="image-preview-container">
+    <div *ngIf="progress === undefined" (click)="openImageSelectDialog()"
+         class="image-edit-container">
+        <mat-icon inline class="image-edit-icon">edit</mat-icon>
+    </div>
+    <div *ngIf="mode === UPLOAD_MODE && progress !== undefined" class="image-preview-spinner-container">
+        <mat-progress-spinner class="image-preview-spinner" strokeWidth="5" mode="determinate"
+                              [value]="progress"
+                              diameter="75"></mat-progress-spinner>
+    </div>
+    <div class="image-preview-block">
+        <img class="image-preview" [src]="imageUrl" alt="">
+    </div>
+</div>

@@ -1,0 +1,44 @@
+<a routerLink="/home">
+    <mat-toolbar-row routerLinkActive="active">
+        <mat-icon class="icon" routerLinkActive="icon-active">home</mat-icon>
+        <span>Home</span>
+    </mat-toolbar-row>
+</a>
+<a *ngIf="isCustomerUser()" routerLink="/cart">
+    <mat-toolbar-row routerLinkActive="active">
+        <mat-icon class="icon" routerLinkActive="icon-active">shopping_cart</mat-icon>
+        <span>Cart</span>
+    </mat-toolbar-row>
+</a>
+<div *ngIf="sessionService.isLoggedIn$() | async">
+    <a routerLink="/dashboard">
+        <mat-toolbar-row routerLinkActive="active">
+            <mat-icon class="icon" routerLinkActive="icon-active">account_box</mat-icon>
+            <span>Dashboard</span>
+        </mat-toolbar-row>
+    </a>
+    <div class="sidenav-divider">
+        <mat-divider></mat-divider>
+    </div>
+</div>
+<a routerLink="/feed/popular">
+    <mat-toolbar-row routerLinkActive="active">
+        <mat-icon class="icon" routerLinkActive="icon-active">whatshot</mat-icon>
+        <span>Popular</span>
+    </mat-toolbar-row>
+</a>
+<a routerLink="/feed/fresh">
+    <mat-toolbar-row routerLinkActive="active">
+        <mat-icon class="icon" routerLinkActive="icon-active">access_time</mat-icon>
+        <span>Fresh</span>
+    </mat-toolbar-row>
+</a>
+<a routerLink="/categories">
+    <mat-toolbar-row routerLinkActive="active">
+        <mat-icon class="icon" routerLinkActive="icon-active">library_books</mat-icon>
+        <span>Categories</span>
+    </mat-toolbar-row>
+</a>
+
+
+

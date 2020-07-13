@@ -1,0 +1,9 @@
+<app-coupon-list-item *ngFor="let coupon of coupons" [coupon]="coupon"></app-coupon-list-item>
+<div class="empty-cart" *ngIf="coupons && coupons.length === 0">
+    <div>
+        <div class="cart-icon">
+            <mat-icon inline color="accent">shopping_cart</mat-icon>
+        </div>
+        <p class="cart-message">No coupons in the cart</p>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="company-edit-coupon-container">
+    <mat-card class="company-edit-coupon-card">
+        <app-coupon-form
+            #couponForm
+            *ngIf="coupon; else error"
+            [categories]="categories"
+            [coupon]="coupon"
+            controls="edit"
+            (updateEvent)="updateCoupon($event)"
+            (deleteEvent)="deleteCoupon($event)"
+            (imageSelectedEvent)="uploadImage($event)"
+            (imageDeleteEvent)="deleteImage($event)"
+            [progress]="couponManagerService.uploadProgressPercentage"
+        ></app-coupon-form>
+        <ng-template #error>
+            <div class="company-edit-coupon-error">
+                There was an error fetching the coupon.
+            </div>
+        </ng-template>
+    </mat-card>
+</div>

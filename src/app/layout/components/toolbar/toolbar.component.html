@@ -1,0 +1,16 @@
+<mat-toolbar class="toolbar">
+    <div class="container start">
+        <button mat-icon-button color="accent" (click)="sidenav.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <app-logo></app-logo>
+    </div>
+    <div class="container center">
+        <app-search-box class="search-box"></app-search-box>
+    </div>
+    <div class="container end">
+        <app-cart-button [disabled]="isInCartRoute()" *ngIf="showCartButton" (click)="toggleCart()"></app-cart-button>
+        <app-login-button *ngIf="!loggedIn"></app-login-button>
+        <app-user-menu-button *ngIf="loggedIn"></app-user-menu-button>
+    </div>
+</mat-toolbar>

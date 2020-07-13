@@ -1,0 +1,11 @@
+<div class="account-center">
+    <div class="account-page-container">
+        <div class="account-column">
+            <h3 class="account-header">Account Settings</h3>
+        </div>
+        <div class="account-column">
+            <app-account-card class="account-margin" [account]="account"></app-account-card>
+            <app-account-form #accountFormComponent class="account-margin" [account]="account"></app-account-form>
+        </div>
+    </div>
+</div>

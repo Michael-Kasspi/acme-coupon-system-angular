@@ -1,0 +1,34 @@
+<div *ngIf="coupons && coupons?.length === 0" class="no-coupons-message-wrapper">
+    <mat-card class="no-coupons-message">
+        <mat-card-header class="no-coupons-message__header">
+            <h5 class="no-coupons-message__header__title no-coupons-message--section">
+                Welcome to Acme Coupon System!
+            </h5>
+            <p class="no-coupons-message__header__subtitle no-coupons-message--section">
+                The is no coupons yet in the system.
+            </p>
+            <p class="no-coupons-message__header__subtitle no-coupons-message--section">
+                Be the first company to add a coupon to the system by signing up.
+            </p>
+        </mat-card-header>
+        <div class="no-coupons-message__actions">
+            <a routerLink="/register" class="no-coupons-message-action-button" color="primary" mat-button>SIGN UP</a>
+        </div>
+    </mat-card>
+</div>
+<div *ngIf="!coupons" class="no-coupons-message-wrapper">
+    <mat-card class="no-coupons-message">
+        <mat-card-header class="no-coupons-message__header">
+            <h5 class="no-coupons-message__header__title no-coupons-message--section">
+                There was an error loading the coupons.
+            </h5>
+            <p class="no-coupons-message__header__subtitle no-coupons-message--section">
+                Please try again later or reload the page.
+            </p>
+        </mat-card-header>
+        <div class="no-coupons-message__actions">
+            <a (click)="reloadCoupons()" [disabled]="reloading" class="no-coupons-message-action-button" color="primary" mat-button>RELOAD</a>
+        </div>
+    </mat-card>
+</div>
+<app-coupon-grid class="coupons-grid" *ngIf="coupons && coupons.length > 0" [coupons]="coupons"></app-coupon-grid>

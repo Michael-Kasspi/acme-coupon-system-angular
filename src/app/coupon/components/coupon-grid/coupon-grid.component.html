@@ -1,0 +1,19 @@
+<div *ngIf="coupons && coupons.length > 0 else noCoupons" class="grid-container">
+    <app-coupon-thumbnail
+        *ngFor="let coupon of coupons"
+        class="grid-container__thumbnail"
+        [coupon]="coupon">
+    </app-coupon-thumbnail>
+</div>
+<ng-template #noCoupons>
+    <div class="spinner">
+        <mat-progress-spinner
+            *ngIf="coupons === null"
+            mode="indeterminate"
+            color="primary">
+        </mat-progress-spinner>
+        <div *ngIf="coupons?.length === 0" #errorMessage>
+            No coupons found.
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,25 @@
+@import "~src/custom-theme";
+$primary: map-get($custom-theme, primary);
+
+.discard-title{
+    color: mat-color($primary);
+}
+
+.discard-actions {
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+.discard-actions button {
+    margin-right: 6px;
+    flex: 0 1 auto;
+    height: 40px;
+}
+
+.discard-dialog-content{
+    margin: 10px 0;
+    padding: 0;
+}

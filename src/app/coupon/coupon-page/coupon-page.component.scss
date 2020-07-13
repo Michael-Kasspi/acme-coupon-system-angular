@@ -1,0 +1,89 @@
+@import "~src/custom-theme";
+@import '~@angular/material/theming';
+
+$accent: map-get($custom-theme, accent);
+
+:host {
+    position: relative;
+    min-height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px;
+    box-sizing: border-box;
+}
+
+app-coupon-details {
+    flex: 1 1 auto;
+    width: 100%;
+    display: flex;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+}
+
+h3, p {
+    margin: 0;
+}
+
+.coupon-details {
+    width: 100%;
+}
+
+.error-message-card {
+    @include mat-elevation(5);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.error-message {
+    margin: 16px;
+    font-size: 34px;
+    font-weight: normal;
+    letter-spacing: 0.25px;
+}
+
+.error-message-subtitle {
+    color: mat-color($accent);
+    margin: 16px;
+    font-size: 16px;
+    font-weight: normal;
+    letter-spacing: 0.15px;
+}
+
+.error-message-actions {
+    margin-bottom: 16px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.error-message-actions a {
+    margin-right: 16px;
+}
+
+.error-message-divider {
+    display: flex;
+    justify-content: center;
+    height: 16px;
+}
+
+.coupons-grid-container {
+    width: 100%;
+}
+
+.spinner {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+app-coupon-grid {
+    margin: 16px;
+    box-sizing: border-box;
+}
+
+.mat-tab-body-content {
+    min-height: 100%;
+    height: unset;
+}

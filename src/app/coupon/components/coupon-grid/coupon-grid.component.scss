@@ -1,0 +1,47 @@
+.flex-thumbnails {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin: 0 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.thumbnail-container {
+    margin: 8px;
+    width: 316px;
+    display: flex;
+}
+
+.container {
+    flex: 1 1 auto;
+    display: flex;
+    height: min-content;
+    justify-content: center;
+    margin: 16px 0;
+    width: 100%;
+}
+
+.spinner {
+    margin-top: 64px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.grid-container {
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    grid-auto-rows: min-content;
+    grid-gap: 16px;
+}
+
+.grid-container__thumbnail {
+    margin: auto;
+    height: 100%;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 360px;
+    display: flex;
+}

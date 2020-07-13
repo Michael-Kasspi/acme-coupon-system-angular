@@ -1,0 +1,68 @@
+.coupon-form-image-preview {
+    height: 100%;
+    width: auto;
+}
+
+.image-preview-container {
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+
+.image-edit-icon {
+    font-size: 50px;
+    height: 50px;
+    width: 50px;
+    color: white;
+}
+
+.image-edit-container {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    display: none;
+    height: 100px;
+    width: 100px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+}
+
+.image-preview-spinner-container {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    padding: 10px;
+    height: 100px;
+    width: 100px;
+}
+
+.image-preview-spinner {
+    height: 100%;
+    width: 100%;
+}
+
+.image-preview-container:hover > .image-edit-container {
+    display: flex;
+}
+
+.image-preview {
+    display: block;
+    height: 100%;
+    width: auto;
+    margin: auto;
+}
+
+.image-preview-block {
+    height: 200px;
+    width: auto;
+}

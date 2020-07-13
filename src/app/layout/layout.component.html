@@ -1,0 +1,17 @@
+<app-toolbar class="toolbar-container" [sidenav]="sidenav" [cart]="cartSidenav"></app-toolbar>
+<mat-sidenav-container class="layout body">
+  <mat-sidenav class="sidenav-menu" #sidenav mode="side" opened>
+    <app-sidenav-menu></app-sidenav-menu>
+  </mat-sidenav>
+  <mat-sidenav-content class="page-content">
+    <div #content class="content">
+      <router-outlet></router-outlet>
+    </div>
+    <div>
+      <app-footer class="footer"></app-footer>
+    </div>
+  </mat-sidenav-content>
+  <mat-sidenav class="sidenav-cart" #cartSidenav mode="over" position="end">
+    <app-cart-sidenav></app-cart-sidenav>
+  </mat-sidenav>
+</mat-sidenav-container>

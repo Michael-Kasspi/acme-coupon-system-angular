@@ -1,0 +1,13 @@
+<mat-tab-group [(selectedIndex)]="activeTab">
+    <mat-tab label="Add Company">
+        <app-add-company #addCompanyComponent
+                         (onCompanyAdd)="addCompany($event, addCompanyComponent)"></app-add-company>
+    </mat-tab>
+    <mat-tab label="Edit Company">
+        <app-edit-company #editCompanyComponent (onCompanyUpdate)="updateCompany($event)" (onCompanyDelete)="deleteCompany($event,editCompanyComponent)"
+                          [companies]="companies" [company]="selectedCompany"></app-edit-company>
+    </mat-tab>
+    <mat-tab label="All Companies">
+        <app-all-companies (onCompanyClick)="editCompany($event)" (tableRef)="setTableRef($event)" [companies]="companies"></app-all-companies>
+    </mat-tab>
+</mat-tab-group>

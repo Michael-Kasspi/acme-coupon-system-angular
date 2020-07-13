@@ -1,0 +1,39 @@
+<div class="customer-credits-container">
+    <mat-card class="customer-credits-card">
+        <mat-card-header>
+            <mat-card-title>
+                <h2 class="customer-credits-title mat-h2">
+                    Current balance
+                </h2>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="customer-credits-content">
+            {{balance}}
+        </mat-card-content>
+    </mat-card>
+    <mat-card class="customer-credits-card">
+        <mat-card-header>
+            <mat-card-title>
+                <h2 class="customer-credits-title mat-h2">
+                    Purchase credits
+                </h2>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="customer-credits-content">
+            <form [formGroup]="creditsForm" (ngSubmit)="onSubmit()">
+                <mat-form-field class="customer-credits-item customer-credits-field">
+                    <mat-label>Credits amount</mat-label>
+                    <input step="1000" formControlName="creditsField" #credits required min="1000" max="100000" matInput
+                           type="number">
+                    <mat-hint>Credits amount {{credits?.valueAsNumber || 0 | number:'1.2-2'}}/100,000.00</mat-hint>
+                    <mat-error *ngIf="!creditsField.valid">
+                        <span *ngIf="creditsField.errors?.max">The maximum amount is 100,000</span>
+                        <span *ngIf="creditsField.errors?.min">The minimum amount is 1,000</span>
+                        <span *ngIf="creditsField.errors?.required">This field is required</span>
+                    </mat-error>
+                </mat-form-field>
+                <button class="customer-credits-item" mat-flat-button color="primary" type="submit">Purchase</button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

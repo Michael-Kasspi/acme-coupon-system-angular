@@ -1,0 +1,48 @@
+<div #details class="coupon-details" *ngIf="coupon else notFound">
+    <app-coupon-details [coupon]="coupon"></app-coupon-details>
+    <mat-tab-group
+        *ngIf="(couponsByCategory && couponsByCategory.length > 0) || (couponsByCompany && couponsByCompany.length > 0) else loading">
+        <mat-tab
+            *ngIf="coupon?.category && (couponsByCategory && couponsByCategory.length > 0)"
+            label="More from {{coupon?.category?.name || 'the same category'}}">
+            <app-coupon-grid [coupons]="couponsByCategory"></app-coupon-grid>
+        </mat-tab>
+        <mat-tab
+            *ngIf="coupon?.company  && (couponsByCompany && couponsByCompany.length > 0)"
+            label="More from {{companyName || 'the same company'}}">
+            <app-coupon-grid [coupons]="couponsByCompany"></app-coupon-grid>
+        </mat-tab>
+    </mat-tab-group>
+    <ng-template #loading>
+        <div class="spinner">
+            <mat-progress-spinner *ngIf="couponsByCompany === null && couponsByCategory === null"
+                                  mode="indeterminate"></mat-progress-spinner>
+        </div>
+    </ng-template>
+</div>
+<ng-template #notFound>
+    <mat-card class="error-message-card">
+        <h3 class="error-message">
+            The coupon is not found
+        </h3>
+        <p class="error-message-subtitle">
+            The coupon might have expired or the url is invalid.
+        </p>
+        <div class="error-message-divider">
+            <mat-divider></mat-divider>
+        </div>
+        <div class="error-message-actions">
+            <a routerLink="/home" color="primary" mat-button>HOME</a>
+            <a routerLink="/coupons" color="primary" mat-button>COUPONS</a>
+            <a routerLink="/categories" color="primary" mat-button>CATEGORIES</a>
+        </div>
+        <div class="error-message-divider">
+            <mat-divider></mat-divider>
+        </div>
+        <mat-card-content class="error-message-coupons">
+            <div class="coupons-grid-container">
+                <app-coupon-grid [coupons]="couponsOnError"></app-coupon-grid>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</ng-template>

@@ -1,0 +1,41 @@
+<mat-card>
+    <mat-card-header>
+
+        <div (click)="selectImage()"
+             mat-card-avatar
+             class="account-avatar-container">
+
+            <mat-icon
+                *ngIf="!account.profilePictureUrl"
+                class="account-avatar"
+                inline="true"
+                color="accent">
+                account_circle
+            </mat-icon>
+
+            <img mat-card-avatar
+                class="account-profile-image"
+                *ngIf="account.profilePictureUrl"
+                [src]="profilePicture">
+
+            <div class="account-avatar-shadow"></div>
+
+            <mat-icon
+                inline="true"
+                class="account-avatar-upload">
+                camera_alt
+            </mat-icon>
+
+        </div>
+
+        <mat-card-title class="account-name">
+            {{account.fullName}}
+        </mat-card-title>
+
+        <mat-card-subtitle>
+            Credits: {{account.credit}}
+        </mat-card-subtitle>
+
+    </mat-card-header>
+</mat-card>
+

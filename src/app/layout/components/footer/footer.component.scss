@@ -1,0 +1,21 @@
+@import "~src/custom-theme";
+
+$primary: map-get($custom-theme, primary);
+$accent: map-get($custom-theme, accent);
+
+div {
+    width: 100%;
+    height: 100%;
+    background-color: mat-color($primary);
+    display: inline-flex;
+    justify-content: center;
+    justify-items: center;
+    text-align: center;
+}
+
+p {
+    font-size: 16px;
+    font-weight: 400;
+    color: white;
+    display: block;
+}

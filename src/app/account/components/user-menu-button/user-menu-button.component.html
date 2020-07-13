@@ -1,0 +1,39 @@
+<a mat-mini-fab [matMenuTriggerFor]="profileCircle" class="profile-circle">
+    <mat-icon [inline]="true" class="profile-icon border">account_circle</mat-icon>
+    <img *ngIf="image" [src]="image" alt="avatar">
+</a>
+<mat-menu #profileCircle="matMenu">
+    <a routerLink="/dashboard" mat-menu-item>
+        <mat-icon color="accent">account_box</mat-icon>
+        <span>Dashboard</span>
+    </a>
+    <div [ngSwitch]="userType">
+        <div *ngSwitchCase="customer">
+            <div class="user-menu-divider">
+                <mat-divider></mat-divider>
+            </div>
+            <a routerLink="/dashboard/customer/coupons" mat-menu-item>
+                <mat-icon color="accent">inbox</mat-icon>
+                <span>My Coupons</span>
+            </a>
+            <a routerLink="/dashboard/customer/credits" mat-menu-item>
+                <mat-icon color="accent">credit_card</mat-icon>
+                <span>Add credits</span>
+            </a>
+        </div>
+        <div class="user-menu-divider">
+            <mat-divider></mat-divider>
+        </div>
+    </div>
+    <a routerLink="/account" mat-menu-item>
+        <mat-icon color="accent">settings</mat-icon>
+        <span>Account</span>
+    </a>
+    <div class="user-menu-divider">
+        <mat-divider></mat-divider>
+    </div>
+    <a (click)="logoutService.openLogoutDialog()" mat-menu-item>
+        <mat-icon color="accent">exit_to_app</mat-icon>
+        <span>Sign out</span>
+    </a>
+</mat-menu>

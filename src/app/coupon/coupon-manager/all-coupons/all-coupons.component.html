@@ -1,0 +1,81 @@
+<div class="company-all-coupons-container">
+    <mat-card class="company-all-coupons-card">
+
+        <table #couponsTable mat-table [dataSource]="coupons" class="company-coupons-table">
+            <ng-container matColumnDef="imageUrl">
+                <th mat-header-cell *matHeaderCellDef> Image</th>
+                <td mat-cell *matCellDef="let coupon">
+                    <div class="image-thumbnail-container">
+                        <img class="image-thumbnail" [src]="coupon.imageUrl ? endpoint.res + coupon.imageUrl : ''"
+                             alt="">
+                    </div>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef> Title</th>
+                <td mat-cell *matCellDef="let coupon">
+                    <div class="title-text">{{coupon.title}}</div>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef> Price</th>
+                <td mat-cell
+                    *matCellDef="let coupon"> {{(coupon.price ? (coupon.price | number: '1.2-2') : 'Free')}} </td>
+            </ng-container>
+            <ng-container matColumnDef="amount">
+                <th mat-header-cell *matHeaderCellDef>Amount</th>
+                <td mat-cell *matCellDef="let coupon"> {{coupon.amount || 'Out of stock'}} </td>
+            </ng-container>
+            <ng-container matColumnDef="category">
+                <th mat-header-cell *matHeaderCellDef>Category</th>
+                <td mat-cell *matCellDef="let coupon"> {{coupon.category.name || 'No category'}} </td>
+            </ng-container>
+            <ng-container matColumnDef="startDate">
+                <th mat-header-cell *matHeaderCellDef>Since</th>
+                <td mat-cell *matCellDef="let coupon"> {{coupon.startDate | date: 'dd/MM/yyyy'}} </td>
+            </ng-container>
+            <ng-container matColumnDef="endDate">
+                <th mat-header-cell *matHeaderCellDef>Until</th>
+                <td mat-cell *matCellDef="let coupon"> {{coupon.endDate | date: 'dd/MM/yyyy'}} </td>
+            </ng-container>
+            <ng-container matColumnDef="edit">
+                <th mat-header-cell *matHeaderCellDef>Edit</th>
+                <td mat-cell *matCellDef="let coupon">
+                    <button (click)="editCoupon(coupon)" mat-icon-button>
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="view">
+                <th mat-header-cell *matHeaderCellDef>Page</th>
+                <td mat-cell *matCellDef="let coupon">
+                    <button (click)="viewCouponPage(coupon)" mat-icon-button>
+                        <mat-icon>description</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="delete">
+                <th mat-header-cell *matHeaderCellDef>Delete</th>
+                <td mat-cell *matCellDef="let coupon">
+                    <button (click)="deleteCoupon(coupon)" mat-icon-button>
+                        <mat-icon>clear</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <div class="messages-container">
+            <div class="no-coupons-message" *ngIf="coupons?.length === 0">
+                <p class="no-coupons-message-text mat-body">
+                    Your company has no coupons yet.
+                </p>
+            </div>
+            <div class="no-coupons-message" *ngIf="!coupons">
+                <p class="no-coupons-message-text mat-h3">
+                    There was an error loading the coupons, please try reloading the page.
+                </p>
+            </div>
+        </div>
+    </mat-card>
+</div>

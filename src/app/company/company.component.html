@@ -1,0 +1,31 @@
+<div class="company-toolbar-container">
+    <mat-toolbar color="primary" class="company-toolbar">
+        <div class="company-details" routerLink="./profile">
+            <div class="company-logo-container">
+                <img class="company-toolbar-logo" [src]="companyImageUrl || company?.imagePreview || ''" alt="">
+            </div>
+            <div *ngIf="company" class="company-toolbar-name">
+                {{company?.name}}
+            </div>
+        </div>
+        <button
+            class="company-nav-button"
+            mat-flat-button
+            color="primary"
+            routerLink="./coupons"
+            routerLinkActive="company-nav-button-active"
+        >
+            Coupons
+        </button>
+        <button
+            class="company-nav-button"
+            mat-flat-button
+            color="primary"
+            routerLink="./profile"
+            routerLinkActive="company-nav-button-active"
+        >
+            Profile
+        </button>
+    </mat-toolbar>
+        <router-outlet></router-outlet>
+</div>

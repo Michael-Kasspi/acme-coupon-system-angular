@@ -1,0 +1,26 @@
+<div class="company-manager-container">
+    <nav color="primary" mat-tab-nav-bar class="company-nav-bar">
+        <a mat-tab-link
+           routerLink="./all"
+           routerLinkActive #rla1="routerLinkActive"
+           [active]="rla1.isActive">
+            All Coupons
+        </a>
+        <a mat-tab-link
+           routerLink="./add"
+           routerLinkActive #rla2="routerLinkActive"
+           [active]="rla2.isActive">
+            Add Coupon
+        </a>
+        <span class="company-edit-coupon-link" routerLink="./edit" routerLinkActive #rla4="routerLinkActive"></span>
+        <div
+            *ngIf="rla4.isActive"
+            mat-tab-link
+            [active]="rla4.isActive">
+            Edit Coupon
+        </div>
+    </nav>
+    <div class="company-manager-content">
+        <router-outlet></router-outlet>
+    </div>
+</div>

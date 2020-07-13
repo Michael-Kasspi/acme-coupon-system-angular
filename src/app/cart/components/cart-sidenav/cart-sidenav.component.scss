@@ -1,0 +1,73 @@
+@import "~src/custom-theme";
+@import '~@angular/material/theming';
+
+$primary: map-get($custom-theme, primary);
+$accent: map-get($custom-theme, accent);
+
+.coupons-list {
+    margin: 16px;
+    box-sizing: border-box;
+}
+
+app-coupon-grid {
+    margin: 16px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+p {
+    margin: unset;
+}
+
+.cart-total {
+    margin: 8px 0;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.15px;
+}
+
+.cart-actions {
+    @include mat-elevation(2);
+    position: sticky;
+    top: 0;
+    z-index: 4;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-items {
+    box-sizing: border-box;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 90%;
+    width: 100%;
+}
+
+.cart-icon {
+    user-select: none;
+    width: auto;
+    text-align: center;
+    height: 80px;
+    font-size: 80px;
+    margin: auto;
+}
+
+.cart-no-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+    width: 100%;
+}
+
+.cart-message {
+    font-size: 18px;
+    color: mat-color($accent);
+}
+

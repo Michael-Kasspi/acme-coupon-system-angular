@@ -1,0 +1,138 @@
+<div class="container">
+    <div
+        class="coupon-image-container"
+        [ngClass]="!couponService.imageUrl ? 'image-placeholder--shadow' : ''">
+        <img
+            *ngIf="couponService.imageUrl else imagePlaceholder"
+            class="coupon-image-container__image"
+            [src]="couponService.imageUrl"
+            [alt]="couponService.couponTitle">
+        <ng-template #imagePlaceholder>
+            <app-image-placeholder color="#cdcdcd"></app-image-placeholder>
+        </ng-template>
+    </div>
+    <div class="coupon-details-container">
+        <div class="section">
+            <div class="coupon-details-header section">
+                <h5 class="coupon-title">
+                    {{couponService.couponTitle}}
+                </h5>
+            </div>
+            <div class="company-details section">
+                <a
+                    class="company-logo company-logo--margin"
+                    [routerLink]="couponService.companyProfileUrl"
+                    matRipple>
+                    <img
+                        [title]="couponService.companyName"
+                        class="company-logo__image"
+                        [src]="couponService.companyLogoUrl"
+                        [alt]="couponService.companyName">
+                </a>
+                <div>
+                    <p class="company-name text-hover-link text-truncate"
+                       [routerLink]="couponService.companyProfileUrl"
+                       [title]="couponService.companyName">
+                        {{couponService.companyName}}
+                    </p>
+                    <p class="company-subtitle">Added on {{couponService.startDate | date: 'dd/MM/yyyy'}}</p>
+                </div>
+                <button
+                    (click)="couponService.navigateToEditCoupon()"
+                    *ngIf="couponService.showEditButton"
+                    class="edit-fab"
+                    mat-fab>
+                    <mat-icon>
+                        edit
+                    </mat-icon>
+                </button>
+            </div>
+            <div class="section">
+                <mat-chip-list>
+                    <mat-chip
+                        selected
+                        color="accent"
+                        matTooltipPosition="above"
+                        matTooltip="{{coupon?.price ? 'Priced at ' + coupon?.price + ' credits' : 'Free of charge'}}"
+                        matTooltipClass="custom-tooltip"
+                        *ngIf="coupon?.price != null">
+                        <mat-icon>{{coupon?.price ? 'monetization_on' : 'money_off'}}</mat-icon>
+                        <p>{{(coupon?.price ? (coupon?.price | number: '1.2-2') : 'Free')}}</p>
+                    </mat-chip>
+                    <mat-chip
+                        matTooltipPosition="above"
+                        matTooltip="{{couponService.couponCategoryName}} category"
+                        matTooltipClass="custom-tooltip"
+                        class="pointer"
+                        [routerLink]="couponService.categoryUrl"
+                        *ngIf="couponService.category">
+                        <mat-icon>library_books</mat-icon>
+                        <p>{{couponService.couponCategoryName}}</p>
+                    </mat-chip>
+                    <mat-chip
+                        matTooltipPosition="above"
+                        matTooltip="Expires on {{couponService.endDate | date: 'dd/MM/yyyy'}}"
+                        matTooltipClass="custom-tooltip"
+                    >
+                        <mat-icon>event_busy</mat-icon>
+                        <p>{{couponService.endDate | date: 'dd/MM/yyyy'}}</p>
+                    </mat-chip>
+                    <mat-chip
+                        *ngIf="!coupon?.isInStock"
+                        color="warn"
+                        selected
+                        matTooltipPosition="above"
+                        matTooltip="Out of stock"
+                        matTooltipClass="custom-tooltip"
+                    >
+                        <mat-icon>error</mat-icon>
+                        <p>Out of stock</p>
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+        </div>
+        <div class="section">
+            <mat-divider></mat-divider>
+        </div>
+        <div class="section" *ngIf="couponService.description">
+            <div class="section">
+                <p #description class="description-text" [class.show-more]="showMore">
+                    {{couponService.description}}
+                </p>
+            </div>
+            <div class="flex-center">
+                <button class="section" *ngIf="overflow || showMore" mat-button
+                        (click)="showMore = !showMore">{{showMore ? 'SHOW LESS' : 'SHOW MORE'}}</button>
+            </div>
+            <mat-divider></mat-divider>
+        </div>
+        <div class="section actions">
+            <button
+                [disabled]="!coupon.isInStock"
+                (click)="couponService.onCartClick()"
+                [color]="couponService.inCart ? 'warn' : 'primary'"
+                class="action-button"
+                mat-raised-button>
+                <mat-icon class="action-icon">
+                    {{couponService.inCart ? 'remove_shopping_cart' : 'shopping_cart'}}
+                </mat-icon>
+                <p>
+                    {{couponService.inCart ? 'REMOVE FROM CART' : 'ADD TO CART'}}
+                </p>
+            </button>
+            <button
+                (click)="couponService.onWishlistClick()"
+                class="action-button"
+                [color]="couponService.inWishList ? 'warn' : 'accent'"
+                mat-button>
+                <mat-icon class="action-icon">
+                    {{couponService.inWishList ? 'favorite' : 'favorite_border'}}
+                </mat-icon>
+                <p>
+                    {{couponService.inWishList ? 'REMOVE FROM WISHLIST' : 'ADD TO WISHLIST'}}
+                </p>
+            </button>
+        </div>
+    </div>
+</div>
+

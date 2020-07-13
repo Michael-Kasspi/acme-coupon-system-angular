@@ -1,0 +1,41 @@
+@import "~src/custom-theme";
+
+$primary: map-get($custom-theme, primary);
+
+.customer-credits-container {
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    flex-direction: column;
+}
+
+.customer-credits-card {
+    width: 80%;
+    margin-bottom: 32px;
+}
+
+.customer-credits-content {
+    margin: 0 16px;
+    display: flex;
+    flex-direction: row;
+}
+
+.customer-credits-item {
+    margin-right: 16px;
+    margin-bottom: 16px;
+}
+
+.customer-credits-title {
+    margin: 0 0 16px;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.15px;
+    color: mat-color($primary);
+}
+
+.customer-credits-field {
+    width: 300px;
+}

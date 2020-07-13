@@ -1,0 +1,39 @@
+@import '~@angular/material/theming';
+
+.image-preview {
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.image-preview-container {
+    @include mat-elevation(4);
+    height: 200px;
+    width: 200px;
+    margin: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-placeholder {
+    font-size: 200px;
+    height: 100%;
+    width: 100%;
+    user-select: none;
+}
+
+.image-upload-title {
+    text-align: center;
+}
+
+.image-preview-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-upload-action {
+    margin-right: 8px;
+}

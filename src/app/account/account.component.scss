@@ -1,0 +1,42 @@
+@import "~src/custom-theme";
+$primary: map-get($custom-theme, primary);
+$accent: map-get($custom-theme, accent);
+
+
+.account-page-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-items: center;
+    margin: 30px;
+    width: 1000px;
+
+}
+
+.account-page-container > * {
+    flex: auto;
+}
+
+.account-center {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+}
+
+.account-column {
+    display: block;
+}
+
+.account-header {
+    color: mat-color($primary);
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+
+.account-margin {
+    display: block;
+    margin-bottom: 16px;
+}
+
+

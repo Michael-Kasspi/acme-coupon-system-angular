@@ -1,0 +1,15 @@
+:host {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    justify-content: center;
+    align-items: center;
+    box-sizing: content-box;
+}
+
+.company-profile-card {
+    width: 75%;
+    flex: 1 1 auto;
+    margin: 32px;
+}

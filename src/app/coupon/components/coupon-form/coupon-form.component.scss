@@ -1,0 +1,144 @@
+:host {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.mat-form-field {
+    display: block;
+}
+
+.coupon-form-title, .coupon-form-description {
+    margin-bottom: 16px;
+}
+
+.coupon-form-category {
+    min-width: 300px;
+    max-width: calc(50% - 16px);
+    margin-right: 16px;
+}
+
+.coupon-form-price, .coupon-form-amount {
+    flex: 1 1 auto;
+    margin-right: 16px;
+    margin-bottom: 16px;
+}
+
+.coupon-form-startDate, .coupon-form-endDate {
+    flex: 1 1 auto;
+    margin-right: 16px;
+    margin-bottom: 16px;
+}
+
+.dates-row {
+    width: 100%;
+    display: inline-flex;
+    flex-wrap: wrap;
+}
+
+.price-amount-row {
+    width: 100%;
+    display: inline-flex;
+    flex-wrap: wrap;
+}
+
+.coupon-form-divider {
+    margin: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.coupon-form-button {
+    margin-right: 16px;
+}
+
+.coupon-form-actions {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap
+}
+
+.coupon-form-actions-start {
+    display: inline-flex;
+    flex: 1 1 auto;
+}
+
+.coupon-form-actions-end {
+    flex: 0 1 auto;
+}
+
+
+.ng-star-inserted {
+    width: 100%;
+}
+
+mat-icon {
+    user-select: none;
+}
+
+.date-error-icon {
+    float: left;
+    top: 2.5px;
+    position: relative;
+}
+
+.coupon-form-image-preview {
+    height: 100%;
+    width: auto;
+}
+
+.coupon-form-image-preview-container {
+    width: min-content;
+    height: 200px;
+    position: relative;
+}
+
+.coupon-form-image-edit-icon {
+    font-size: 50px;
+    height: 50px;
+    width: 50px;
+    color: white;
+}
+
+.coupon-form-image-edit-container {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    display: none;
+    height: 100px;
+    width: 100px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+}
+
+.coupon-form-image-preview-spinner-container {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    padding: 10px;
+    height: 100px;
+    width: 100px;
+}
+
+.coupon-form-image-preview-spinner {
+    height: 100%;
+    width: 100%;
+}
+
+.coupon-form-image-preview-container:hover > .coupon-form-image-edit-container {
+    display: flex;
+}

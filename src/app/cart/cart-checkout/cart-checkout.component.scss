@@ -1,0 +1,117 @@
+@import "~src/custom-theme";
+
+$primary: map-get($custom-theme, primary);
+$accent: map-get($custom-theme, accent);
+$warn: map-get($custom-theme, warn);
+
+.checkout-table-wrapper {
+    width: 100%;
+    min-height: 100%;
+    padding: 32px 64px;
+    box-sizing: border-box;
+}
+
+.checkout-table {
+    width: 100%;
+    margin: auto;
+}
+
+.mat-row {
+    height: 70px;
+}
+
+.mat-header-cell {
+    color: mat-color($accent);
+    font-size: .875rem;
+    line-height: 1.375rem;
+    font-weight: 500;
+    letter-spacing: .0071428571em;
+}
+
+.mat-cell {
+    font-size: 16px;
+}
+
+.image-thumbnail {
+    height: 60px;
+    width: auto;
+    margin: 10px 0;
+}
+
+.mat-column-imageUrl {
+    width: 100px;
+}
+
+.mat-column-price {
+    width: 100px;
+}
+
+.mat-column-company {
+    width: 200px;
+}
+
+.mat-column-title {
+    width: 300px;
+}
+
+.checkout-summery {
+    margin: 0 16px 16px 32px;
+}
+
+.checkout-label {
+    color: mat-color($accent);
+    font-weight: 500;
+}
+
+p {
+    font-size: 16px;
+}
+
+.checkout-divider {
+    display: flex;
+    align-items: center;
+}
+
+.checkout-actions-row {
+    margin-top: 20px;
+}
+
+.checkout-action {
+    display: flex;
+    align-items: center;
+    margin: 16px 0;
+}
+
+.checkout-message-row {
+    margin: 4px 0;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.checkout-error-message {
+    color: mat-color($warn);
+}
+
+.checkout-title {
+    margin: 16px 22px;
+    color: mat-color($primary);
+}
+
+.checkout-icon {
+    font-size: 30px;
+    height: 30px;
+    width: 30px;
+    vertical-align: middle;
+    margin-right: 12px;
+    user-select: none;
+}
+
+.checkout-icon--green {
+    color: #43a047;
+}
+
+.checkout-icon--red {
+    color: mat-color($warn);
+}
+

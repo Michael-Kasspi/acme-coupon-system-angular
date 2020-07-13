@@ -1,0 +1,16 @@
+<nav color="primary" mat-tab-nav-bar class="cart-nav-bar">
+    <a mat-tab-link
+       routerLink="./items"
+       routerLinkActive #rla1="routerLinkActive"
+       [active]="rla1.isActive">
+        Cart
+    </a>
+    <a mat-tab-link
+       [disabled]="coupons.length === 0"
+       routerLink="./checkout"
+       routerLinkActive #rla2="routerLinkActive"
+       [active]="rla2.isActive">
+        Checkout
+    </a>
+</nav>
+<router-outlet></router-outlet>

@@ -1,0 +1,124 @@
+@import '~@angular/material/theming';
+
+:host {
+    height: 100%;
+}
+
+a {
+    color: unset;
+    text-decoration: unset;
+}
+
+mat-chip > mat-icon {
+    height: 18px;
+    width: 18px;
+    font-size: 18px;
+    margin-right: 8px;
+}
+
+.coupon-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+.coupon-thumbnail {
+    cursor: pointer;
+    width: 100%;
+    height: 240px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 4px;
+    margin-bottom: 16px;
+}
+
+.coupon-thumbnail__image {
+    margin: 100%;
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.text-truncate {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    -webkit-line-clamp: 2;
+}
+
+.company-logo {
+    cursor: pointer;
+    overflow: hidden;
+    object-fit: cover;
+    display: flex;
+    justify-content: center;
+}
+
+.company-logo__image {
+    flex: 0 1 auto;
+    display: block;
+    height: auto;
+    width: 100%;
+    object-fit: cover;
+}
+
+.coupon-actions__buttons {
+    width: 100%;
+}
+
+.coupon-actions__button__text {
+    margin-left: 8px;
+}
+
+.coupon-actions__buttons--shrink {
+    min-width: 114px;
+    padding: 0 8px;
+}
+
+.image-placeholder {
+    color: #cdcdcd;
+    user-select: none;
+    font-size: 175px;
+    height: 175px;
+    width: 175px;
+}
+
+.image-placeholder--shadow {
+    @include mat-elevation(2);
+}
+
+.text-hover-link:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.mat-standard-chip {
+    min-height: 28px;
+}
+
+.coupon-actions {
+    display: flex;
+    align-items: flex-end;
+    flex: 1 0 auto;
+}
+
+.divider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 8px 0;
+}
+
+.mat-card-subtitle {
+    margin-bottom: 0;
+}

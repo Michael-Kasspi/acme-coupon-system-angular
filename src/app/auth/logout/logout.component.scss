@@ -1,0 +1,21 @@
+.logging-out {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  width: 100%;
+}
+
+.logging-out-message {
+  font-weight: 500;
+  font-size: 36px;
+}
+
+.logging-out-icon {
+  user-select: none;
+  width: auto;
+  text-align: center;
+  height: 160px;
+  font-size: 160px;
+}

@@ -1,0 +1,134 @@
+@import '~@angular/material/theming';
+
+a {
+    color: unset;
+    text-decoration: unset;
+}
+
+p {
+    margin: unset;
+}
+
+mat-chip > mat-icon {
+    height: 18px;
+    width: 18px;
+    font-size: 18px;
+    margin-right: 8px;
+}
+
+.company-logo {
+    display: flex;
+    cursor: pointer;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+}
+
+.company-logo__image {
+    flex: 0 1 auto;
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.text-truncate {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    -webkit-line-clamp: 2;
+}
+
+.text-hover-link:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.coupon-thumbnail {
+    flex: 0 0 auto;
+    cursor: pointer;
+    width: 304px;
+    height: 228px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 4px;
+    margin-right: 16px;
+}
+
+.coupon-thumbnail__image {
+    margin: 100%;
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.image-placeholder {
+    color: #cdcdcd;
+    user-select: none;
+    font-size: 175px;
+    height: 175px;
+    width: 175px;
+}
+
+.separator-dot {
+    user-select: none;
+    margin: 0 4px;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.coupon-content {
+    display: flex;
+    flex-direction: row;
+}
+
+.coupon-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.coupon-description {
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 16px;
+    font-weight: normal;
+    letter-spacing: 0.5px;
+}
+
+.section {
+    margin-bottom: 16px;
+}
+
+.mat-card {
+    padding: 24px
+}
+
+.coupon-actions {
+    display: flex;
+    align-items: flex-end;
+    flex: 1 0 auto;
+}
+
+.coupon-actions__buttons {
+    width: 100%;
+}
+
+.coupon-actions__buttons__btn {
+    padding: 0 8px;
+    min-width: 114px;
+    margin-right: 8px;
+}
+
+.coupon-actions__button__text {
+    margin-left: 8px;
+}
+
+.image-placeholder--shadow {
+    @include mat-elevation(2);
+}

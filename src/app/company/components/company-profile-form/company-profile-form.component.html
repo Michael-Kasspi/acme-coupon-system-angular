@@ -1,0 +1,61 @@
+<div class="profile-form-container">
+    <div class="profile-form-section profile-form">
+        <form [formGroup]="profileFrom">
+            <mat-form-field class="profile-form-field">
+                <mat-label>Name</mat-label>
+                <input [minlength]="NAME_MIN_CHARS" [maxlength]="NAME_MAX_CHARS" required #nameInput formControlName="name" matInput type="text">
+                <mat-hint>The name of the company</mat-hint>
+                <mat-hint align="end">{{nameInput.value?.length || 0}}/{{NAME_MAX_CHARS}}</mat-hint>
+                <mat-error *ngIf="name.invalid">
+                    <span *ngIf="name?.errors?.required">
+                        The name of the company is required
+                    </span>
+                    <span *ngIf="name?.errors?.minlength">
+                        The name of the company must be at least {{NAME_MIN_CHARS}} character long
+                    </span>
+                    <span *ngIf="name?.errors?.maxlength">
+                        The name of the company must be up to {{NAME_MAX_CHARS}} character long
+                    </span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="profile-form-field">
+                <mat-label>Description</mat-label>
+                <textarea [maxlength]="DESC_MAX_CHARS" #descriptionInput formControlName="description" cdkTextareaAutosize matInput type="text"></textarea>
+                <mat-hint>The description of the company</mat-hint>
+                <mat-hint align="end">{{descriptionInput.value?.length || 0}}/{{DESC_MAX_CHARS}}</mat-hint>
+                <span *ngIf="description?.errors?.maxlength">
+                        The description of the company must be up to {{DESC_MAX_CHARS}} character long
+                    </span>
+            </mat-form-field>
+        </form>
+    </div>
+    <div class="profile-form-section">
+        <div class="profile-form-divider">
+            <mat-divider></mat-divider>
+        </div>
+        <app-image-manager
+            (imageSelectedEvent)="selectLogo($event)"
+            (imageDeleteEvent)="deleteLogo()"
+            (imagePreviewEvent)="emitImagePreview($event)"
+            [mode]="controls === ADD_CONTROLS ? 'select' : 'upload'"
+            [imageUrl]="imageUrl"
+            [progress]="uploadProgress"
+            class="profile-form-image-preview">
+        </app-image-manager>
+    </div>
+</div>
+<div class="profile-form-actions">
+    <div class="profile-form-divider">
+        <mat-divider></mat-divider>
+    </div>
+    <div *ngIf="controls === ADD_CONTROLS else editControls">
+        <button class="profile-form-button" [disabled]="processing || profileFrom.invalid || !profileFrom.touched" (click)="save()" mat-flat-button color="primary">Save</button>
+        <button class="profile-form-button" [disabled]="processing || profileFrom.untouched" (click)="reset()" mat-flat-button>Reset</button>
+    </div>
+    <ng-template #editControls>
+        <button class="profile-form-button" [disabled]="processing || profileFrom.invalid || profileFrom.pristine" (click)="update()" type="button" mat-flat-button color="primary">Update</button>
+        <button class="profile-form-button" [disabled]="processing || profileFrom.untouched" (click)="reset()" type="button" mat-flat-button>Revert</button>
+    </ng-template>
+</div>
+
+

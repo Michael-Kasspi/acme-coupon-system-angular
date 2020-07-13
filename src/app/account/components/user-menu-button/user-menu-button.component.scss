@@ -1,0 +1,26 @@
+@import "~src/custom-theme";
+@import '~@angular/material/theming';
+
+$primary: map-get($custom-theme, primary);
+$accent: map-get($custom-theme, accent);
+
+.profile-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 40px;
+    width: 40px;
+    @include mat-elevation(1);
+}
+
+.profile-icon {
+    flex: 0 0 0;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+a {
+    font-weight: 500;
+    font-size: 16px;
+}

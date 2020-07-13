@@ -1,0 +1,49 @@
+.toolbar {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    height: 65px;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.container {
+    flex: 0 1 auto;
+    padding: 15px 0;
+}
+
+.container > * {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.start > * {
+    margin: 0 15px 0 0;
+}
+
+.center > * {
+    margin: 15px 0;
+}
+
+.center {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-box {
+    width: 100%;
+}
+
+.end > * {
+    margin: 0 10px 0 10px;
+}
+
+
+
+
+

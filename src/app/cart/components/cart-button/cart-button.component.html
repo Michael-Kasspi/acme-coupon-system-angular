@@ -1,0 +1,16 @@
+<button
+    [disabled]="disabled"
+    class="cart-button"
+    mat-icon-button
+    matTooltip="Cart"
+    matTooltipClass="custom-tooltip"
+    color="accent">
+    <mat-icon [inline]="true" class="cart-icon"
+              matBadgeColor="primary"
+              [matBadge]="amount"
+              matBadgeSize="medium"
+              [hidden]="amount === 0"
+              matBadgePosition="above after">
+        shopping_cart
+    </mat-icon>
+</button>

@@ -1,0 +1,64 @@
+@import "~src/custom-theme";
+@import '~@angular/material/theming';
+
+$primary: map-get($custom-theme, primary);
+
+h5, p {
+    margin: 0;
+}
+
+.coupons-grid {
+    padding: 16px 16px 64px;
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+}
+
+.no-coupons-message-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.no-coupons-message {
+    @include mat-elevation(7);
+    margin: 32px;
+    flex: 0 1 80%;
+}
+
+.no-coupons-message__header__title {
+    font-size: 24px;
+    font-weight: normal;
+    letter-spacing: 0;
+    color: mat-color($primary);
+}
+
+.no-coupons-message__header__subtitle {
+    font-size: 16px;
+    font-weight: normal;
+    letter-spacing: 0.5px;
+}
+
+.no-coupons-message--section{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.no-coupons-message__header {
+    flex-wrap: wrap;
+}
+
+.no-coupons-message__actions {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 16px;
+}
+
+.no-coupons-message-action-button {
+    border: mat-color($primary) solid 1px;
+}
+
+
+

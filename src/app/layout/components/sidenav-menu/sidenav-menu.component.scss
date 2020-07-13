@@ -1,0 +1,41 @@
+@import "~src/custom-theme";
+$primary: map-get($custom-theme, primary);
+$accent: map-get($custom-theme, accent);
+
+.icon {
+    padding: 0 21px 0 0;
+}
+
+.icon-active {
+    color: mat-color($primary);
+}
+
+mat-toolbar-row {
+    padding-left: 24.5px;
+    height: 52px;
+    font-size: 17px;
+}
+
+mat-toolbar-row:hover {
+    background-color: mat-color($accent, 0.12);
+}
+
+.active {
+    font-weight: 500;
+    color: mat-color($primary);
+    background-color: mat-color($accent, 0.06);
+}
+
+a {
+    color: mat-color($accent);
+    text-decoration: none;
+    font-weight: normal;
+}
+
+a > * {
+    user-select: none;
+}
+
+.sidenav-divider {
+    margin: 8px 0;
+}

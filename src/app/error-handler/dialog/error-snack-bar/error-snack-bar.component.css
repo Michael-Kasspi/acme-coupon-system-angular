@@ -1,0 +1,13 @@
+.flex {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.error-snackbar-message {
+    margin-right: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+}

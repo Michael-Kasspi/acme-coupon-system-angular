@@ -1,0 +1,29 @@
+<div class="search-results">
+    <div *ngIf="resultPage" class="search-paginator-wrapper">
+        <button (click)="openSearchFilters()" class="filters-btn" color="accent" mat-button>
+            <mat-icon>tune</mat-icon>
+            ADVANCED
+        </button>
+        <mat-paginator
+            class="search-paginator"
+            [length]="resultPage.totalElements"
+            [pageSize]="resultPage.size"
+            [pageIndex]="resultPage.number"
+            [pageSizeOptions]="[1 ,2 , 5, 10, 25, 100]"
+            (page)="handlePageEvent($event)">
+        </mat-paginator>
+    </div>
+    <div class="result-card" *ngFor="let coupon of coupons">
+        <app-coupon-list-item [coupon]="coupon"></app-coupon-list-item>
+    </div>
+    <div *ngIf="resultPage && resultPage.empty && resultPage.totalElements === 0">
+        <mat-card class="no-results-card">
+            <h3 class="no-results-message">
+                Your search term didn't match any coupons.
+            </h3>
+            <p class="no-results-subtitle">
+                Try different keywords or more general keywords.
+            </p>
+        </mat-card>
+    </div>
+</div>

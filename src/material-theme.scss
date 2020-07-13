@@ -1,0 +1,9 @@
+@import '~@angular/material/theming';
+@import "custom-theme";
+
+/*must be called once per application*/
+@include mat-core();
+
+@include angular-material-theme($custom-theme);
+
+

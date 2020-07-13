@@ -1,0 +1,122 @@
+@import "~src/custom-theme";
+
+$primary: map-get($custom-theme, primary);
+$accent: map-get($custom-theme, accent);
+
+:host {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.company-all-coupons-container {
+    display: flex;
+    width: 100%;
+    padding: 32px;
+    box-sizing: border-box;
+    flex: 1 0 auto;
+    flex-direction: column;
+}
+
+.company-all-coupons-card {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.company-coupons-table {
+    width: 100%;
+}
+
+.mat-row {
+    height: 70px;
+}
+
+.mat-row:hover {
+    background-color: mat-color($accent, 0.06);
+}
+
+.mat-header-cell {
+    color: mat-color($accent);
+    font-size: .875rem;
+    line-height: 1.375rem;
+    font-weight: 500;
+    letter-spacing: .0071428571em;
+}
+
+.mat-cell {
+    font-size: 16px;
+}
+
+.image-thumbnail {
+    height: 60px;
+    width: auto;
+    margin: 10px 0;
+}
+
+.mat-column-imageUrl {
+    width: 10%;
+    text-align: center;
+}
+
+.image-thumbnail-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.image-thumbnail-container > img {
+    margin: auto 16px;
+}
+
+.mat-column-price, .mat-column-amount, .mat-column-category {
+    width: 10%;
+}
+
+.mat-column-startDate, .mat-column-endDate {
+    width: 10%;
+}
+
+.mat-column-title {
+    width: 15%;
+}
+
+.mat-column-view, .mat-column-edit, .mat-column-delete {
+    width: 5%;
+    text-align: center;
+}
+
+.company-all-coupons-title {
+    margin: 16px 22px;
+    color: mat-color($primary);
+}
+
+.no-coupons-message {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 16px;
+}
+
+.no-coupons-message-text {
+    width: fit-content;
+    margin: auto;
+    padding: 8px;
+}
+
+.messages-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 auto;
+}
+
+.title-text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    -webkit-line-clamp: 2;
+}
+
+

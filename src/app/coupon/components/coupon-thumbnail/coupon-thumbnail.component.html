@@ -1,0 +1,116 @@
+<mat-card class="coupon-container">
+    <a
+        [routerLink]="couponService.couponPageUrl"
+        matRipple class="coupon-thumbnail"
+        [ngClass]="!couponService.imageUrl ? 'image-placeholder--shadow' : ''">
+        <img
+            *ngIf="couponService.imageUrl else imagePlaceholder"
+            class="coupon-thumbnail__image"
+            [src]="couponService.imageUrl"
+            alt="thumbnail">
+        <ng-template #imagePlaceholder>
+            <mat-icon class="image-placeholder">image_not_supported</mat-icon>
+        </ng-template>
+    </a>
+    <mat-card-content>
+        <mat-chip-list>
+            <mat-chip
+                selected
+                color="accent"
+                matTooltipPosition="above"
+                matTooltip="{{coupon?.price ? 'Priced at ' + coupon?.price + ' credits' : 'Free of charge'}}"
+                matTooltipClass="custom-tooltip"
+                *ngIf="coupon?.price != null">
+                <mat-icon>{{coupon?.price ? 'monetization_on' : 'money_off'}}</mat-icon>
+                <p>{{(coupon?.price ? (coupon?.price | number: '1.2-2') : 'Free')}}</p>
+            </mat-chip>
+            <mat-chip
+                matTooltipPosition="above"
+                matTooltip="{{couponService.couponCategoryName}} category"
+                matTooltipClass="custom-tooltip"
+                class="pointer"
+                [routerLink]="couponService.categoryUrl"
+                *ngIf="couponService.category">
+                <mat-icon>library_books</mat-icon>
+                <p>{{couponService.couponCategoryName}}</p>
+            </mat-chip>
+            <mat-chip
+                matTooltipPosition="above"
+                matTooltip="Expires on {{couponService.endDate | date: 'dd/MM/yyyy'}}"
+                matTooltipClass="custom-tooltip"
+            >
+                <mat-icon>event_busy</mat-icon>
+                <p>{{couponService.endDate | date: 'dd/MM/yyyy'}}</p>
+            </mat-chip>
+            <mat-chip
+                *ngIf="!coupon?.isInStock"
+                color="warn"
+                selected
+                matTooltipPosition="above"
+                matTooltip="Out of stock"
+                matTooltipClass="custom-tooltip"
+            >
+                <mat-icon>error</mat-icon>
+                <p>Out of stock</p>
+            </mat-chip>
+        </mat-chip-list>
+    </mat-card-content>
+
+    <mat-card-header>
+        <a
+            [routerLink]="couponService.companyProfileUrl"
+            matRipple
+            mat-card-avatar
+            class="company-logo">
+            <img
+                [title]="couponService.companyName"
+                class="company-logo__image"
+                [src]="couponService.companyLogoUrl"
+                [alt]="couponService.companyName">
+        </a>
+        <mat-card-title
+            [title]="couponService.couponTitle"
+            class="text-truncate">
+            <a class="text-hover-link" [routerLink]="couponService.couponPageUrl">
+                {{couponService.couponTitle}}
+            </a>
+        </mat-card-title>
+        <mat-card-subtitle
+            [title]="couponService.companyName"
+            class="text-truncate">
+            <a class="text-hover-link" [routerLink]="couponService.companyProfileUrl">
+                {{couponService.companyName}}
+            </a>
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions class="coupon-actions">
+        <div class="coupon-actions__buttons">
+            <div class="divider">
+                <mat-divider></mat-divider>
+            </div>
+            <button
+                [matTooltip]="couponService.inCart ? 'Remove from cart' : 'Add to cart'"
+                matTooltipPosition="above"
+                matTooltipClass="custom-tooltip"
+                (click)="couponService.onCartClick()"
+                [disabled]="!coupon.isInStock"
+                class="coupon-actions__buttons--shrink"
+                [color]="(couponService.inCart ? 'primary' : 'accent')"
+                mat-button>
+                <mat-icon>{{couponService.inCart ? 'remove_shopping_cart' : 'shopping_cart'}}</mat-icon>
+                <span class="coupon-actions__button__text">{{couponService.inCart ? 'REMOVE' : 'CART'}}</span>
+            </button>
+            <button
+                [matTooltip]="couponService.inWishList ? 'Remove from wishlist' : 'Add to wishlist'"
+                matTooltipPosition="above"
+                matTooltipClass="custom-tooltip"
+                (click)="couponService.onWishlistClick()"
+                class="coupon-actions__buttons--shrink"
+                [color]="couponService.inWishList ? 'primary' : 'accent'"
+                mat-button>
+                <mat-icon>{{couponService.inWishList ? 'favorite' : 'favorite_border'}}</mat-icon>
+                <span class="coupon-actions__button__text">{{couponService.inWishList ? 'REMOVE' : 'WISHLIST'}}</span>
+            </button>
+        </div>
+    </mat-card-actions>
+</mat-card>

@@ -1,0 +1,48 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.profile-form-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.profile-form-section {
+    flex: 0 1 auto;
+}
+
+.profile-form-image-preview {
+    margin-bottom: 16px;
+    width: min-content;
+    height: auto;
+    display: block;
+}
+
+.profile-form-field {
+    margin-bottom: 16px;
+    display: block;
+}
+
+.profile-form-divider {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.profile-form-actions {
+    flex: 0 0 auto;
+}
+
+.profile-form-button {
+    margin-right: 16px;
+}

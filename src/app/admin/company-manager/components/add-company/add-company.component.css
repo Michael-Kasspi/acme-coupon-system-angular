@@ -1,0 +1,41 @@
+.admin-add-company-card {
+    width: 80%;
+}
+
+.admin-add-company-card-content {
+    margin: 0 16px;
+}
+
+.admin-add-company-card-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: min-content;
+}
+
+.admin-add-company-content {
+    width: inherit;
+    margin: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.admin-add-company-name {
+    max-width: 30%;
+}
+
+.admin-add-company-actions {
+    margin: 10px 16px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.admin-add-company-buttons {
+    margin-right: 16px;
+}
+
+mat-form-field, mat-card-title {
+    margin-bottom: 16px;
+}

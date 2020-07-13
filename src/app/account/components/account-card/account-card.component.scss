@@ -1,0 +1,49 @@
+@import "~src/custom-theme";
+
+$primary: map-get($custom-theme, primary);
+$accent: map-get($custom-theme, accent);
+
+.account-avatar {
+    font-size: 50px;
+    flex-shrink: 0;
+    object-fit: cover;
+    user-select: none;
+}
+
+.account-avatar-container {
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    position: relative;
+}
+
+.account-avatar-upload {
+    font-size: 16px;
+    z-index: 2;
+    vertical-align: middle;
+    color: white;
+    position: absolute;
+    top: 33.5px;
+    left: 1px;
+}
+
+.account-avatar-shadow {
+    z-index: 1;
+    bottom: -3px;
+    left: -3px;
+    height: 24px;
+    width: 24px;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.51);
+    border-radius: 50%;
+}
+
+.account-name {
+    color: mat-color($accent);
+}
+
+.account-profile-image {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}

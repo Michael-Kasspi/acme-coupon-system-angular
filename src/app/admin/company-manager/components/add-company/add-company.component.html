@@ -1,0 +1,36 @@
+<div class="admin-add-company-content">
+    <mat-card class="admin-add-company-card">
+        <mat-card-header>
+            <mat-card-title>
+                Add new company
+            </mat-card-title>
+        </mat-card-header>
+        <form [formGroup]="companyDetails">
+            <mat-card-content class="admin-add-company-card-content">
+                <div class="admin-add-company-card-form">
+                    <mat-form-field class="admin-add-company-name">
+                        <mat-label>Company Name</mat-label>
+                        <input maxlength="255" #nameInput formControlName="name" placeholder="Enter the company name" matInput type="text">
+                        <mat-error *ngIf="!name.valid">
+                            <span *ngIf="name.errors?.required">Company name is required</span>
+                        </mat-error>
+                        <mat-hint>Max 255 characters {{nameInput.value?.length || 0}}/255</mat-hint>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Company Description</mat-label>
+                        <textarea #descTextarea maxlength="255" formControlName="description" cdkTextareaAutosize placeholder="Enter the company description" matInput
+                                  type="text"></textarea>
+                        <mat-hint>Max 255 characters {{descTextarea.value?.length || 0}}/255</mat-hint>
+                    </mat-form-field>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <div class="admin-add-company-actions">
+                    <button [disabled]="!companyDetails.valid" (click)="addCompany()" type="button" class="admin-add-company-buttons" mat-flat-button color="primary">Add Company
+                    </button>
+                    <button (click)="companyDetails.reset()" type="button" class="admin-add-company-buttons" mat-flat-button>Clear</button>
+                </div>
+            </mat-card-actions>
+        </form>
+    </mat-card>
+</div>

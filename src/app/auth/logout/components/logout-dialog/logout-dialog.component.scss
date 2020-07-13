@@ -1,0 +1,26 @@
+@import "~src/custom-theme";
+$primary: map-get($custom-theme, primary);
+
+.logout-title{
+    color: mat-color($primary);
+}
+
+.logout-actions {
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+.logout-actions button {
+    flex: 0 1 auto;
+    display: block;
+}
+
+.logout-dialog-content{
+    margin: 10px 0;
+    padding: 0;
+}
+
+

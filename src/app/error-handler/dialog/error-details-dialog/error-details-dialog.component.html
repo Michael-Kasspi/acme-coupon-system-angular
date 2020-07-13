@@ -1,0 +1,10 @@
+<h1 mat-dialog-title class="center error-title">{{ 'Error Details' }}</h1>
+<div mat-dialog-content>
+    <p> Status Code: <span class="bold">{{ error.status }} </span></p>
+    <p *ngIf="error.error.statusText"> Status: <span class="bold">{{ error.error.statusText }} </span></p>
+    <p> Message: <span class="bold">{{ error.error.message || error.message }} </span></p>
+    <p> API: <span class="bold">{{ error.url }}</span> </p>
+</div>
+<div mat-dialog-actions class="center">
+    <button mat-flat-button (click)="onOkClick()" color="primary">Ok</button>
+</div>

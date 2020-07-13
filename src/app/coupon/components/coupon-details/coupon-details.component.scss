@@ -1,0 +1,183 @@
+@import '~@angular/material/theming';
+
+img {
+    align-self: start;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 100%;
+    gap: 32px;
+    width: 100%;
+}
+
+.coupon-details-container {
+    background-color: white;
+    padding: 32px 32px 0 32px;
+    border-radius: 4px;
+    @include mat-elevation(2);
+}
+
+.coupon-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.coupon-image-container__image {
+    border-radius: 4px;
+    width: 100%;
+    height: auto;
+}
+
+.image-placeholder--shadow {
+    @include mat-elevation(2);
+}
+
+.section {
+    margin-bottom: 16px;
+}
+
+.sub-section {
+    margin-bottom: 8px;
+}
+
+h5, p {
+    margin: 0;
+}
+
+.coupon-title {
+    font-size: 30px;
+    font-weight: normal;
+    letter-spacing: 0.25px;
+}
+
+.subtitle {
+    font-size: 16px;
+    font-weight: normal;
+    letter-spacing: 0.15px;
+}
+
+.coupon-details-header__text {
+    display: flex;
+    flex-direction: column;
+}
+
+.company-logo {
+    flex: 0 0 auto;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.company-logo--margin {
+    margin-right: 16px;
+}
+
+.company-logo__image {
+    flex: 0 1 auto;
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.text-hover-link:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.company-details {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.company-name {
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.15px;
+    margin-bottom: 2px;
+}
+
+.company-subtitle {
+    font-size: 16px;
+    font-weight: normal;
+    letter-spacing: 0.15px;
+    color: rgba(0, 0, 0, 0.54);
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.text-truncate {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    -webkit-line-clamp: 1;
+}
+
+.description-text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    max-height: 39px;
+    line-height: 19.5px;
+    font-size: 16px;
+    font-weight: normal;
+    letter-spacing: 0.15px;
+}
+
+.show-more {
+    -webkit-line-clamp: unset;
+    max-height: initial;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+}
+
+mat-chip > mat-icon {
+    margin-right: 8px;
+}
+
+.action-icon {
+    margin-right: 8px;
+}
+
+.actions {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.action-button {
+    flex: 1 1 46%;
+    margin-bottom: 16px;
+    margin-right: 16px;
+}
+
+.action-button p {
+    display: inline-flex;
+}
+
+.mat-standard-chip {
+    min-height: 36px;
+}
+
+.edit-fab {
+    margin-left: auto;
+}

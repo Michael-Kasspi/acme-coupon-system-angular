@@ -1,0 +1,9 @@
+<form [formGroup]="searchForm" (ngSubmit)="makeSearchRequest()">
+    <mat-form-field hideRequiredMarker color="primary" class="search-box-input" appearance="outline" floatLabel="auto">
+        <input #searchInput formControlName="search" matInput type="search" placeholder="Search...">
+        <button [disabled]="searchInput?.value?.length < 1" type="submit" matSuffix mat-icon-button color="primary">
+            <mat-icon class="grid-center">search</mat-icon>
+        </button>
+    </mat-form-field>
+</form>
+

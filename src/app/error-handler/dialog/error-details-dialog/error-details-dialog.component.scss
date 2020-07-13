@@ -1,0 +1,17 @@
+@import "~src/custom-theme";
+$primary: map-get($custom-theme, primary);
+
+.error-title{
+    color: mat-color($primary);
+}
+
+span.bold {
+    font-weight: 500;
+}
+
+.center {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,153 @@
+<form [formGroup]="couponForm">
+    <mat-form-field class="coupon-form-title">
+        <mat-label>Title</mat-label>
+        <input #titleInput minlength="3" maxlength="100" formControlName="title" required matInput type="text">
+        <mat-icon *ngIf="title.invalid && title.touched" color="warn" matSuffix>error</mat-icon>
+        <mat-hint>The title of the coupon</mat-hint>
+        <mat-hint align="end">{{titleInput.value?.length || 0}}/100</mat-hint>
+        <mat-error *ngIf="title.invalid">
+            <span *ngIf="title?.errors?.required">The title is required</span>
+            <span *ngIf="title?.errors?.minlength">Minimum 3 characters</span>
+            <span *ngIf="title?.errors?.maxlength">Maximum 50 characters</span>
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="coupon-form-description">
+        <mat-label>Description (optional)</mat-label>
+        <textarea
+            #descriptionInput
+            formControlName="description"
+            cdkTextareaAutosize
+            matInput
+            maxlength="250"
+        ></textarea>
+        <mat-hint>The description of the coupon</mat-hint>
+        <mat-hint align="end">{{descriptionInput.value?.length || 0}}/250</mat-hint>
+    </mat-form-field>
+    <div class="coupon-form-divider">
+        <mat-divider></mat-divider>
+    </div>
+    <mat-form-field class="coupon-form-category">
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="category" required [compareWith]="currentCategory">
+            <mat-option *ngFor="let category of categories" [value]="category">
+                {{category.name}}
+            </mat-option>
+        </mat-select>
+        <mat-icon *ngIf="category.invalid && category.touched" color="warn" matSuffix>error</mat-icon>
+        <mat-hint>The category of the coupon</mat-hint>
+        <mat-error *ngIf="category.invalid">
+            <span *ngIf="category?.errors?.required">The category is required</span>
+        </mat-error>
+    </mat-form-field>
+    <div class="coupon-form-divider">
+        <mat-divider></mat-divider>
+    </div>
+    <div class="dates-row">
+        <mat-form-field class="coupon-form-startDate">
+            <mat-label>Since</mat-label>
+            <input formControlName="startDate" matInput [matDatepicker]="startDatePicker">
+            <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #startDatePicker></mat-datepicker>
+            <mat-hint>The creation date</mat-hint>
+        </mat-form-field>
+        <mat-form-field class="coupon-form-endDate">
+            <mat-label>Expiry date</mat-label>
+            <input [min]="minDate" formControlName="endDate" required matInput [matDatepicker]="endDatePicker">
+            <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+            <mat-icon class="date-error-icon" inline *ngIf="endDate.invalid && endDate.touched" color="warn" matSuffix>
+                error
+            </mat-icon>
+            <mat-datepicker #endDatePicker></mat-datepicker>
+            <mat-hint>The expiry date of the coupon</mat-hint>
+            <mat-error *ngIf="endDate.invalid">
+                <span *ngIf="endDate?.errors?.matDatepickerMin">The expiry date can't be in the past</span>
+                <span *ngIf="endDate?.errors?.required">The expiry date is required</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="coupon-form-divider">
+        <mat-divider></mat-divider>
+    </div>
+    <div class="price-amount-row">
+        <mat-form-field class="coupon-form-price">
+            <mat-label>Price</mat-label>
+            <input #priceInput formControlName="price" required matInput type="number">
+            <mat-icon *ngIf="price.invalid && price.touched" color="warn" matSuffix>error</mat-icon>
+            <mat-icon matTooltip="The coupon is free" *ngIf="priceInput.valueAsNumber === 0" color="accent" matSuffix>
+                warning
+            </mat-icon>
+            <mat-hint>The price of the coupon</mat-hint>
+            <mat-error *ngIf="price.invalid">
+                <span *ngIf="price?.errors?.required">The price is required</span>
+                <span *ngIf="price?.errors?.min">The price must be positive</span>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="coupon-form-amount">
+            <mat-label>Amount</mat-label>
+            <input #amountInput formControlName="amount" required matInput type="number">
+            <mat-icon *ngIf="amount.invalid && amount.touched" color="warn" matSuffix>error</mat-icon>
+            <mat-icon matTooltip="The coupon is out of stock" *ngIf="amountInput.valueAsNumber === 0" color="accent"
+                      matSuffix>warning
+            </mat-icon>
+            <mat-hint>The stock amount of the coupon</mat-hint>
+            <mat-error *ngIf="amount.invalid">
+                <span *ngIf="amount?.errors?.required">The amount is required</span>
+                <span *ngIf="amount?.errors?.min">The amount must be positive</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="coupon-form-divider">
+        <mat-divider></mat-divider>
+    </div>
+    <button *ngIf="!coupon.imageUrl && !coupon.imagePreview" type="button" mat-raised-button
+            (click)="openImageSelectDialog()">
+        {{(controls === EDIT_CONTROLS ? 'Upload' : 'Select') + ' Image'}}
+    </button>
+    <div *ngIf="coupon.imageUrl || coupon.imagePreview" class="coupon-form-image-preview-container">
+        <div *ngIf="progress == undefined" (click)="openImageSelectDialog()"
+             class="coupon-form-image-edit-container">
+            <mat-icon inline class="coupon-form-image-edit-icon">edit</mat-icon>
+        </div>
+        <div *ngIf="controls === EDIT_CONTROLS && (coupon.imagePreview && !coupon.imageUrl)" class="coupon-form-image-preview-spinner-container">
+            <mat-progress-spinner class="coupon-form-image-preview-spinner" strokeWidth="5" mode="determinate"
+                                  [value]="progress"
+                                  diameter="75"></mat-progress-spinner>
+        </div>
+        <img class="coupon-form-image-preview" [src]="imageUrl" alt="">
+    </div>
+    <div class="coupon-form-divider">
+        <mat-divider></mat-divider>
+    </div>
+    <div [ngSwitch]="controls" class="coupon-form-actions">
+        <div *ngSwitchCase="ADD_CONTROLS">
+            <button [disabled]="processing || couponForm.invalid" class="coupon-form-button" type="button"
+                    mat-raised-button color="primary" (click)="save()">
+                Save
+            </button>
+            <button [disabled]="processing || !(coupon.imagePreview || couponForm.touched)" class="coupon-form-button"
+                    type="button"
+                    mat-raised-button (click)="reset()">Reset
+            </button>
+        </div>
+        <div *ngSwitchCase="EDIT_CONTROLS" class="coupon-form-actions">
+            <div class="coupon-form-actions-start">
+
+                <button [disabled]="processing || couponForm.invalid || couponForm.pristine" class="coupon-form-button"
+                        type="button" mat-raised-button color="primary"
+                        (click)="update()">Update
+                </button>
+                <button [disabled]="processing || couponForm.pristine" class="coupon-form-button" type="button"
+                        mat-raised-button (click)="reset()">Revert
+                </button>
+                <button [disabled]="processing" class="coupon-form-button" type="button" mat-raised-button
+                        (click)="viewPage()">Page
+                </button>
+            </div>
+            <div class="coupon-form-actions-end">
+                <button [disabled]="processing" type="button" mat-raised-button color="warn" (click)="delete()">
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,14 @@
+@import "~src/custom-theme";
+$primary: map-get($custom-theme, primary);
+
+p {
+    color: mat-color($primary);
+    font: 500 21px/32px Roboto, "Helvetica Neue", sans-serif;
+    letter-spacing: -0.5px;
+}
+
+a {
+    text-decoration: none;
+}
+
+

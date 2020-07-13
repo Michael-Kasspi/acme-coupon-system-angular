@@ -1,0 +1,21 @@
+.cart-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 50px;
+    width: 50px;
+    font-size: 32px;
+}
+
+.cart-icon {
+    flex: 0 0 0;
+    font-weight: normal;
+    height: 50px;
+    width: 50px;
+}
+
+.mat-badge-content {
+    margin-top: 9px;
+}
+

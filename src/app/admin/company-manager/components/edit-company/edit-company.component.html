@@ -1,0 +1,72 @@
+<div class="admin-edit-company-content">
+    <mat-card class="admin-edit-company-card">
+        <mat-card-header class="admin-edit-company-title">
+            <mat-card-title>
+                Select company
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-form-field class="admin-edit-company-card-content">
+                <mat-label>Select a company</mat-label>
+                <mat-select (selectionChange)="initCompanyDetails()" [(value)]="company">
+                    <mat-option *ngFor="let companyS of companies" [value]="companyS">{{companyS.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </mat-card-content>
+    </mat-card>
+    <mat-card *ngIf="company" class="admin-edit-company-card">
+        <mat-card-header class="admin-edit-company-title">
+            <mat-card-title>
+                Edit company
+            </mat-card-title>
+        </mat-card-header>
+        <form [formGroup]="companyDetails">
+            <mat-card-content class="admin-edit-company-card-content">
+                <div class="admin-edit-company-card-form">
+                    <mat-form-field class="admin-edit-company-name">
+                        <mat-label>Company Name</mat-label>
+                        <input #nameInput formControlName="name" placeholder="Enter the company name" matInput type="text">
+                        <mat-hint>Max 255 characters {{nameInput.value?.length || 0}}/255</mat-hint>
+                        <mat-error *ngIf="!name.valid">
+                            <span *ngIf="name.errors.required">Company name is required</span>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Company Description</mat-label>
+                        <textarea #descTextarea maxlength="255" formControlName="description" cdkTextareaAutosize placeholder="Enter the company description" matInput
+                                  type="text"></textarea>
+                        <mat-hint>Max 255 characters {{descTextarea.value?.length || 0}}/255</mat-hint>
+                    </mat-form-field>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <div class="admin-edit-company-actions">
+                    <button
+                        [disabled]="!companyDetails.valid || companyDetails.pristine"
+                        (click)="updateCompany()"
+                        type="button"
+                        class="admin-edit-company-buttons"
+                        mat-flat-button color="primary">
+                        Update
+                    </button>
+                    <button
+                        color="warn"
+                        (click)="deleteCompany()"
+                        type="button"
+                        class="admin-edit-company-buttons"
+                        mat-flat-button>
+                        Delete
+                    </button>
+                    <button
+                        (click)="initCompanyDetails()"
+                        type="button"
+                        class="admin-edit-company-buttons"
+                        mat-flat-button>
+                        Reset
+                    </button>
+                </div>
+            </mat-card-actions>
+        </form>
+    </mat-card>
+</div>
+

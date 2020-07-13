@@ -1,0 +1,58 @@
+@import "~src/custom-theme";
+
+$primary: map-get($custom-theme, primary);
+$accent: map-get($custom-theme, accent);
+
+.account-input {
+    margin: 0 32px 0 0;
+    width: 250px;
+}
+
+.account-divider {
+    padding-left: 0;
+    padding-right: 0;
+    justify-content: flex-start;
+}
+
+.account-change-pw {
+    color: mat-color($primary);
+    height: 40px;
+}
+
+.account-change-pw-container {
+    margin-top: 10px;
+}
+
+.account-change-pw-container > * {
+    flex: 0 0 auto;
+}
+
+.account-panel-icon {
+    user-select: none;
+}
+
+.account-panel-title {
+    font-weight: 500;
+    color: mat-color($accent);
+}
+
+.account-row {
+    display: flex;
+    margin-bottom: 15px;
+    justify-items: center;
+}
+
+.account-action-row {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+}
+
+.account-action-row > * {
+    display: block;
+}
+
+.account-spinner {
+    margin-bottom: 18px;
+}
+

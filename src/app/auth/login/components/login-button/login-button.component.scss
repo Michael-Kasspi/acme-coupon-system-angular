@@ -1,0 +1,26 @@
+@import "~src/custom-theme";
+$primary: map-get($custom-theme, primary);
+
+.login-button {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    text-align: center;
+    border: 1px solid mat-color($primary);
+    padding: 3px 10px;
+}
+
+.login-button {
+    flex: 1 1 auto;
+    font-size: 16px;
+}
+
+.login-text {
+    margin-left: 5px;
+}
+
+.login-icon {
+    font-weight: 900;
+    flex: 0 0 0;
+    font-size: 30px;
+}

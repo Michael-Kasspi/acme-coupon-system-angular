@@ -1,0 +1,13 @@
+<div class="company-add-coupon-container">
+    <mat-card class="company-add-coupon-card">
+        <app-coupon-form
+            #couponFormComponent
+            class="company-add-coupon-form"
+            controls="add"
+            [categories]="categories"
+            (saveEvent)="addCoupon($event)"
+            (imageSelectedEvent)="image = $event"
+            (deleteEvent)="removeImage()"
+        ></app-coupon-form>
+    </mat-card>
+</div>

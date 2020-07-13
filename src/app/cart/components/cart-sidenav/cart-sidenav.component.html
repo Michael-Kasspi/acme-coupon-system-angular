@@ -1,0 +1,18 @@
+<mat-toolbar *ngIf="couponsArr?.length" color="primary" class="cart-actions">
+    <p class="cart-total">Total: {{totalAmount}}</p>
+    <a routerLink="/cart/checkout" mat-flat-button class="a-btn">Checkout</a>
+</mat-toolbar>
+<div class="cart-items" *ngIf="couponsArr !== null && couponsArr?.length > 0">
+    <app-coupon-grid class="coupons-list" [coupons]="couponsArr"></app-coupon-grid>
+</div>
+<div *ngIf="couponsArr?.length === 0" class="cart-no-items">
+    <div>
+        <div class="cart-icon">
+            <mat-icon inline color="accent">shopping_cart</mat-icon>
+        </div>
+        <p class="cart-message">No coupons in the cart</p>
+    </div>
+</div>
+<div *ngIf="couponsArr === null" class="cart-no-items">
+    <mat-spinner diameter="60"></mat-spinner>
+</div>

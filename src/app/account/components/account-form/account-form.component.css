@@ -1,0 +1,15 @@
+.account-input{
+    margin: 0 32px 0 0;
+    width: 250px;
+}
+
+.account-divider {
+    padding-left: 0;
+    padding-right: 0;
+    justify-content: flex-start;
+}
+
+.account-change-pw{
+    margin: 0 32px 0 0;
+}
+

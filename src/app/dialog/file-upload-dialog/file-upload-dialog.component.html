@@ -1,0 +1,36 @@
+<h2 class="image-upload-title" mat-dialog-title>File upload</h2>
+<mat-dialog-content class="image-preview-wrapper">
+    <mat-card class="image-preview-container">
+        <div>
+            <mat-progress-spinner *ngIf="file && !selectedImageSrc" mode="indeterminate" diameter="50" color="accent"></mat-progress-spinner>
+        </div>
+        <img
+            *ngIf="selectedImageSrc || currentImageSrc"
+            [src]="selectedImageSrc || currentImageSrc"
+            class="image-preview"
+        >
+        <mat-icon *ngIf="!(file || selectedImageSrc || currentImageSrc)" class="image-placeholder" color="accent">image
+        </mat-icon>
+    </mat-card>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button
+        class="image-upload-action"
+        type="button"
+        mat-raised-button
+        (click)="imageInput.click()">
+        Choose File
+    </button>
+    <input
+        hidden
+        #imageInput
+        type="file"
+        accept="image/*"
+        (change)="processFile(imageInput)">
+    <button *ngIf="!(currentImageSrc && !selectedImageSrc)" class="image-upload-action" [disabled]="!file"
+            mat-flat-button color="primary" [mat-dialog-close]="file">{{action || 'Upload'}}</button>
+    <button *ngIf="currentImageSrc && !selectedImageSrc" color="warn" class="image-upload-action" mat-flat-button
+            (click)="deleteImage()">Delete
+    </button>
+    <button class="image-upload-action" mat-button [mat-dialog-close]="null">Cancel</button>
+</mat-dialog-actions>
