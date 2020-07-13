@@ -17,8 +17,7 @@ $accent: map-get($custom-theme, accent);
 app-coupon-details {
     flex: 1 1 auto;
     width: 100%;
-    min-height: 484px;
-    max-height: 83vh;
+    height: 75vh;
     display: flex;
     margin-bottom: 16px;
     box-sizing: border-box;

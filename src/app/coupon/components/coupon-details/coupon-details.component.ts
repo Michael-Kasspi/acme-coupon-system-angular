@@ -27,6 +27,7 @@ export class CouponDetailsComponent implements OnInit, OnDestroy, AfterViewCheck
     ngOnInit(): void {
         this.couponService.coupon = this.coupon;
         this.couponService.onInit();
+        this.showMore = false;
     }
 
     ngOnDestroy(): void {
