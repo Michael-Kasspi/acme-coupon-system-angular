@@ -8,7 +8,11 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
-import {SearchFilterFormComponent, ValueExistsValidator} from './components/search-filter-form/search-filter-form.component';
+import {
+    PriceValidator,
+    SearchFilterFormComponent,
+    ValueExistsValidator
+} from './components/search-filter-form/search-filter-form.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -24,7 +28,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
-  declarations: [SearchComponent, SearchFilterFormComponent, ValueExistsValidator],
+  declarations: [SearchComponent, SearchFilterFormComponent, ValueExistsValidator, PriceValidator],
     imports: [
         CommonModule,
         SearchRoutingModule,

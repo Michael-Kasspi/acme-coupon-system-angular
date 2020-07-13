@@ -37,7 +37,7 @@
                     matTooltipClass="custom-tooltip"
                     matTooltipPosition="above"
                     matTooltipShowDelay="500"
-                    (click)="category.reset('')">
+                    (click)="category.reset(''); category.control.markAsDirty()">
                     <mat-icon>{{category.value ? 'clear' : 'keyboard_arrow_down'}}</mat-icon>
                 </button>
                 <mat-hint>Filter coupons by category</mat-hint>
@@ -67,7 +67,7 @@
                     matTooltipClass="custom-tooltip"
                     matTooltipPosition="above"
                     matTooltipShowDelay="500"
-                    (click)="company.reset('')"
+                    (click)="company.reset(''); company.control.markAsDirty()"
                 >
                     <mat-icon>{{company.value ? 'clear' : 'keyboard_arrow_down'}}</mat-icon>
                 </button>
@@ -128,7 +128,7 @@
             <p class="filters-title">PRICE RANGE</p>
             <mat-form-field appearance="fill" class="filters-input">
                 <mat-label>From price</mat-label>
-                <input name="priceFrom" #priceFrom="ngModel" [(ngModel)]="priceRange.fromValue" matInput type="number">
+                <input min="0" [priceValidator]="priceFrom.value" name="priceFrom" #priceFrom="ngModel" [(ngModel)]="priceRange.fromValue" matInput type="number">
                 <button
                     matTooltip="{{priceRange.excFrom ? 'Toggle to include price' : 'Toggle to exclude price'}}"
                     matTooltipClass="custom-tooltip"
@@ -143,10 +143,13 @@
                     </mat-icon>
                 </button>
                 <mat-hint>Insert the lowest price</mat-hint>
+                <mat-error *ngIf="priceFrom.control?.errors">
+                    <span *ngIf="priceFrom.control.errors.invalidPrice">Invalid price</span>
+                </mat-error>
             </mat-form-field>
             <mat-form-field appearance="fill" class="filters-input">
                 <mat-label>Until price</mat-label>
-                <input name="priceUntil" #priceUntil="ngModel" [(ngModel)]="priceRange.untilValue" matInput type="number">
+                <input min="0" [priceValidator]="priceUntil.value" name="priceUntil" #priceUntil="ngModel" [(ngModel)]="priceRange.untilValue" matInput type="number">
                 <button
                     matTooltip="{{priceRange.excUntil ? 'Toggle to include price' : 'Toggle to exclude price'}}"
                     matTooltipClass="custom-tooltip"
@@ -161,13 +164,16 @@
                     </mat-icon>
                 </button>
                 <mat-hint>Insert the highest price</mat-hint>
+                <mat-error *ngIf="priceUntil.control?.errors">
+                    <span *ngIf="priceUntil.control.errors.invalidPrice">Invalid price</span>
+                </mat-error>
             </mat-form-field>
         </section>
         <section>
             <p class="filters-title">DATE ADDED</p>
             <mat-form-field appearance="fill" class="filters-input">
                 <mat-label>From date</mat-label>
-                <input name="dateAddedFrom" [(ngModel)]="addedDateRange.fromValue" matInput [matDatepicker]="startDatePickerFrom">
+                <input #dateAddedFrom="ngModel" [max]="TODAY" name="dateAddedFrom" [(ngModel)]="addedDateRange.fromValue" matInput [matDatepicker]="startDatePickerFrom">
                 <mat-datepicker-toggle
                     matSuffix
                     matTooltip="Pick the start date"
@@ -177,10 +183,15 @@
                     [for]="startDatePickerFrom"></mat-datepicker-toggle>
                 <mat-datepicker #startDatePickerFrom></mat-datepicker>
                 <mat-hint>Select the start date</mat-hint>
+                <mat-error *ngIf="dateAddedFrom.control?.errors">
+                    <span *ngIf="dateAddedFrom.control.errors?.matDatepickerMax">
+                        The date must be from today or earlier
+                    </span>
+                </mat-error>
             </mat-form-field>
             <mat-form-field appearance="fill" class="filters-input">
                 <mat-label>Until date</mat-label>
-                <input name="dateAddedUntil" [(ngModel)]="addedDateRange.untilValue" matInput [matDatepicker]="startDatePickerUntil">
+                <input [max]="TODAY" #dateAddedUntil="ngModel" name="dateAddedUntil" [(ngModel)]="addedDateRange.untilValue" matInput [matDatepicker]="startDatePickerUntil">
                 <mat-datepicker-toggle
                     matTooltip="Pick the end date"
                     matTooltipShowDelay="750"
@@ -190,13 +201,18 @@
                     [for]="startDatePickerUntil"></mat-datepicker-toggle>
                 <mat-datepicker #startDatePickerUntil></mat-datepicker>
                 <mat-hint>Select the end date</mat-hint>
+                <mat-error *ngIf="dateAddedUntil.control?.errors">
+                    <span *ngIf="dateAddedUntil.control.errors?.matDatepickerMax">
+                        The date must be from today or earlier
+                    </span>
+                </mat-error>
             </mat-form-field>
         </section>
         <section>
             <p class="filters-title">EXPIRY DATE</p>
             <mat-form-field appearance="fill" class="filters-input">
                 <mat-label>Minimum expiry date</mat-label>
-                <input name="expDateFrom" [(ngModel)]="expiryDateRange.fromValue" matInput [matDatepicker]="endDatePickerFrom">
+                <input #expDateFrom="ngModel" [min]="TODAY" name="expDateFrom" [(ngModel)]="expiryDateRange.fromValue" matInput [matDatepicker]="endDatePickerFrom">
                 <mat-datepicker-toggle
                     matTooltip="Pick the expiry date before"
                     matTooltipShowDelay="750"
@@ -209,10 +225,15 @@
                 <mat-datepicker #endDatePickerFrom>
                 </mat-datepicker>
                 <mat-hint>Filter coupons that expire before</mat-hint>
+                <mat-error *ngIf="expDateFrom.control?.errors">
+                    <span *ngIf="expDateFrom.control.errors?.matDatepickerMin">
+                        The date must be from today or later
+                    </span>
+                </mat-error>
             </mat-form-field>
             <mat-form-field appearance="fill" class="filters-input">
                 <mat-label>Maximum expiry date</mat-label>
-                <input name="expDateUntil" [(ngModel)]="expiryDateRange.untilValue" matInput [matDatepicker]="endDatePickerUntil">
+                <input [min]="TODAY" name="expDateUntil" #expDateUntil="ngModel" [(ngModel)]="expiryDateRange.untilValue" matInput [matDatepicker]="endDatePickerUntil">
                 <mat-datepicker-toggle
                     matTooltip="Pick the expiry date after"
                     matTooltipShowDelay="750"
@@ -225,6 +246,11 @@
                 <mat-datepicker #endDatePickerUntil>
                 </mat-datepicker>
                 <mat-hint>Filter coupons that expire after</mat-hint>
+                <mat-error *ngIf="expDateUntil.control?.errors">
+                    <span *ngIf="expDateUntil.control.errors?.matDatepickerMin">
+                        The date must be from today or later
+                    </span>
+                </mat-error>
             </mat-form-field>
         </section>
     </form>

@@ -167,6 +167,27 @@ export class ValueExistsValidator implements Validator {
     }
 }
 
+@Directive({
+    selector: '[priceValidator]',
+    providers: [{provide: NG_VALIDATORS, useExisting: PriceValidator, multi: true}]
+})
+export class PriceValidator implements Validator {
+
+    @Input('priceValidator')
+    value: any = null;
+
+    validate(control: AbstractControl): ValidationErrors | null {
+        const value = control.value;
+        if (!value) {
+            return null;
+        }
+
+        if (value < 0 || value > Number.MAX_SAFE_INTEGER) {
+            return {invalidPrice: true};
+        }
+    }
+}
+
 export class SearchOptionParams {
     constructor(
         private filter: string = '',
@@ -199,6 +220,8 @@ export class SearchFilterFormComponent implements OnInit, AfterViewInit {
     private readonly DATE: string = 'date';
 
     private readonly ZERO: number = 0;
+
+    private readonly TODAY: Date = new Date();
 
     private readonly rangeFieldType: Map<string, string> = new Map([
         [this.PRICE, this.NUMBER], [this.START_DATE, this.DATE],
