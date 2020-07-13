@@ -10,7 +10,7 @@ import {CouponDetailsComponent} from '../components/coupon-details/coupon-detail
     templateUrl: './coupon-page.component.html',
     styleUrls: ['./coupon-page.component.scss']
 })
-export class CouponPageComponent implements OnInit, AfterViewInit, OnDestroy {
+export class CouponPageComponent implements OnInit, OnDestroy {
 
     @ViewChild('details')
     top: ElementRef = null;
@@ -32,23 +32,12 @@ export class CouponPageComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngOnInit(): void {
         this.resolver$ = this.activatedRoute.data.subscribe((data: { coupon: Coupon }) => {
-            this.scrollToTop();
             this.handle(data.coupon);
         });
     }
 
-    ngAfterViewInit(): void {
-        this.scrollToTop();
-    }
-
     ngOnDestroy(): void {
         this.resolver$.unsubscribe();
-    }
-
-    private scrollToTop(): void {
-        if (this.top) {
-            this.top.nativeElement.scrollIntoView();
-        }
     }
 
     public get companyName() {
