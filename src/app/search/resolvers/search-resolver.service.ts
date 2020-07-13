@@ -16,10 +16,18 @@ export class SearchResolverService implements Resolve<ResultPage<Coupon>> {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ResultPage<Coupon>> {
-        const query = route.queryParamMap.get('query');
+        const queryParamMap = route.queryParamMap;
+        const query = queryParamMap.get('query');
+
         if (!query) {
             return EMPTY;
         }
-        return this.searchService.searchCoupons(route.queryParams as HttpParams).pipe(catchError(err => EMPTY));
+
+        let httpParams = new HttpParams();
+        queryParamMap.keys.map(key => {
+             httpParams = httpParams.append(key, queryParamMap.get(key));
+        });
+
+        return this.searchService.searchCoupons(httpParams).pipe(catchError(err => EMPTY));
     }
 }
