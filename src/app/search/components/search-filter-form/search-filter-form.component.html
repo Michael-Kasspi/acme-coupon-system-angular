@@ -12,217 +12,227 @@
     </button>
 </div>
 <mat-dialog-content>
-    <section>
-        <mat-slide-toggle [color]="amountRange.excFrom ? 'primary' : 'accent'" [(ngModel)]="amountRange.excFrom" class="filters-title filter-toggle">EXCLUDE OUT OF STOCK</mat-slide-toggle>
-    </section>
-    <section>
-        <p class="filters-title">FILTER BY</p>
-        <mat-form-field appearance="fill" class="filters-input">
-            <mat-label>Category</mat-label>
-            <input [(ngModel)]="categoryFilter.value"
-                   #category="ngModel"
-                   [valueExists]="category.value"
-                   (blur)="selectFilter(category.control, categories)"
-                   type="text" matInput
-                   [matAutocomplete]="categoryAuto">
-            <button
-                matSuffix
-                mat-icon-button
-                matTooltip="{{category.value ? 'Clear' : 'Show list'}}"
-                matTooltipClass="custom-tooltip"
-                matTooltipPosition="above"
-                matTooltipShowDelay="500"
-                (click)="category.reset('')">
-                <mat-icon>{{category.value ? 'clear' : 'keyboard_arrow_down'}}</mat-icon>
-            </button>
-            <mat-hint>Filter coupons by category</mat-hint>
-            <mat-error *ngIf="category.invalid">
-                <span *ngIf="category?.errors?.noSuchValue">No such category in the list</span>
-            </mat-error>
-            <mat-autocomplete autoActiveFirstOption
-                              #categoryAuto="matAutocomplete"
-                              [displayWith]="displayFn">
-                <mat-option *ngFor="let category of filteredCategories | async" [value]="category">
-                    {{category.name}}
-                </mat-option>
-            </mat-autocomplete>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-            <mat-label>Company</mat-label>
-            <input [(ngModel)]="companyFilter.value" type="text" matInput
-                   #company="ngModel"
-                   [valueExists]="company.value"
-                   (blur)="selectFilter(company.control, companies)"
-                   [matAutocomplete]="companyAuto">
-            <button
-                matSuffix
-                mat-icon-button
-                matTooltip="{{company.value ? 'Clear' : 'Show list'}}"
-                matTooltipClass="custom-tooltip"
-                matTooltipPosition="above"
-                matTooltipShowDelay="500"
-                (click)="company.reset('')"
-            >
-                <mat-icon>{{company.value ? 'clear' : 'keyboard_arrow_down'}}</mat-icon>
-            </button>
-            <mat-hint>Filter coupons by company</mat-hint>
-            <mat-error *ngIf="company.invalid">
-                <span *ngIf="company?.errors?.noSuchValue">No such company in the list</span>
-            </mat-error>
-            <mat-autocomplete autoActiveFirstOption
-                              #companyAuto="matAutocomplete"
-                              [displayWith]="displayFn">
-                <mat-option *ngFor="let company of filteredCompanies | async" [value]="company">
-                    {{company.name}}
-                </mat-option>
-            </mat-autocomplete>
-        </mat-form-field>
-    </section>
-    <section>
-        <p class="filters-title">SORT BY</p>
-        <div class="sort-list" cdkDropList (cdkDropListDropped)="dropSortOption($event)">
-            <div *ngFor="let option of sortOptions" class="sort-list__option" cdkDrag>
-                <div class="sort-list__option__checkbox">
-                    <mat-checkbox
-                        matTooltip="{{option.selected ? 'Remove sort option' : 'Add sort option'}}"
-                        matTooltipShowDelay="1000"
-                        matTooltipClass="custom-tooltip"
-                        matTooltipPosition="above"
-                        class="sort-checkbox"
-                        color="primary"
-                        [(ngModel)]="option.selected">
-                        {{option.name}}
-                    </mat-checkbox>
-                </div>
+    <form #searchForm="ngForm">
+        <section>
+            <mat-slide-toggle name="excludeOutOfStock" [color]="amountRange.excFrom ? 'primary' : 'accent'" [(ngModel)]="amountRange.excFrom"
+                              class="filters-title filter-toggle">EXCLUDE OUT OF STOCK
+            </mat-slide-toggle>
+        </section>
+        <section>
+            <p class="filters-title">FILTER BY</p>
+            <mat-form-field appearance="fill" class="filters-input">
+                <mat-label>Category</mat-label>
+                <input
+                    name="category"
+                    [(ngModel)]="categoryFilter.value"
+                    #category="ngModel"
+                    [valueExists]="category.value"
+                    (blur)="selectFilter(category.control, categories)"
+                    type="text" matInput
+                    [matAutocomplete]="categoryAuto">
                 <button
-                    class="sort-direction-icon"
-                    matTooltip="{{option.descending ? 'Toggle to ascending order' : 'Toggle to descending order'}}"
+                    matSuffix
+                    mat-icon-button
+                    matTooltip="{{category.value ? 'Clear' : 'Show list'}}"
                     matTooltipClass="custom-tooltip"
                     matTooltipPosition="above"
-                    (click)="option.descending = !option.descending"
-                    mat-icon-button>
-                    <mat-icon>{{option.descending ? 'arrow_downward' : 'arrow_upward'}}</mat-icon>
+                    matTooltipShowDelay="500"
+                    (click)="category.reset('')">
+                    <mat-icon>{{category.value ? 'clear' : 'keyboard_arrow_down'}}</mat-icon>
                 </button>
-                <mat-icon
+                <mat-hint>Filter coupons by category</mat-hint>
+                <mat-error *ngIf="category.invalid">
+                    <span *ngIf="category?.errors?.noSuchValue">No such category in the list</span>
+                </mat-error>
+                <mat-autocomplete autoActiveFirstOption
+                                  #categoryAuto="matAutocomplete"
+                                  [displayWith]="displayFn">
+                    <mat-option *ngFor="let category of filteredCategories | async" [value]="category">
+                        {{category.name}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Company</mat-label>
+                <input [(ngModel)]="companyFilter.value" type="text" matInput
+                       #company="ngModel"
+                       name="company"
+                       [valueExists]="company.value"
+                       (blur)="selectFilter(company.control, companies)"
+                       [matAutocomplete]="companyAuto">
+                <button
+                    matSuffix
+                    mat-icon-button
+                    matTooltip="{{company.value ? 'Clear' : 'Show list'}}"
+                    matTooltipClass="custom-tooltip"
+                    matTooltipPosition="above"
+                    matTooltipShowDelay="500"
+                    (click)="company.reset('')"
+                >
+                    <mat-icon>{{company.value ? 'clear' : 'keyboard_arrow_down'}}</mat-icon>
+                </button>
+                <mat-hint>Filter coupons by company</mat-hint>
+                <mat-error *ngIf="company.invalid">
+                    <span *ngIf="company?.errors?.noSuchValue">No such company in the list</span>
+                </mat-error>
+                <mat-autocomplete autoActiveFirstOption
+                                  #companyAuto="matAutocomplete"
+                                  [displayWith]="displayFn">
+                    <mat-option *ngFor="let company of filteredCompanies | async" [value]="company">
+                        {{company.name}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </section>
+        <section>
+            <p class="filters-title">SORT BY</p>
+            <div class="sort-list" cdkDropList (cdkDropListDropped)="dropSortOption($event); searchForm.control.markAsDirty()">
+                <div *ngFor="let option of sortOptions index as i" class="sort-list__option" cdkDrag>
+                    <div class="sort-list__option__checkbox">
+                        <mat-checkbox
+                            matTooltip="{{option.selected ? 'Remove sort option' : 'Add sort option'}}"
+                            matTooltipShowDelay="1000"
+                            matTooltipClass="custom-tooltip"
+                            matTooltipPosition="above"
+                            class="sort-checkbox"
+                            color="primary"
+                            name="{{'checkbox'+i}}"
+                            #checkbox="ngModel"
+                            [(ngModel)]="option.selected">
+                            {{option.name}}
+                        </mat-checkbox>
+                    </div>
+                    <button
+                        class="sort-direction-icon"
+                        matTooltip="{{option.descending ? 'Toggle to ascending order' : 'Toggle to descending order'}}"
+                        matTooltipClass="custom-tooltip"
+                        matTooltipPosition="above"
+                        (click)="option.descending = !option.descending; checkbox.control.markAsDirty()"
+                        mat-icon-button>
+                        <mat-icon>{{option.descending ? 'arrow_downward' : 'arrow_upward'}}</mat-icon>
+                    </button>
+                    <mat-icon
+                        color="accent"
+                        matTooltip="Drag to change priority"
+                        matTooltipShowDelay="750"
+                        matTooltipClass="custom-tooltip"
+                        matTooltipPosition="above"
+                        class="handle-icon"
+                        cdkDragHandle>
+                        drag_handle
+                    </mat-icon>
+                </div>
+            </div>
+        </section>
+        <section>
+            <p class="filters-title">PRICE RANGE</p>
+            <mat-form-field appearance="fill" class="filters-input">
+                <mat-label>From price</mat-label>
+                <input name="priceFrom" #priceFrom="ngModel" [(ngModel)]="priceRange.fromValue" matInput type="number">
+                <button
+                    matTooltip="{{priceRange.excFrom ? 'Toggle to include price' : 'Toggle to exclude price'}}"
+                    matTooltipClass="custom-tooltip"
+                    matTooltipPosition="above"
+                    matSuffix
+                    mat-icon-button
                     color="accent"
-                    matTooltip="Drag to change priority"
+                    (click)="priceRange.excFrom = !priceRange.excFrom; priceFrom.control.markAsDirty()"
+                >
+                    <mat-icon>
+                        {{priceRange.excFrom ? 'radio_button_unchecked' : 'radio_button_checked'}}
+                    </mat-icon>
+                </button>
+                <mat-hint>Insert the lowest price</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="filters-input">
+                <mat-label>Until price</mat-label>
+                <input name="priceUntil" #priceUntil="ngModel" [(ngModel)]="priceRange.untilValue" matInput type="number">
+                <button
+                    matTooltip="{{priceRange.excUntil ? 'Toggle to include price' : 'Toggle to exclude price'}}"
+                    matTooltipClass="custom-tooltip"
+                    matTooltipPosition="above"
+                    matSuffix
+                    mat-icon-button
+                    color="accent"
+                    (click)="priceRange.excUntil = !priceRange.excUntil; priceUntil.control.markAsDirty()"
+                >
+                    <mat-icon>
+                        {{priceRange.excUntil ? 'radio_button_unchecked' : 'radio_button_checked'}}
+                    </mat-icon>
+                </button>
+                <mat-hint>Insert the highest price</mat-hint>
+            </mat-form-field>
+        </section>
+        <section>
+            <p class="filters-title">DATE ADDED</p>
+            <mat-form-field appearance="fill" class="filters-input">
+                <mat-label>From date</mat-label>
+                <input name="dateAddedFrom" [(ngModel)]="addedDateRange.fromValue" matInput [matDatepicker]="startDatePickerFrom">
+                <mat-datepicker-toggle
+                    matSuffix
+                    matTooltip="Pick the start date"
                     matTooltipShowDelay="750"
                     matTooltipClass="custom-tooltip"
                     matTooltipPosition="above"
-                    class="handle-icon"
-                    cdkDragHandle>
-                    drag_handle
-                </mat-icon>
-            </div>
-        </div>
-    </section>
-    <section>
-        <p class="filters-title">PRICE RANGE</p>
-        <mat-form-field appearance="fill" class="filters-input">
-            <mat-label>From price</mat-label>
-            <input [(ngModel)]="priceRange.fromValue" matInput type="number">
-            <button
-                matTooltip="{{priceRange.excFrom ? 'Toggle to include price' : 'Toggle to exclude price'}}"
-                matTooltipClass="custom-tooltip"
-                matTooltipPosition="above"
-                matSuffix
-                mat-icon-button
-                [color]="priceRange.excFrom ? 'primary' : 'accent'"
-                (click)="priceRange.excFrom = !priceRange.excFrom"
-            >
-                <mat-icon>
-                    {{priceRange.excFrom ? 'radio_button_unchecked' : 'radio_button_checked'}}
-                </mat-icon>
-            </button>
-            <mat-hint>Insert the lowest price</mat-hint>
-        </mat-form-field>
-        <mat-form-field appearance="fill" class="filters-input">
-            <mat-label>Until price</mat-label>
-            <input [(ngModel)]="priceRange.untilValue" matInput type="number">
-            <button
-                matTooltip="{{priceRange.excUntil ? 'Toggle to include price' : 'Toggle to exclude price'}}"
-                matTooltipClass="custom-tooltip"
-                matTooltipPosition="above"
-                matSuffix
-                mat-icon-button
-                [color]="priceRange.excUntil ? 'primary' : 'accent'"
-                (click)="priceRange.excUntil = !priceRange.excUntil"
-            >
-                <mat-icon>
-                    {{priceRange.excUntil ? 'radio_button_unchecked' : 'radio_button_checked'}}
-                </mat-icon>
-            </button>
-            <mat-hint>Insert the highest price</mat-hint>
-        </mat-form-field>
-    </section>
-    <section>
-        <p class="filters-title">DATE ADDED</p>
-        <mat-form-field appearance="fill" class="filters-input">
-            <mat-label>From date</mat-label>
-            <input [(ngModel)]="addedDateRange.fromValue" matInput [matDatepicker]="startDatePickerFrom">
-            <mat-datepicker-toggle
-                matSuffix
-                matTooltip="Pick the start date"
-                matTooltipShowDelay="750"
-                matTooltipClass="custom-tooltip"
-                matTooltipPosition="above"
-                [for]="startDatePickerFrom"></mat-datepicker-toggle>
-            <mat-datepicker #startDatePickerFrom></mat-datepicker>
-            <mat-hint>Select the start date</mat-hint>
-        </mat-form-field>
-        <mat-form-field appearance="fill" class="filters-input">
-            <mat-label>Until date</mat-label>
-            <input [(ngModel)]="addedDateRange.untilValue" matInput [matDatepicker]="startDatePickerUntil">
-            <mat-datepicker-toggle
-                matTooltip="Pick the end date"
-                matTooltipShowDelay="750"
-                matTooltipClass="custom-tooltip"
-                matTooltipPosition="above"
-                matSuffix
-                [for]="startDatePickerUntil"></mat-datepicker-toggle>
-            <mat-datepicker #startDatePickerUntil></mat-datepicker>
-            <mat-hint>Select the end date</mat-hint>
-        </mat-form-field>
-    </section>
-    <section>
-        <p class="filters-title">EXPIRY DATE</p>
-        <mat-form-field appearance="fill" class="filters-input">
-            <mat-label>Minimum expiry date</mat-label>
-            <input [(ngModel)]="expiryDateRange.fromValue" matInput [matDatepicker]="endDatePickerFrom">
-            <mat-datepicker-toggle
-                matTooltip="Pick the expiry date before"
-                matTooltipShowDelay="750"
-                matTooltipClass="custom-tooltip"
-                matTooltipPosition="above"
-                matSuffix
-                [for]="endDatePickerFrom">
-                <mat-icon matDatepickerToggleIcon>event_busy</mat-icon>
-            </mat-datepicker-toggle>
-            <mat-datepicker #endDatePickerFrom>
-            </mat-datepicker>
-            <mat-hint>Filter coupons that expire before</mat-hint>
-        </mat-form-field>
-        <mat-form-field appearance="fill" class="filters-input">
-            <mat-label>Maximum expiry date</mat-label>
-            <input [(ngModel)]="expiryDateRange.untilValue" matInput [matDatepicker]="endDatePickerUntil">
-            <mat-datepicker-toggle
-                matTooltip="Pick the expiry date after"
-                matTooltipShowDelay="750"
-                matTooltipClass="custom-tooltip"
-                matTooltipPosition="above"
-                matSuffix
-                [for]="endDatePickerUntil">
-                <mat-icon matDatepickerToggleIcon>event_busy</mat-icon>
-            </mat-datepicker-toggle>
-            <mat-datepicker #endDatePickerUntil>
-            </mat-datepicker>
-            <mat-hint>Filter coupons that expire after</mat-hint>
-        </mat-form-field>
-    </section>
+                    [for]="startDatePickerFrom"></mat-datepicker-toggle>
+                <mat-datepicker #startDatePickerFrom></mat-datepicker>
+                <mat-hint>Select the start date</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="filters-input">
+                <mat-label>Until date</mat-label>
+                <input name="dateAddedUntil" [(ngModel)]="addedDateRange.untilValue" matInput [matDatepicker]="startDatePickerUntil">
+                <mat-datepicker-toggle
+                    matTooltip="Pick the end date"
+                    matTooltipShowDelay="750"
+                    matTooltipClass="custom-tooltip"
+                    matTooltipPosition="above"
+                    matSuffix
+                    [for]="startDatePickerUntil"></mat-datepicker-toggle>
+                <mat-datepicker #startDatePickerUntil></mat-datepicker>
+                <mat-hint>Select the end date</mat-hint>
+            </mat-form-field>
+        </section>
+        <section>
+            <p class="filters-title">EXPIRY DATE</p>
+            <mat-form-field appearance="fill" class="filters-input">
+                <mat-label>Minimum expiry date</mat-label>
+                <input name="expDateFrom" [(ngModel)]="expiryDateRange.fromValue" matInput [matDatepicker]="endDatePickerFrom">
+                <mat-datepicker-toggle
+                    matTooltip="Pick the expiry date before"
+                    matTooltipShowDelay="750"
+                    matTooltipClass="custom-tooltip"
+                    matTooltipPosition="above"
+                    matSuffix
+                    [for]="endDatePickerFrom">
+                    <mat-icon matDatepickerToggleIcon>event_busy</mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #endDatePickerFrom>
+                </mat-datepicker>
+                <mat-hint>Filter coupons that expire before</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="filters-input">
+                <mat-label>Maximum expiry date</mat-label>
+                <input name="expDateUntil" [(ngModel)]="expiryDateRange.untilValue" matInput [matDatepicker]="endDatePickerUntil">
+                <mat-datepicker-toggle
+                    matTooltip="Pick the expiry date after"
+                    matTooltipShowDelay="750"
+                    matTooltipClass="custom-tooltip"
+                    matTooltipPosition="above"
+                    matSuffix
+                    [for]="endDatePickerUntil">
+                    <mat-icon matDatepickerToggleIcon>event_busy</mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #endDatePickerUntil>
+                </mat-datepicker>
+                <mat-hint>Filter coupons that expire after</mat-hint>
+            </mat-form-field>
+        </section>
+    </form>
 </mat-dialog-content>
 <mat-dialog-actions>
-    <button mat-flat-button color="primary" (click)="generateSearchParams()" cdkFocusInitial>Search</button>
-    <button mat-flat-button color="warn" (click)="clearSearchParams()">CLEAR</button>
-    <button mat-button (click)="initFieldsFromParams()">REVERT</button>
+    <button [disabled]="searchForm.invalid || searchForm.pristine" mat-flat-button color="primary" (click)="generateSearchParams()"
+            cdkFocusInitial>Search
+    </button>
+    <button [disabled]="!active" mat-flat-button color="warn" (click)="clearSearchParams()">CLEAR</button>
     <button mat-button mat-dialog-close>CANCEL</button>
 </mat-dialog-actions>

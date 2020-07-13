@@ -216,6 +216,8 @@ export class SearchFilterFormComponent implements OnInit, AfterViewInit {
     public categories: Category[] = [];
     public companies: Company[] = [];
 
+    public active: boolean = false;
+
     /**
      * Map used to access filters.
      */
@@ -345,6 +347,8 @@ export class SearchFilterFormComponent implements OnInit, AfterViewInit {
             if (range) {
                 this.initRanges(range);
             }
+
+            this.active = (!!filter || !!sort || !!range);
         });
     }
 
