@@ -48,8 +48,8 @@ export class CustomerCouponsComponent implements OnInit, AfterViewInit {
     removeCoupon(couponToRemove: Coupon) {
         this.dialog.open(WarningDialogComponent, {
             data: {
-                title: 'Confirm coupon removal from collection',
-                body: 'Warning! this action cannot be undone.',
+                title: 'Confirm coupon removal',
+                body: 'Warning! this action can\'t be undone.',
                 action: 'Remove'
             }
         })
