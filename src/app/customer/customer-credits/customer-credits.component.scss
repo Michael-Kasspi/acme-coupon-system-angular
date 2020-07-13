@@ -2,6 +2,13 @@
 
 $primary: map-get($custom-theme, primary);
 
+p {
+    margin: unset;
+    font-size: 16px;
+    font-weight: normal;
+    letter-spacing: 0.15px;
+}
+
 .customer-credits-container {
     padding: 30px;
     display: flex;
@@ -13,8 +20,9 @@ $primary: map-get($custom-theme, primary);
 }
 
 .customer-credits-card {
-    width: 80%;
+    width: 100%;
     margin-bottom: 32px;
+    box-sizing: border-box;
 }
 
 .customer-credits-content {

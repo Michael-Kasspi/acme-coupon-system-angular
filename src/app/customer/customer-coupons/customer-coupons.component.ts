@@ -7,6 +7,8 @@ import {CustomerService} from '../services/customer.service';
 import {ManualProgressBarService} from '../../progress-bar/manual-progress-bar.service';
 import {finalize} from 'rxjs/operators';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatDialog} from '@angular/material/dialog';
+import {WarningDialogComponent} from '../../dialog/warning-dialog/warning-dialog.component';
 
 @Component({
     selector: 'app-customer-coupons',
@@ -22,12 +24,13 @@ export class CustomerCouponsComponent implements OnInit, AfterViewInit {
     displayedColumns: string[] = ['imageUrl', 'title', 'description', 'company', 'remove'];
 
     constructor(
-        public activatedRoute: ActivatedRoute,
         public endpoint: EndpointService,
-        public changeDetectorRef: ChangeDetectorRef,
-        public customerService: CustomerService,
-        public progressBar: ManualProgressBarService,
-        public snackBar: MatSnackBar
+        private activatedRoute: ActivatedRoute,
+        private changeDetectorRef: ChangeDetectorRef,
+        private customerService: CustomerService,
+        private progressBar: ManualProgressBarService,
+        private snackBar: MatSnackBar,
+        private dialog: MatDialog
     ) {
     }
 
@@ -43,16 +46,29 @@ export class CustomerCouponsComponent implements OnInit, AfterViewInit {
     }
 
     removeCoupon(couponToRemove: Coupon) {
-        this.progressBar.status = true;
-        this.customerService.removeCoupon(couponToRemove.id)
-            .pipe(finalize(() => this.progressBar.status = false))
-            .subscribe(_ => {
-                const index = this.coupons.findIndex(coupon => {
-                    return coupon.id === couponToRemove.id;
+        this.dialog.open(WarningDialogComponent, {
+            data: {
+                title: 'Confirm coupon removal from collection',
+                body: 'Warning! this action cannot be undone.',
+                action: 'Remove'
+            }
+        })
+            .afterClosed().subscribe(result => {
+            if (!result) {
+                return;
+            }
+            this.progressBar.status = true;
+            this.customerService.removeCoupon(couponToRemove.id)
+                .pipe(finalize(() => this.progressBar.status = false))
+                .subscribe(_ => {
+                    const index = this.coupons.findIndex(coupon => {
+                        return coupon.id === couponToRemove.id;
+                    });
+                    this.coupons.splice(index, 1);
+                    this.customerCouponsTable.renderRows();
+                    this.snackBar.open('The coupon has been removed from the collection');
                 });
-                this.coupons.splice(index, 1);
-                this.customerCouponsTable.renderRows();
-                this.snackBar.open('The coupon has been removed from the collection')
-            });
+        });
+
     }
 }

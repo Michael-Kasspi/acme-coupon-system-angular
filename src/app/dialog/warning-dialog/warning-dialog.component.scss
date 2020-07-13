@@ -1,8 +1,11 @@
 @import "~src/custom-theme";
-$primary: map-get($custom-theme, primary);
+$warn: map-get($custom-theme, warn);
 
 .discard-title{
-    color: mat-color($primary);
+    color: mat-color($warn);
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 0.15px;
 }
 
 .discard-actions {
