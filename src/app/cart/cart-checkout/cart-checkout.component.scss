@@ -17,10 +17,12 @@ $warn: map-get($custom-theme, warn);
 }
 
 .mat-row {
-    height: 70px;
+    box-sizing: border-box;
+    height: 118px;
 }
 
 .mat-header-cell {
+    padding: 16px;
     color: mat-color($accent);
     font-size: .875rem;
     line-height: 1.375rem;
@@ -29,6 +31,7 @@ $warn: map-get($custom-theme, warn);
 }
 
 .mat-cell {
+    padding: 16px;
     font-size: 16px;
 }
 
@@ -39,7 +42,7 @@ $warn: map-get($custom-theme, warn);
 }
 
 .mat-column-imageUrl {
-    width: 100px;
+    width: 60px;
 }
 
 .mat-column-price {
@@ -115,3 +118,15 @@ p {
     color: mat-color($warn);
 }
 
+.text-truncate {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    -webkit-line-clamp: 2;
+}
+
+.mat-row:hover {
+    background-color: mat-color($accent, 0.06);
+}

@@ -27,6 +27,7 @@ export class CartCheckoutComponent implements OnInit, AfterViewInit {
     lastTotal: number = 0;
 
     displayedColumns: string[] = ['imageUrl', 'title', 'company', 'price'];
+    purchasing: boolean = false;
 
     constructor(
         public titleService: TitleService,
@@ -62,8 +63,12 @@ export class CartCheckoutComponent implements OnInit, AfterViewInit {
 
     checkout() {
         this.progressBarService.status = true;
+        this.purchasing = true;
         this.cartService.checkout$()
-            .pipe(finalize(() => this.progressBarService.status = false))
+            .pipe(finalize(() => {
+                this.progressBarService.status = false;
+                this.purchasing = false;
+            }))
             .subscribe(_ => {
                 this.purchased = true;
             });

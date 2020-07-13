@@ -10,11 +10,11 @@
             </ng-container>
             <ng-container matColumnDef="title">
                 <th mat-header-cell *matHeaderCellDef> Title</th>
-                <td mat-cell *matCellDef="let coupon"> {{coupon.title}} </td>
+                <td mat-cell *matCellDef="let coupon"><span class="text-truncate">{{coupon.title}}</span></td>
             </ng-container>
             <ng-container matColumnDef="company">
                 <th mat-header-cell *matHeaderCellDef> Company</th>
-                <td mat-cell *matCellDef="let coupon"> {{coupon.company.name}} </td>
+                <td mat-cell *matCellDef="let coupon"><span class="text-truncate">{{coupon.company.name}}</span></td>
             </ng-container>
             <ng-container matColumnDef="price">
                 <th mat-header-cell *matHeaderCellDef> Price</th>
@@ -62,7 +62,7 @@
                 </div>
                 <div class="checkout-actions-row">
                     <div class="checkout-action">
-                        <button *ngIf="!purchased else viewCoupons" [disabled]="isEnoughCredits" (click)="checkout()"
+                        <button *ngIf="!purchased else viewCoupons" [disabled]="purchasing || isEnoughCredits" (click)="checkout()"
                                 mat-raised-button color="primary">
                             Purchase
                         </button>
