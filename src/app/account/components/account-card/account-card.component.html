@@ -1,12 +1,12 @@
 <mat-card>
     <mat-card-header>
 
-        <div (click)="selectImage()"
+        <div
              mat-card-avatar
              class="account-avatar-container">
 
             <mat-icon
-                *ngIf="!account.profilePictureUrl"
+                *ngIf="!(account.profilePictureUrl || account.profilePicturePreview)"
                 class="account-avatar"
                 inline="true"
                 color="accent">
@@ -15,15 +15,19 @@
 
             <img mat-card-avatar
                  class="account-profile-image"
-                 *ngIf="account.profilePictureUrl"
+                 *ngIf="account.profilePictureUrl || account.profilePicturePreview"
                  [src]="profilePicture">
 
-            <div class="account-avatar-upload-container">
+            <div (click)="selectImage()" *ngIf="uploadProgress === undefined" class="account-avatar-upload-container">
                 <mat-icon
                     inline="true"
                     class="account-avatar-upload">
                     camera_alt
                 </mat-icon>
+            </div>
+            <div *ngIf="uploadProgress !== undefined" class="progress">
+                <mat-progress-spinner [value]="uploadProgress" color="primary" diameter="35"
+                                      strokeWidth="3"></mat-progress-spinner>
             </div>
 
         </div>
@@ -33,7 +37,7 @@
         </mat-card-title>
 
         <mat-card-subtitle>
-            Credits: {{account.credit}}
+            {{account.email}}
         </mat-card-subtitle>
 
     </mat-card-header>
