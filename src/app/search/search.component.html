@@ -26,4 +26,14 @@
             </p>
         </mat-card>
     </div>
+    <div *ngIf="!resultPage">
+        <mat-card class="no-results-card">
+            <h3 class="no-results-message">
+                There was an error showing the results.
+            </h3>
+            <p class="no-results-subtitle">
+                Try searching again or check the search term.
+            </p>
+        </mat-card>
+    </div>
 </div>
