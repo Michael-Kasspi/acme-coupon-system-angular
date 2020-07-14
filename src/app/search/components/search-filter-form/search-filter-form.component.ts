@@ -195,6 +195,10 @@ export class SearchOptionParams {
         private range: string = ''
     ) {
     }
+
+    public isEmpty(): boolean {
+        return !(!!this.filter || !!this.sort || !!this.range);
+    }
 }
 
 @Component({
@@ -203,6 +207,8 @@ export class SearchOptionParams {
     styleUrls: ['./search-filter-form.component.scss']
 })
 export class SearchFilterFormComponent implements OnInit, AfterViewInit {
+
+    public readonly TODAY: Date = new Date();
 
     private readonly CATEGORY: string = 'category';
     private readonly COMPANY: string = 'company';
@@ -220,8 +226,6 @@ export class SearchFilterFormComponent implements OnInit, AfterViewInit {
     private readonly DATE: string = 'date';
 
     private readonly ZERO: number = 0;
-
-    private readonly TODAY: Date = new Date();
 
     private readonly rangeFieldType: Map<string, string> = new Map([
         [this.PRICE, this.NUMBER], [this.START_DATE, this.DATE],

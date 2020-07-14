@@ -8,6 +8,7 @@ import {Company} from '../model/Company';
 import {Category} from '../model/Category';
 import {MatDialog} from '@angular/material/dialog';
 import {SearchFilterFormComponent, SearchOptionParams} from './components/search-filter-form/search-filter-form.component';
+import {first} from 'rxjs/operators';
 
 @Component({
     selector: 'app-search',
@@ -71,11 +72,10 @@ export class SearchComponent implements OnInit, OnDestroy {
             }
         }).afterClosed().subscribe((params: SearchOptionParams) => {
             if (!params) {
-                this.activeFilters = false;
                 return;
             }
+            this.activeFilters = !params.isEmpty();
             this.commitSearch(Object.assign(params, {page: 0}));
-            this.activeFilters = true;
         });
     }
 
@@ -93,7 +93,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
 
     private isFiltersActive(): void {
-        this.activatedRoute.queryParamMap.subscribe(params => {
+        this.activatedRoute.queryParamMap.pipe(first()).subscribe(params => {
             this.activeFilters = !!(!!params.get('filter') || params.get('sort') || !!params.get('range'));
         });
     }
