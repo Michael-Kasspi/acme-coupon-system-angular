@@ -5,6 +5,7 @@ import {Account} from '../../model/Account';
 import {CustomerService} from '../services/customer.service';
 import {finalize} from 'rxjs/operators';
 import {ManualProgressBarService} from '../../progress-bar/manual-progress-bar.service';
+import {TitleService} from '../../title/title.service';
 
 @Component({
     selector: 'app-customer-credits',
@@ -29,13 +30,15 @@ export class CustomerCreditsComponent implements OnInit {
 
 
     constructor(
-        public activatedRoute: ActivatedRoute,
-        public customerService: CustomerService,
-        public progressBar: ManualProgressBarService
+        private activatedRoute: ActivatedRoute,
+        private customerService: CustomerService,
+        private progressBar: ManualProgressBarService,
+        private titleService: TitleService
     ) {
     }
 
     ngOnInit(): void {
+        this.titleService.append('Purchase Credits | Dashboard');
         this.activatedRoute.data.subscribe((data: { account: Account }) => {
             this.balance = data.account.credit;
         });

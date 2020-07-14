@@ -4,6 +4,7 @@ import {Coupon} from '../../model/Coupon';
 import {CouponService} from '../services/coupon.service';
 import {Subscription} from 'rxjs';
 import {CouponDetailsComponent} from '../components/coupon-details/coupon-details.component';
+import {TitleService} from '../../title/title.service';
 
 @Component({
     selector: 'app-coupon-page',
@@ -26,7 +27,8 @@ export class CouponPageComponent implements OnInit, OnDestroy {
 
     constructor(
         private activatedRoute: ActivatedRoute,
-        private couponService: CouponService
+        private couponService: CouponService,
+        private titleService: TitleService
     ) {
     }
 
@@ -71,9 +73,11 @@ export class CouponPageComponent implements OnInit, OnDestroy {
         if (coupon) {
             this.coupon = coupon;
             this.handleCouponChange();
+            this.titleService.append(this.coupon.title || 'Coupon Details Page');
             this.fetchCouponsByCategory();
             this.fetchCouponsByCompany();
         } else {
+            this.titleService.append('Coupon Not Found');
             this.fetchCouponsOnError();
         }
     }

@@ -7,6 +7,7 @@ import {HttpEvent, HttpEventType, HttpResponse} from '@angular/common/http';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ManualProgressBarService} from '../../progress-bar/manual-progress-bar.service';
 import {CompanyProfileFormComponent} from '../components/company-profile-form/company-profile-form.component';
+import {TitleService} from '../../title/title.service';
 
 @Component({
     selector: 'app-company-profile',
@@ -26,13 +27,17 @@ export class CompanyProfileComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private companyService: CompanyService,
         private snackBar: MatSnackBar,
-        private progressBar: ManualProgressBarService
+        private progressBar: ManualProgressBarService,
+        private titleService: TitleService
     ) {
     }
 
     ngOnInit(): void {
         this.activatedRoute.parent.parent.data.subscribe((data: { company: Company }) => {
             this.company = data.company;
+            if (this.company && this.company.name) {
+                this.titleService.append(`${this.company.name} | Profile`)
+            }
         });
     }
 

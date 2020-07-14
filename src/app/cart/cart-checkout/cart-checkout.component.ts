@@ -40,7 +40,7 @@ export class CartCheckoutComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit(): void {
-        this.titleService.append('Cart - Checkout');
+        this.titleService.append('Checkout');
         this.activatedRoute.parent.parent.data.subscribe((data: { coupons: Coupon[] }) => {
             if (data.coupons.length === 0) {
                 this.router.navigate(

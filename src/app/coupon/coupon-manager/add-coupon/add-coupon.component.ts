@@ -10,6 +10,7 @@ import {Observable} from 'rxjs';
 import {DiscardDialogComponent} from '../../../dialog/discard-dialog/discard-dialog.component';
 import {finalize, tap} from 'rxjs/operators';
 import {CouponManagerService} from '../../services/coupon-manager.service';
+import {TitleService} from '../../../title/title.service';
 
 @Component({
   selector: 'app-add-coupon',
@@ -26,16 +27,18 @@ export class AddCouponComponent implements OnInit {
     image: File = null;
 
     constructor(
-        public activatedRoute: ActivatedRoute,
-        public progressBar: ManualProgressBarService,
-        public snackBar: MatSnackBar,
-        public router: Router,
-        public dialog: MatDialog,
-        public couponManagerService: CouponManagerService
+        private activatedRoute: ActivatedRoute,
+        private progressBar: ManualProgressBarService,
+        private snackBar: MatSnackBar,
+        private router: Router,
+        private dialog: MatDialog,
+        private couponManagerService: CouponManagerService,
+        private titleService: TitleService
     ) {
     }
 
     ngOnInit(): void {
+        this.titleService.append('New Coupon');
         this.activatedRoute.data.subscribe((data: { categories: Category[] }) => {
             this.categories = data.categories;
         });

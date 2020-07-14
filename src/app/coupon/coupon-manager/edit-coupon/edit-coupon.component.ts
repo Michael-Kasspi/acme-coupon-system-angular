@@ -4,12 +4,12 @@ import {Category} from '../../../model/Category';
 import {CouponFormComponent} from '../../components/coupon-form/coupon-form.component';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ManualProgressBarService} from '../../../progress-bar/manual-progress-bar.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
 import {Observable} from 'rxjs';
 import {DiscardDialogComponent} from '../../../dialog/discard-dialog/discard-dialog.component';
 import {finalize, tap} from 'rxjs/operators';
 import {CouponManagerService} from '../../services/coupon-manager.service';
+import {TitleService} from '../../../title/title.service';
 
 @Component({
     selector: 'app-edit-coupon',
@@ -26,23 +26,26 @@ export class EditCouponComponent implements OnInit {
     couponFormComponent: CouponFormComponent = null;
 
     constructor(
-        public activatedRoute: ActivatedRoute,
-        public progressBar: ManualProgressBarService,
-        public snackBar: MatSnackBar,
-        public router: Router,
-        public dialog: MatDialog,
-        public couponManagerService: CouponManagerService
+        public couponManagerService: CouponManagerService,
+        private activatedRoute: ActivatedRoute,
+        private progressBar: ManualProgressBarService,
+        private router: Router,
+        private dialog: MatDialog,
+        private titleService: TitleService
     ) {
     }
 
     ngOnInit(): void {
+        this.titleService.append('Edit Coupon');
         this.activatedRoute.data.subscribe((data: { coupon: Coupon, categories: Category[] }) => {
             this.coupon = data.coupon;
+            if (this.coupon && this.coupon.title) {
+                this.titleService.append(`Edit Coupon: ${this.coupon?.title}`);
+            }
             this.categories = data.categories;
         });
     }
 
-    // noinspection JSUnusedGlobalSymbols
     canDeactivate(): Observable<boolean> | boolean {
 
         if (!this.couponFormComponent || this.couponFormComponent.couponForm.pristine) {

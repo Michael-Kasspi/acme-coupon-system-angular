@@ -23,7 +23,7 @@ export class CartItemComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.titleService.append('Cart - Items');
+        this.titleService.append('Cart');
         this.activatedRoute.parent.parent.data.subscribe((data: { coupons: Coupon[] }) => {
             this.coupons = data.coupons;
         });

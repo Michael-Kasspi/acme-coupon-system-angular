@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
 import {CouponManagerService} from '../../services/coupon-manager.service';
+import {TitleService} from '../../../title/title.service';
 
 @Component({
     selector: 'app-all-coupons',
@@ -39,11 +40,13 @@ export class AllCouponsComponent implements OnInit {
         public router: Router,
         public snackBar: MatSnackBar,
         public dialog: MatDialog,
-        public couponManagerService: CouponManagerService
+        public couponManagerService: CouponManagerService,
+        private titleService: TitleService
     ) {
     }
 
     ngOnInit(): void {
+        this.titleService.append('All Coupons');
         this.activatedRoute.data.subscribe((data: { coupons: Coupon[] }) => {
             this.coupons = data.coupons;
         });

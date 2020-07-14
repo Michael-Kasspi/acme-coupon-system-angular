@@ -6,13 +6,17 @@ import {SearchService} from '../services/search.service';
 import {HttpParams} from '@angular/common/http';
 import {ResultPage} from '../../model/ResultPage';
 import {catchError} from 'rxjs/operators';
+import {TitleService} from '../../title/title.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class SearchResolverService implements Resolve<ResultPage<Coupon>> {
 
-    constructor(private searchService: SearchService) {
+    constructor(
+        private searchService: SearchService,
+        private titleService: TitleService
+    ) {
     }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ResultPage<Coupon>> {
@@ -22,6 +26,7 @@ export class SearchResolverService implements Resolve<ResultPage<Coupon>> {
         if (!query) {
             return EMPTY;
         }
+        this.titleService.append(query);
 
         let httpParams = new HttpParams();
         queryParamMap.keys.map(key => {

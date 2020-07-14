@@ -34,7 +34,9 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.titleService.append('Login');
+        if (!this.dialog) {
+            this.titleService.append('Login');
+        }
     }
 
 
@@ -61,7 +63,7 @@ export class LoginComponent implements OnInit {
                             this.router.navigate(['/dashboard', userType]);
                         }
                     });
-                },error => {
+                }, error => {
                     this.loginForm.password.reset('');
                     this.loginForm.invalidCredentials = true;
                 }

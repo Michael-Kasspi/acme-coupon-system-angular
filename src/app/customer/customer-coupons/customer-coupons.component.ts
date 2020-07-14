@@ -9,6 +9,7 @@ import {finalize} from 'rxjs/operators';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
 import {WarningDialogComponent} from '../../dialog/warning-dialog/warning-dialog.component';
+import {TitleService} from '../../title/title.service';
 
 @Component({
     selector: 'app-customer-coupons',
@@ -30,11 +31,13 @@ export class CustomerCouponsComponent implements OnInit, AfterViewInit {
         private customerService: CustomerService,
         private progressBar: ManualProgressBarService,
         private snackBar: MatSnackBar,
-        private dialog: MatDialog
+        private dialog: MatDialog,
+        private titleService: TitleService
     ) {
     }
 
     ngOnInit(): void {
+        this.titleService.append('My Coupons | Dashboard');
     }
 
     ngAfterViewInit(): void {
