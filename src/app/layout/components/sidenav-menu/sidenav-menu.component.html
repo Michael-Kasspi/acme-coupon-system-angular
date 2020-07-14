@@ -10,7 +10,7 @@
         <span>Cart</span>
     </mat-toolbar-row>
 </a>
-<div *ngIf="sessionService.isLoggedIn$() | async">
+<div *ngIf="loggedIn">
     <a routerLink="/dashboard">
         <mat-toolbar-row routerLinkActive="active">
             <mat-icon class="icon" routerLinkActive="icon-active">account_box</mat-icon>
