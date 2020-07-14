@@ -78,11 +78,15 @@ $accent: map-get($custom-theme, accent);
 }
 
 .mat-column-company {
-    width: 30%;
+    width: 20%;
 }
 
 .mat-column-title {
     width: 30%;
+}
+
+.mat-column-category {
+    width: 10%;
 }
 
 .no-coupons-message {

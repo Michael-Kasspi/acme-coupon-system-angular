@@ -21,7 +21,7 @@ export class CustomerCouponsComponent implements OnInit, AfterViewInit {
     customerCouponsTable: MatTable<Coupon> = null;
 
     coupons: Coupon[] = null;
-    displayedColumns: string[] = ['imageUrl', 'title', 'description', 'company', 'remove'];
+    displayedColumns: string[] = ['imageUrl', 'title', 'description', 'category', 'company', 'remove'];
 
     constructor(
         public endpoint: EndpointService,
