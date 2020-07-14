@@ -16,7 +16,7 @@ export class SearchBoxComponent implements OnInit {
 
     constructor(
         private router: Router,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
     ) {
     }
 

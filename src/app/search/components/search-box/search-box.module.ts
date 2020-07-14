@@ -6,6 +6,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {ReactiveFormsModule} from '@angular/forms';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 
@@ -20,7 +21,8 @@ import {ReactiveFormsModule} from '@angular/forms';
         MatInputModule,
         MatButtonModule,
         MatIconModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatTooltipModule
     ]
 })
 export class SearchBoxModule { }
