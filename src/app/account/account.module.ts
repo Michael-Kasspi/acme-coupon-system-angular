@@ -13,6 +13,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import {MatButtonModule} from '@angular/material/button';
         MatFormFieldModule,
         ReactiveFormsModule,
         MatInputModule,
-        MatButtonModule
+        MatButtonModule,
+        MatTooltipModule
     ]
 })
 export class AccountModule {

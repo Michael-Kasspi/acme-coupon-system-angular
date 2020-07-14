@@ -30,6 +30,11 @@ export class AccountFormComponent implements OnInit, AfterViewInit {
     readonly CURRENT_PASSWORD: string = 'currentPassword';
     readonly NEW_PASSWORD: string = 'newPassword';
 
+    public readonly NAME_LENGTH_MIN: number = 3;
+    public readonly NAME_LENGTH_MAX: number = 25;
+    public readonly PASSWORD_LENGTH_MIN: number = 4;
+    public readonly PASSWORD_LENGTH_MAX: number = 25;
+
     @Input()
     account: Account = null;
 
@@ -50,7 +55,6 @@ export class AccountFormComponent implements OnInit, AfterViewInit {
     onChangesSubject$: Subject<number> = new Subject<number>();
 
     /*form groups*/
-
     personalInfo: FormGroup = null;
     credentials: FormGroup = null;
 
@@ -67,13 +71,13 @@ export class AccountFormComponent implements OnInit, AfterViewInit {
         this.personalInfo = new FormGroup({
             'firstName': new FormControl('', [
                 Validators.required,
-                Validators.minLength(3),
-                Validators.maxLength(25)
+                Validators.minLength(this.NAME_LENGTH_MIN),
+                Validators.maxLength(this.NAME_LENGTH_MAX)
             ]),
             'lastName': new FormControl('', [
                 Validators.required,
-                Validators.minLength(3),
-                Validators.maxLength(25)
+                Validators.minLength(this.NAME_LENGTH_MIN),
+                Validators.maxLength(this.NAME_LENGTH_MAX)
             ]),
         });
     }
@@ -85,8 +89,8 @@ export class AccountFormComponent implements OnInit, AfterViewInit {
             ]),
             'newPassword': new FormControl({value: '', disabled: true}, [
                 Validators.required,
-                Validators.minLength(4),
-                Validators.maxLength(25),
+                Validators.minLength(this.PASSWORD_LENGTH_MIN),
+                Validators.maxLength(this.PASSWORD_LENGTH_MAX),
             ]),
             'email': new FormControl('', {
                 validators: [
@@ -210,8 +214,8 @@ export class AccountFormComponent implements OnInit, AfterViewInit {
         this.snackBar.open('Changes have been saved successfully!');
     }
 
-    displayDialog() {
-        if (this.activePanel === this.NO_ACTIVE_PANEL) {
+    displayDialog(tab: number) {
+        if (this.activePanel === this.NO_ACTIVE_PANEL || this.activePanel !== tab) {
             return;
         }
 

@@ -1,62 +1,59 @@
 <mat-accordion multi="false">
-
     <mat-expansion-panel
         #epPersonalInfo
-        (closed)="displayDialog()"
-        [disabled]="(activePanel !== NO_ACTIVE_PANEL && activePanel !== PERSONAL_INFO)"
+        (closed)="displayDialog(PERSONAL_INFO)"
         hideToggle expanded="true">
-
         <mat-expansion-panel-header>
-
             <mat-panel-title class="account-panel-title">
                 Personal Info
             </mat-panel-title>
-
             <mat-icon
                 class="account-panel-icon"
                 color="accent">
                 account_circle
             </mat-icon>
-
         </mat-expansion-panel-header>
         <form [formGroup]="personalInfo">
             <div class="account-row">
                 <mat-form-field
                     color="primary"
-                    class="account-input outline-input"
-                    appearance="outline"
+                    class="account-input"
+                    appearance="fill"
                     floatLabel="auto">
                     <mat-label>First Name</mat-label>
+                    <mat-hint>Your First Name</mat-hint>
+                    <mat-hint align="end">{{firstNameInput?.value?.length || 0}}/{{NAME_LENGTH_MAX}}</mat-hint>
                     <mat-error *ngIf="!firstName.valid">
                         <span *ngIf="firstName.errors?.required">This field is required</span>
-                        <span *ngIf="firstName.errors?.minlength">The name is too short</span>
-                        <span *ngIf="firstName.errors?.maxlength">The name is too long</span>
+                        <span *ngIf="firstName.errors?.minlength">The minimum name length is {{NAME_LENGTH_MIN}}</span>
+                        <span *ngIf="firstName.errors?.maxlength">The maximum name length is {{NAME_LENGTH_MAX}}</span>
                     </mat-error>
                     <input
+                        #firstNameInput
                         matInput
                         formControlName="firstName"
                         type="text">
-
                 </mat-form-field>
-
                 <mat-form-field
                     color="primary"
                     class="account-input"
-                    appearance="outline"
+                    appearance="fill"
                     floatLabel="auto">
                     <mat-label>Last Name</mat-label>
+                    <mat-hint>Your Last Name</mat-hint>
+                    <mat-hint align="end">{{lastNameInput?.value?.length || 0}}/{{NAME_LENGTH_MAX}}</mat-hint>
                     <input
+                        #lastNameInput
                         matInput
                         formControlName="lastName"
                         type="text">
                     <mat-error *ngIf="!lastName.valid">
                         <span *ngIf="lastName.errors?.required">This field is required</span>
-                        <span *ngIf="lastName.errors?.minlength">The name is too short</span>
-                        <span *ngIf="lastName.errors?.maxlength">The name is too long</span>
+                        <span *ngIf="lastName.errors?.minlength">The minimum name length is {{NAME_LENGTH_MIN}}</span>
+                        <span *ngIf="lastName.errors?.maxlength">The maximum name length is {{NAME_LENGTH_MAX}}</span>
                     </mat-error>
                 </mat-form-field>
             </div>
-
             <mat-action-row>
                 <button [disabled]="(!personalInfo.valid || saveInProgress || activePanel !== PERSONAL_INFO)"
                         (click)="savePersonalInfo()" mat-flat-button color="primary"
@@ -69,39 +66,27 @@
             </mat-action-row>
         </form>
     </mat-expansion-panel>
-
     <mat-expansion-panel
         #epCredentials hideToggle
-        (closed)="displayDialog()"
-        [disabled]="(activePanel !== NO_ACTIVE_PANEL && activePanel !== CREDENTIALS)">
-
+        (closed)="displayDialog(CREDENTIALS)">
         <mat-expansion-panel-header>
-
             <mat-panel-title class="account-panel-title">
                 Credentials
             </mat-panel-title>
-
             <mat-icon class="account-panel-icon" color="accent">fingerprint</mat-icon>
-
         </mat-expansion-panel-header>
-
         <form [formGroup]="credentials">
             <div class="account-row">
-                <!--oldPassword-->
-
                 <mat-form-field
                     class="account-input"
-                    appearance="outline"
+                    appearance="fill"
                     floatLabel="auto"
-                    hintLabel="Enter your password">
-
-                    <mat-label>{{isNewPassword ? 'Current Password' : 'Password'}}</mat-label>
-
+                    hintLabel="Enter your current password">
+                    <mat-label>Current Password</mat-label>
                     <input
                         formControlName="currentPassword"
                         matInput [type]="hideCurrent ? 'password' : 'text'"
                         placeholder="Your password">
-
                     <button
                         color="accent"
                         type="button"
@@ -110,46 +95,37 @@
                         (click)="hideCurrent = !hideCurrent">
                         <mat-icon>{{hideCurrent ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
-
                     <mat-error *ngIf="!currentPassword.valid">
                         <span *ngIf="currentPassword.errors.required">This field is required</span>
                     </mat-error>
-
                 </mat-form-field>
-
-                <!--newPassword-->
                 <mat-form-field
                     *ngIf="isNewPassword"
                     class="account-input"
-                    appearance="outline"
-                    floatLabel="auto"
-                    hintLabel="Enter your new password">
-
+                    appearance="fill"
+                    floatLabel="auto">
                     <mat-label>New Password</mat-label>
-
+                    <mat-hint>Minimum {{PASSWORD_LENGTH_MIN}} characters</mat-hint>
+                    <mat-hint align="end">{{newPasswordInput?.value?.length || 0}}/{{PASSWORD_LENGTH_MAX}}</mat-hint>
                     <input
+                        #newPasswordInput
                         formControlName="newPassword"
                         matInput [type]="hideNew ? 'password' : 'text'"
                         placeholder="Your new password">
-
                     <button
                         color="accent"
                         type="button"
                         mat-icon-button
                         matSuffix
                         (click)="hideNew = !hideNew">
-
                         <mat-icon>{{hideNew ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
-
                     <mat-error *ngIf="!newPassword.valid">
                         <span *ngIf="newPassword.errors?.required">This field is required</span>
                         <span *ngIf="newPassword.errors?.minlength">The password is too short</span>
                         <span *ngIf="newPassword.errors?.maxlength">The password is too long</span>
                     </mat-error>
-
                 </mat-form-field>
-
                 <span class="account-change-pw-container">
                 <button
                     type="button"
@@ -161,32 +137,32 @@
             </div>
             <mat-action-row class="account-divider">
                 <div class="account-action-row">
-                <!--email-->
-                <mat-form-field class="account-input" appearance="outline" floatLabel="auto">
+                <mat-form-field class="account-input" appearance="fill" floatLabel="auto">
                     <mat-label>Email</mat-label>
+                    <mat-hint>Enter your email address</mat-hint>
                     <input
                         formControlName="email"
                         matInput type="email"
-                        placeholder="example@domain.com">
-
+                        placeholder="example@mail.com">
                     <mat-error *ngIf="!email.valid">
                         <span *ngIf="email.errors?.required">This field is required</span>
-                        <span *ngIf="email.errors?.email">Invalid email</span>
+                        <span *ngIf="email.errors?.email">Invalid email address</span>
                         <span *ngIf="email.errors?.uniqueEmail">The email is already taken</span>
                     </mat-error>
-
-
+                    <mat-spinner
+                        matTooltip="Checking availability"
+                        matTooltipClass="custom-tooltip"
+                        matTooltipPosition="below"
+                        matSuffix
+                        *ngIf="email.pending"
+                        diameter="24"
+                        strokeWidth="2"
+                        class="account-spinner"
+                        color="accent">
+                    </mat-spinner>
                 </mat-form-field>
-                <mat-spinner
-                    *ngIf="email.pending"
-                    diameter="30"
-                    strokeWidth="2"
-                    class="account-spinner"
-                    color="accent">
-                </mat-spinner>
                 </div>
             </mat-action-row>
-
             <mat-action-row>
                 <button [disabled]="(!credentials.valid || saveInProgress || activePanel !== CREDENTIALS)"
                         (click)="saveCredentials()" mat-flat-button color="primary"
@@ -199,7 +175,6 @@
                     Cancel
                 </button>
             </mat-action-row>
-
         </form>
     </mat-expansion-panel>
 </mat-accordion>

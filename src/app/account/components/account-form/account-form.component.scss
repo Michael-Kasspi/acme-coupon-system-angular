@@ -4,12 +4,18 @@ $primary: map-get($custom-theme, primary);
 $accent: map-get($custom-theme, accent);
 
 .account-input {
-    margin: 0 32px 0 0;
+    margin: 0 16px 16px 0;
     width: 250px;
 }
 
 .mat-action-row {
-    padding-bottom: 0;
+    justify-content: flex-start;
+    padding: 16px 0 0 0;
+}
+
+.mat-action-row button.mat-button-base, .mat-action-row button.mat-mdc-button-base {
+    margin-left: 0;
+    margin-right: 8px;
 }
 
 .account-divider {
@@ -24,7 +30,7 @@ $accent: map-get($custom-theme, accent);
 }
 
 .account-change-pw-container {
-    margin-top: 10px;
+    margin-top: 8px;
 }
 
 .account-change-pw-container > * {
@@ -38,11 +44,12 @@ $accent: map-get($custom-theme, accent);
 .account-panel-title {
     font-weight: 500;
     color: mat-color($accent);
+    font-size: 16px;
+    padding-top: 1px;
 }
 
 .account-row {
     display: flex;
-    margin-bottom: 15px;
     justify-items: center;
 }
 
@@ -57,6 +64,6 @@ $accent: map-get($custom-theme, accent);
 }
 
 .account-spinner {
-    margin-bottom: 18px;
+    margin: 0 4px;
 }
 
