@@ -17,14 +17,34 @@ $accent: map-get($custom-theme, accent);
     position: relative;
 }
 
-.account-avatar-upload {
-    font-size: 16px;
-    z-index: 2;
-    vertical-align: middle;
-    color: white;
+.mat-card-subtitle {
+    margin-bottom: unset;
+}
+
+.account-avatar-upload-container {
+    top: 50%;
+    left: 50%;
     position: absolute;
-    top: 33.5px;
-    left: 1px;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    height: 50px;
+    width: 50px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    display: none;
+}
+
+.account-avatar-container:hover > .account-avatar-upload-container {
+    display: flex;
+}
+
+.account-avatar-upload {
+    font-size: 24px;
+    height: 24px;
+    width: 24px;
+    color: white;
 }
 
 .account-avatar-shadow {

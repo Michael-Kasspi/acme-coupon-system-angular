@@ -14,17 +14,17 @@
             </mat-icon>
 
             <img mat-card-avatar
-                class="account-profile-image"
-                *ngIf="account.profilePictureUrl"
-                [src]="profilePicture">
+                 class="account-profile-image"
+                 *ngIf="account.profilePictureUrl"
+                 [src]="profilePicture">
 
-            <div class="account-avatar-shadow"></div>
-
-            <mat-icon
-                inline="true"
-                class="account-avatar-upload">
-                camera_alt
-            </mat-icon>
+            <div class="account-avatar-upload-container">
+                <mat-icon
+                    inline="true"
+                    class="account-avatar-upload">
+                    camera_alt
+                </mat-icon>
+            </div>
 
         </div>
 

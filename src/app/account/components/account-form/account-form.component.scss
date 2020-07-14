@@ -8,6 +8,10 @@ $accent: map-get($custom-theme, accent);
     width: 250px;
 }
 
+.mat-action-row {
+    padding-bottom: 0;
+}
+
 .account-divider {
     padding-left: 0;
     padding-right: 0;
