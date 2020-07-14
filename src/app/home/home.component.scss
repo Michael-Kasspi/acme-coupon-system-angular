@@ -3,8 +3,17 @@
 
 $primary: map-get($custom-theme, primary);
 
-h5, p {
-    margin: 0;
+h5, h6, p {
+    margin: unset;
+}
+
+h6 {
+    font-size: 22px;
+    font-weight: normal;
+    letter-spacing: 0;
+    margin: 16px 16px 0 16px;
+    padding: 8px 0;
+    color: mat-color($primary);
 }
 
 .coupons-grid {
@@ -39,7 +48,7 @@ h5, p {
     letter-spacing: 0.5px;
 }
 
-.no-coupons-message--section{
+.no-coupons-message--section {
     width: 100%;
     text-align: center;
     margin-bottom: 8px;

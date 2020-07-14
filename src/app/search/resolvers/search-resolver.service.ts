@@ -7,6 +7,7 @@ import {HttpParams} from '@angular/common/http';
 import {ResultPage} from '../../model/ResultPage';
 import {catchError} from 'rxjs/operators';
 import {TitleService} from '../../title/title.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +16,8 @@ export class SearchResolverService implements Resolve<ResultPage<Coupon>> {
 
     constructor(
         private searchService: SearchService,
-        private titleService: TitleService
+        private titleService: TitleService,
+        private snackBar: MatSnackBar
     ) {
     }
 
@@ -24,6 +26,7 @@ export class SearchResolverService implements Resolve<ResultPage<Coupon>> {
         const query = queryParamMap.get('query');
 
         if (!query) {
+            this.snackBar.open('Unable to perform search without search term');
             return EMPTY;
         }
         this.titleService.append(query);

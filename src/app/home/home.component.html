@@ -27,8 +27,14 @@
             </p>
         </mat-card-header>
         <div class="no-coupons-message__actions">
-            <a (click)="reloadCoupons()" [disabled]="reloading" class="no-coupons-message-action-button" color="primary" mat-button>RELOAD</a>
+            <a (click)="reloadCoupons()" [disabled]="reloading" class="no-coupons-message-action-button" color="primary"
+               mat-button>RELOAD</a>
         </div>
     </mat-card>
 </div>
-<app-coupon-grid class="coupons-grid" *ngIf="coupons && coupons.length > 0" [coupons]="coupons"></app-coupon-grid>
+<div *ngIf="coupons && coupons.length > 0">
+    <h6>
+        Our Coupons
+    </h6>
+    <app-coupon-grid class="coupons-grid" [coupons]="coupons"></app-coupon-grid>
+</div>
