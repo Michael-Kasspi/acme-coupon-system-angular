@@ -17,6 +17,8 @@ app-image-placeholder {
 }
 
 .coupon-details-container {
+    display: flex;
+    flex-direction: column;
     overflow: auto;
     background-color: white;
     padding: 32px 32px 0 32px;
@@ -58,9 +60,9 @@ h5, p {
 }
 
 .coupon-title {
-    font-size: 30px;
+    font-size: 24px;
     font-weight: normal;
-    letter-spacing: 0.25px;
+    letter-spacing: 0;
 }
 
 .subtitle {
@@ -179,19 +181,17 @@ mat-chip > mat-icon {
 }
 
 .actions {
+    flex: 1 1 auto;
+    align-items: flex-end;
     background-color: white;
     position: sticky;
     bottom: 0;
     width: 100%;
     display: inline-flex;
     flex-wrap: wrap;
-    box-shadow: rgba(255, 255, 255, 1) 0 0 16px 8px;
-    padding: 8px 0 16px 0;
-}
-
-.action-button:not(:last-child) {
-    margin-bottom: 8px;
-    margin-right: 16px;
+    box-shadow: white 0 0 8px 8px;
+    padding: 16px 0 16px 0;
+    margin-top: 16px;
 }
 
 .action-button p {

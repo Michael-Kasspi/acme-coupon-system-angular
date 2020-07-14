@@ -14,7 +14,7 @@
     <div class="coupon-details-container">
         <div class="section">
             <div class="coupon-details-header section">
-                <h5 class="coupon-title text-truncate text-truncate--line-3">
+                <h5 [title]="couponService.couponTitle" class="coupon-title text-truncate text-truncate--line-2">
                     {{couponService.couponTitle}}
                 </h5>
             </div>
@@ -47,7 +47,7 @@
                     </mat-icon>
                 </button>
             </div>
-            <div class="section">
+            <div>
                 <mat-chip-list>
                     <mat-chip
                         selected
@@ -100,8 +100,8 @@
                     {{couponService.description}}
                 </p>
             </div>
-            <div class="flex-center section">
-                <button class="show-more-btn" *ngIf="overflow || showMore" mat-button
+            <div class="flex-center">
+                <button class="show-more-btn section" *ngIf="overflow || showMore" mat-button
                         (click)="showMore = !showMore">{{showMore ? 'SHOW LESS' : 'SHOW MORE'}}</button>
             </div>
             <mat-divider></mat-divider>
