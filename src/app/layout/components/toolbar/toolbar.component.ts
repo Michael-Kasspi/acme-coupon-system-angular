@@ -1,7 +1,6 @@
-import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {MatSidenav} from '@angular/material/sidenav';
-import {Observable} from 'rxjs';
-import {first, map} from 'rxjs/operators';
+import {first} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {SessionService} from '../../../auth/session/session.service';
 import {UserType} from '../../../model/UserType';
@@ -52,7 +51,9 @@ export class ToolbarComponent implements OnInit {
 
     isShowLoginButton(): void {
         this.sessionService.isLoggedIn$()
-            .subscribe(loggedIn => this.loggedIn = loggedIn);
+            .subscribe(loggedIn => {
+                this.loggedIn = loggedIn;
+            });
     }
 
     toggleCart(): void {

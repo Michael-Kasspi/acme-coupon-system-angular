@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SessionService} from '../../auth/session/session.service';
 import {first} from 'rxjs/operators';
+import {UserType} from '../../model/UserType';
 
 @Component({
     selector: 'app-dashboard-redirect',
@@ -19,6 +20,10 @@ export class DashboardRedirectComponent implements OnInit {
 
     ngOnInit(): void {
         this.sessionService.userType$().pipe(first()).subscribe(userType => {
+            if (userType === UserType.GUEST) {
+                this.router.navigate(['/login']);
+                return;
+            }
             this.router.navigate([`./${userType}`], {relativeTo: this.route});
         });
     }

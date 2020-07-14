@@ -2,9 +2,10 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
 import {AdminComponent} from './admin.component';
+import {AdminGuard} from './guards/admin.guard';
 
 const routes: Routes = [{
-  path: '', component: AdminComponent, children: [
+  path: '', canActivate:[AdminGuard], component: AdminComponent, children: [
     {path: '', pathMatch: 'full', redirectTo: 'companies'},
     {
       path: 'companies',

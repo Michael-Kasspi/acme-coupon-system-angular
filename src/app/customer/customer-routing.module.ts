@@ -2,10 +2,11 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
 import {CustomerComponent} from './customer.component';
+import {CustomerGuard} from './guards/customer.guard';
 
 const routes: Routes = [
     {
-        path: '', component: CustomerComponent, children: [
+        path: '', canActivate:[CustomerGuard], component: CustomerComponent, children: [
             {path: '', pathMatch: 'full', redirectTo: 'coupons'},
             {
                 path: 'coupons',

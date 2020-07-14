@@ -12,7 +12,9 @@ import {SessionService} from '../../../auth/session/session.service';
 export class SidenavMenuComponent implements OnInit, OnDestroy {
 
     userType: string = null;
-    userTypeSubscription$ : Subscription = null;
+    userTypeSubscription$: Subscription = null;
+    isLoggedInSubscription$: Subscription = null;
+    loggedIn: boolean = false;
 
     constructor(
         public sessionService: SessionService
@@ -22,12 +24,16 @@ export class SidenavMenuComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.userTypeSubscription$ = this.sessionService.userType$()
             .subscribe(userType => {
-                this.userType = userType
-            })
+                this.userType = userType;
+            });
+
+        this.isLoggedInSubscription$ = this.sessionService.isLoggedIn$()
+            .subscribe(loggedIn => this.loggedIn = loggedIn);
     }
 
     ngOnDestroy(): void {
         this.userTypeSubscription$.unsubscribe();
+        this.isLoggedInSubscription$.unsubscribe();
     }
 
     isCustomerUser(): boolean {
