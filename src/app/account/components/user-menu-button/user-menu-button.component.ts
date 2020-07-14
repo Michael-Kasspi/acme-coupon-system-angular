@@ -3,6 +3,9 @@ import {LogoutService} from '../../../auth/logout/services/logout.service';
 import {SessionService} from '../../../auth/session/session.service';
 import {UserType} from '../../../model/UserType';
 import {Subscription} from 'rxjs';
+import {AccountDetailsService} from '../../services/account-details.service';
+import {EndpointService} from '../../../endpoint/endpoint.service';
+import {Account} from '../../../model/Account';
 
 @Component({
     selector: 'app-user-menu-button',
@@ -16,22 +19,39 @@ export class UserMenuButtonComponent implements OnInit, OnDestroy {
     @Input()
     image: string = null;
     userType: string = null;
+    account: Account = null;
 
-    userTypeSubscription$: Subscription = null;
+    private userTypeSubscription$: Subscription = null;
+    private accountSubscription$: Subscription = null;
 
     constructor(
         public logoutService: LogoutService,
-        public sessionService: SessionService
+        public sessionService: SessionService,
+        private avatarService: AccountDetailsService,
+        private endpoint: EndpointService
     ) {
     }
 
     ngOnInit(): void {
         this.userTypeSubscription$ = this.sessionService.userType$()
             .subscribe(userType => this.userType = userType);
+        this.accountSubscription$ = this.avatarService.account$
+            .subscribe(account => {
+                this.account = account;
+                this.image = this.generateAvatarUrl(account.profilePictureUrl);
+            })
     }
 
     ngOnDestroy(): void {
         this.userTypeSubscription$.unsubscribe();
+        this.accountSubscription$.unsubscribe();
+    }
+
+    private generateAvatarUrl(imageURL: string): string {
+        if (imageURL) {
+            return `${this.endpoint.res}${imageURL}`;
+        }
+        return '';
     }
 }
 

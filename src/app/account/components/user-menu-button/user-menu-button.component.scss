@@ -9,9 +9,15 @@ $accent: map-get($custom-theme, accent);
     justify-content: center;
     align-items: center;
     text-align: center;
+    box-shadow: unset;
+    overflow: hidden;
+}
+
+.avatar {
+    flex: 0 1 auto;
+    display: block;
+    object-fit: cover;
     height: 40px;
-    width: 40px;
-    @include mat-elevation(1);
 }
 
 .mat-fab:not([disabled]):active:not([class*=mat-elevation-z]), .mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]) {

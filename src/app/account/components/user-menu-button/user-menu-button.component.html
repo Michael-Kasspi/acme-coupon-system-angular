@@ -1,6 +1,10 @@
-<a mat-mini-fab [matMenuTriggerFor]="profileCircle" class="profile-circle">
-    <mat-icon [inline]="true" class="profile-icon border">account_circle</mat-icon>
-    <img *ngIf="image" [src]="image" alt="avatar">
+<a mat-mini-fab [matMenuTriggerFor]="profileCircle"
+   matTooltip="{{account?.fullName}}"
+   matTooltipClass="custom-tooltip"
+   matTooltipPosition="below"
+   class="profile-circle">
+    <mat-icon *ngIf="!image" [inline]="true" class="profile-icon border">account_circle</mat-icon>
+    <img class="avatar" *ngIf="image" [src]="image" alt="avatar">
 </a>
 <mat-menu #profileCircle="matMenu">
     <a routerLink="/dashboard" mat-menu-item>

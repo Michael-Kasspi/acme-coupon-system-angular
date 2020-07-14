@@ -6,6 +6,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
 import {RouterModule} from '@angular/router';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import {MatDividerModule} from '@angular/material/divider';
         MatIconModule,
         RouterModule,
         MatDividerModule,
+        MatTooltipModule,
     ]
 })
 export class UserMenuButtonModule { }
