@@ -20,10 +20,10 @@
             </mat-card-title>
         </mat-card-header>
         <mat-card-content class="customer-credits-content">
-            <form [formGroup]="creditsForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="creditsForm" (ngSubmit)="onSubmit()" #formGrpDirective="ngForm">
                 <mat-form-field class="customer-credits-item customer-credits-field">
                     <mat-label>Credits amount</mat-label>
-                    <input step="1000" formControlName="creditsField" #credits required min="{{MIN_CREDIT}}" max="{{MAX_CREDIT}}" matInput
+                    <input (blur)="resetIfEmpty()" step="1000" formControlName="creditsField" #credits required min="{{MIN_CREDIT}}" max="{{MAX_CREDIT}}" matInput
                            type="number">
                     <mat-hint>Input the amount of credits</mat-hint>
                     <mat-hint align="end">{{credits?.valueAsNumber || 0 | number:'1.2-2'}}/{{MAX_CREDIT | number:'1.2-2'}}</mat-hint>
@@ -33,7 +33,7 @@
                         <span *ngIf="creditsField.errors?.required">This field is required</span>
                     </mat-error>
                 </mat-form-field>
-                <button [disabled]="creditsForm.invalid" class="customer-credits-item" mat-flat-button color="primary" type="submit">Purchase</button>
+                <button [disabled]="purchasing || creditsForm.invalid" class="customer-credits-item" mat-flat-button color="primary" type="submit">Purchase</button>
             </form>
         </mat-card-content>
     </mat-card>

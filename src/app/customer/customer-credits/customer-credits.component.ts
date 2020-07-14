@@ -1,11 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {AbstractControl, FormControl, FormGroup, FormGroupDirective, Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {Account} from '../../model/Account';
 import {CustomerService} from '../services/customer.service';
 import {finalize} from 'rxjs/operators';
 import {ManualProgressBarService} from '../../progress-bar/manual-progress-bar.service';
 import {TitleService} from '../../title/title.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-customer-credits',
@@ -15,44 +16,71 @@ import {TitleService} from '../../title/title.service';
 export class CustomerCreditsComponent implements OnInit {
 
     public readonly MAX_CREDIT: number = 100_000.00;
-    public readonly  MIN_CREDIT: number = 1_000.00;
+    public readonly MIN_CREDIT: number = 1_000.00;
     public balance: number = 0;
 
-    creditsForm = new FormGroup({
-        creditsField: new FormControl(
-            '',
-            [
-                Validators.required,
-                Validators.min(this.MIN_CREDIT),
-                Validators.max(this.MAX_CREDIT)
-            ])
-    });
+    public creditsForm: FormGroup = null;
+    public purchasing: boolean = false;
 
+    @ViewChild('formGrpDirective')
+    formGrpDirective: FormGroupDirective = null;
 
     constructor(
         private activatedRoute: ActivatedRoute,
         private customerService: CustomerService,
         private progressBar: ManualProgressBarService,
-        private titleService: TitleService
+        private titleService: TitleService,
+        private snackBar: MatSnackBar
     ) {
     }
 
     ngOnInit(): void {
+        this.initCredits();
         this.titleService.append('Purchase Credits | Dashboard');
         this.activatedRoute.data.subscribe((data: { account: Account }) => {
             this.balance = data.account.credit;
         });
     }
 
-    onSubmit() {
+    public onSubmit() {
+        const amount = this.creditsField.value;
+        if (!amount || typeof amount !== 'number') {
+            return;
+        }
         this.progressBar.status = true;
-        this.customerService.purchaseCredits(this.creditsField.value)
-            .pipe(finalize(() => this.progressBar.status = false))
-            .subscribe((account: Account) => this.balance = account.credit);
+        this.purchasing = true;
+        this.customerService.purchaseCredits(amount)
+            .pipe(finalize(() => {
+                this.progressBar.status = false;
+                this.purchasing = false;
+            }))
+            .subscribe((account: Account) => {
+                this.balance = account.credit;
+                this.snackBar.open(`${amount} credits have been added to the account`);
+                this.creditsField.reset('');
+                this.formGrpDirective.resetForm();
+            });
+    }
+
+    public resetIfEmpty() {
+        if (!this.creditsField.value) {
+            this.formGrpDirective.resetForm();
+        }
+    }
+
+    private initCredits(): void {
+        this.creditsForm = new FormGroup({
+            creditsField: new FormControl(
+                '',
+                [
+                    Validators.required,
+                    Validators.min(this.MIN_CREDIT),
+                    Validators.max(this.MAX_CREDIT)
+                ])
+        });
     }
 
     get creditsField(): AbstractControl {
         return this.creditsForm.get('creditsField');
     }
-
 }
