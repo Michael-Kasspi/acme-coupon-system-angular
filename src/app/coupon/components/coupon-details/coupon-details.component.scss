@@ -135,6 +135,18 @@ h5, p {
     -webkit-line-clamp: 1;
 }
 
+.text-truncate--line-1 {
+    -webkit-line-clamp: 1;
+}
+
+.text-truncate--line-2 {
+    -webkit-line-clamp: 2;
+}
+
+.text-truncate--line-3 {
+    -webkit-line-clamp: 3;
+}
+
 .description-text {
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -167,14 +179,18 @@ mat-chip > mat-icon {
 }
 
 .actions {
+    background-color: white;
+    position: sticky;
+    bottom: 0;
     width: 100%;
-    display: flex;
+    display: inline-flex;
     flex-wrap: wrap;
+    box-shadow: rgba(255, 255, 255, 1) 0 0 16px 8px;
+    padding: 8px 0 16px 0;
 }
 
-.action-button {
-    flex: 1 1 46%;
-    margin-bottom: 16px;
+.action-button:not(:last-child) {
+    margin-bottom: 8px;
     margin-right: 16px;
 }
 
