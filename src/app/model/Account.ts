@@ -1,9 +1,9 @@
 import {User} from './User';
-import {Serializable} from "./Serializable";
+import {Serializable} from './Serializable';
 import {Deserializable} from './Deserializable';
 import {UserFactory} from './UserFactory';
 
-export class Account implements Serializable ,Deserializable {
+export class Account implements Serializable, Deserializable {
     private _id: number = 0;
     private _email: string = null;
     private _firstName: string = null;
@@ -11,6 +11,7 @@ export class Account implements Serializable ,Deserializable {
     private _credit: number = 0;
     private _user: User = null;
     private _profilePictureUrl: string = null;
+    private _profilePicturePreview: string = null;
 
     constructor(input?: any) {
 
@@ -36,11 +37,11 @@ export class Account implements Serializable ,Deserializable {
             lastName: this.lastName,
             credit: this.credit,
             user: this.user,
-        }
+        };
     }
 
     get fullName(): String {
-        return (this.firstName || '') + ' ' + (this.lastName || '');
+        return [this.firstName || '', this.lastName || ''].join(' ');
     }
 
     get id(): number {
@@ -97,5 +98,13 @@ export class Account implements Serializable ,Deserializable {
 
     set profilePictureUrl(value: string) {
         this._profilePictureUrl = value;
+    }
+
+    get profilePicturePreview(): string {
+        return this._profilePicturePreview;
+    }
+
+    set profilePicturePreview(value: string) {
+        this._profilePicturePreview = value;
     }
 }
