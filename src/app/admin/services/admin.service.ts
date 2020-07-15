@@ -136,4 +136,16 @@ export class AdminService implements CouponRestService {
             {withCredentials: true}
         ).pipe(map((accounts: any[]) => accounts.map(account => new Account(account))));
     }
+
+    addAccount(account: Account): Observable<Account> {
+        if (!account) {
+            return throwError('Unable to add account without account');
+        }
+
+        return this.client.post<Account>(
+            `${this.endpoint.url}admin/accounts/`,
+            account.serialize,
+            {withCredentials: true}
+        ).pipe(map(account => new Account(account)));
+    }
 }
