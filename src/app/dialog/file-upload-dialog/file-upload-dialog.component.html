@@ -27,8 +27,8 @@
         type="file"
         accept="image/*"
         (change)="processFile(imageInput)">
-    <button *ngIf="!(currentImageSrc && !selectedImageSrc)" class="image-upload-action" [disabled]="!file"
-            mat-flat-button color="primary" [mat-dialog-close]="file">{{action || 'Upload'}}</button>
+    <button *ngIf="!(currentImageSrc && !selectedImageSrc)" class="image-upload-action" [disabled]="!file || !selectedImageSrc"
+            mat-flat-button color="primary" (click)="selectFile()">{{action || 'Upload'}}</button>
     <button *ngIf="currentImageSrc && !selectedImageSrc" color="warn" class="image-upload-action" mat-flat-button
             (click)="deleteImage()">Delete
     </button>

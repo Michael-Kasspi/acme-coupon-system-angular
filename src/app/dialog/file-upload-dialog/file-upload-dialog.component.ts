@@ -19,6 +19,7 @@ export class FileUploadDialogComponent implements OnInit {
     private _previewImageSrc: any = null;
 
     deleteFileEvent = new EventEmitter<any>();
+    selectedImagePreviewEvent = new EventEmitter<string>();
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: any,
@@ -29,9 +30,9 @@ export class FileUploadDialogComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this._currentImageSrc = this.data.currentImageUrl;
-        this._previewImageSrc = this.data.imagePreview;
-        this.action = this.data.action;
+        this._currentImageSrc = this.data?.currentImageUrl;
+        this._previewImageSrc = this.data?.imagePreview;
+        this.action = this.data?.action;
     }
 
     processFile(imageInput: HTMLInputElement) {
@@ -79,6 +80,11 @@ export class FileUploadDialogComponent implements OnInit {
                 action: 'Delete'
             }
         });
+    }
+
+    public selectFile(): void {
+        this.selectedImagePreviewEvent.emit(this.selectedImageSrc);
+        this.dialogRef.close(this.file);
     }
 }
 
