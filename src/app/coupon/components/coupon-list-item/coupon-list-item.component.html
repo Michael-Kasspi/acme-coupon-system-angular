@@ -50,7 +50,7 @@
                             selected
                             color="accent"
                             matTooltipPosition="above"
-                            matTooltip="{{coupon?.price ? 'Priced at ' + coupon?.price + ' credits' : 'Free of charge'}}"
+                            matTooltip="{{coupon?.price ? 'Priced at ' + (coupon?.price | number: '1.2-2') + ' credits' : 'Free of charge'}}"
                             matTooltipClass="custom-tooltip"
                             *ngIf="coupon?.price != null">
                             <mat-icon>{{coupon?.price ? 'monetization_on' : 'money_off'}}</mat-icon>
