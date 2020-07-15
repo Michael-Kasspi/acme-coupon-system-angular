@@ -26,12 +26,10 @@ export class AllCouponsComponent implements OnInit {
         'title',
         'price',
         'amount',
-        'category',
         'startDate',
         'endDate',
-        'view',
-        'edit',
-        'delete',
+        'category',
+        'company',
     ];
 
     constructor(
