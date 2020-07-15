@@ -23,7 +23,7 @@ export class Company extends User{
         return this;
     }
 
-    serialize(): Object {
+    get serialize(): Object {
         return {
             type: UserType.COMPANY,
             id: this.id,

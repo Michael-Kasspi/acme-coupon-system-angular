@@ -48,7 +48,7 @@ export class Coupon implements Deserializable {
 
         return {
             id: this.id,
-            company: this.company,
+            company: this?.company?.serialize,
             category: this.category,
             title: this.title,
             description: this.description,
