@@ -1,13 +1,10 @@
-.admin-menu {
-    height: 90px;
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+a:first-child {
+  margin-left: -4px;
 }
 
-.admin-menu-links {
-    margin: 0 30px;
+.admin-toolbar {
+    display: inline-flex;
+    align-items: center;
 }
 
 .admin-nav-button {
@@ -21,4 +18,8 @@
 
 .admin-nav-button-active {
     background-color: rgba(0, 0, 0, 0.1);
+}
+
+.mat-toolbar-single-row {
+    padding: 0 32px;
 }
