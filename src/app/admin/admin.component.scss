@@ -9,3 +9,16 @@
 .admin-menu-links {
     margin: 0 30px;
 }
+
+.admin-nav-button {
+    margin-right: 16px;
+    background-color: transparent;
+}
+
+.admin-nav-button:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.admin-nav-button-active {
+    background-color: rgba(0, 0, 0, 0.1);
+}

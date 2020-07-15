@@ -3,8 +3,8 @@ import {CommonModule} from '@angular/common';
 
 import {AdminRoutingModule} from './admin-routing.module';
 import {AdminComponent} from './admin.component';
-import {CompanyManagerModule} from './company-manager/company-manager.module';
 import {MatButtonModule} from '@angular/material/button';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 
 @NgModule({
@@ -13,6 +13,7 @@ import {MatButtonModule} from '@angular/material/button';
         CommonModule,
         AdminRoutingModule,
         MatButtonModule,
+        MatToolbarModule,
     ]
 })
 export class AdminModule {
