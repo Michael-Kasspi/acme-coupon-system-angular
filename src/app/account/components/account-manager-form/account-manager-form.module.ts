@@ -8,6 +8,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 
@@ -24,7 +25,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
         MatButtonModule,
         MatSelectModule,
         MatDividerModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        ReactiveFormsModule
     ]
 })
 export class AccountManagerFormModule { }

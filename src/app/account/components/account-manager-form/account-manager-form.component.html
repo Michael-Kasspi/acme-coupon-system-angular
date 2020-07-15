@@ -1,8 +1,9 @@
-<form>
+<form [formGroup]="accountForm">
     <section>
         <mat-form-field appearance="fill">
             <mat-label>First Name</mat-label>
             <input matInput
+                   formControlName="firstName"
                    #firstNameInput
                    required
                    placeholder="E.g. John"
@@ -15,6 +16,7 @@
         <mat-form-field appearance="fill">
             <mat-label>Last Name</mat-label>
             <input matInput
+                   formControlName="lastName"
                    #lastNameInput
                    required
                    placeholder="E.g. Smith"
@@ -32,6 +34,7 @@
         <mat-form-field appearance="fill">
             <mat-label>Email</mat-label>
             <input matInput
+                   formControlName="email"
                    required
                    placeholder="example@mail.com"
                    type="email">
@@ -40,6 +43,7 @@
         <mat-form-field appearance="fill">
             <mat-label>Password</mat-label>
             <input matInput
+                   formControlName="password"
                    #passwordInput
                    placeholder="Strong password"
                    required
@@ -63,7 +67,7 @@
     <section>
         <mat-form-field appearance="fill">
             <mat-label>User Type</mat-label>
-            <mat-select required [(value)]="userType">
+            <mat-select (selectionChange)="onUserSelect($event)" required [value]="userType">
                 <mat-option *ngFor="let user of USER_TYPES" [value]="user">
                     <span class="capitalize">{{user}}</span>
                 </mat-option>
@@ -76,16 +80,64 @@
     </section>
     <div [ngSwitch]="userType">
         <section *ngSwitchCase="ADMIN">
-            <mat-slide-toggle>MAIN ADMIN</mat-slide-toggle>
+            <form [formGroup]="adminForm">
+                <mat-slide-toggle formControlName="main" color="primary" class="toggle-slide"><span
+                    class="toggle-slide__text">MAIN ADMIN</span>
+                </mat-slide-toggle>
+            </form>
             <div class="divider">
                 <mat-divider></mat-divider>
             </div>
         </section>
         <section *ngSwitchCase="COMPANY">
-            company
+            <form [formGroup]="companyForm">
+                <div>
+                    <mat-form-field appearance="fill" class="company-name-field">
+                        <mat-label>Company Name</mat-label>
+                        <input matInput
+                               formControlName="name"
+                               #companyNameInput
+                               required
+                               placeholder="E.g. Acme Inc."
+                               [min]="COMPANY_NAME_MIN_CHAR"
+                               [max]="COMPANY_NAME_MAX_CHAR"
+                               type="text">
+                        <mat-hint>Minimum {{NAME_MIN_CHAR}} characters</mat-hint>
+                        <mat-hint align="end">{{companyNameInput.value.length || 0}}
+                            /{{COMPANY_NAME_MAX_CHAR}}</mat-hint>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="fill" class="company-description-field">
+                        <mat-label>Company Description</mat-label>
+                        <textarea matInput
+                                  formControlName="description"
+                                  cdkTextareaAutosize
+                                  #companyDescInput
+                                  placeholder="E.g. Acme Inc."
+                                  type="text"></textarea>
+                        <mat-hint>Describe the company</mat-hint>
+                        <mat-hint align="end">{{companyDescInput.value.length || 0}}
+                            /{{COMPANY_DESC_MAX_CHAR}}</mat-hint>
+                    </mat-form-field>
+                </div>
+            </form>
             <div class="divider">
                 <mat-divider></mat-divider>
             </div>
         </section>
+        <div class="form-actions">
+            <div class="form-actions__start">
+                <button type="button" (click)="onActionClick()" mat-flat-button color="primary">
+                    {{actionText || (MODE === 'add' ? 'SAVE' : 'UPDATE')}}
+                </button>
+                <button type="button" mat-button>RESET</button>
+            </div>
+            <div class="form-actions__end">
+                <button type="button" *ngIf="MODE === MODE_UPDATE" (click)="deleteEvent.emit()" mat-flat-button
+                        color="warn">DELETE
+                </button>
+            </div>
+        </div>
     </div>
 </form>

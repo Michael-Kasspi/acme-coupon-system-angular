@@ -1,5 +1,9 @@
 section {
-    margin-bottom: 16px;
+    margin-bottom: 20px;
+}
+
+button:not(:last-child) {
+    margin-right: 8px;
 }
 
 .divider {
@@ -13,11 +17,49 @@ section {
     min-width: 264px;
 }
 
-.mat-form-field:not(:last-child) {
+.mat-form-field:first-child {
+    margin-bottom: 16px;
+}
+
+.mat-form-field:not(:last-of-type) {
     margin-right: 16px;
     margin-bottom: 16px;
 }
 
 .capitalize {
     text-transform: capitalize;
+}
+
+.company-name-field {
+    min-width: 360px;
+}
+
+.company-description-field {
+    margin-right: 0;
+    min-width: 544px;
+}
+
+.toggle-slide {
+    margin-left: 8px;
+    margin-bottom: 16px;
+}
+
+.toggle-slide__text {
+    margin-left: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1.25px;
+}
+
+.form-actions {
+    display: flex;
+    flex-direction: row;
+}
+
+.form-actions__start {
+    flex: 1 1 auto;
+}
+
+.form-actions__end {
+    flex: 0 1 auto;
 }
