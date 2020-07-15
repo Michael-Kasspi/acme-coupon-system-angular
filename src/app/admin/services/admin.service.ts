@@ -8,6 +8,7 @@ import {Coupon} from '../../model/Coupon';
 import {Category} from '../../model/Category';
 import {map} from 'rxjs/operators';
 import {Company} from '../../model/Company';
+import {Account} from '../../model/Account';
 
 @Injectable({
     providedIn: 'root'
@@ -127,5 +128,12 @@ export class AdminService implements CouponRestService {
             formData,
             {withCredentials: true, reportProgress: true, observe: 'events'}
         );
+    }
+
+    getAllAccounts(): Observable<Account[]> {
+        return this.client.get<Account[]>(
+            `${this.endpoint.url}admin/accounts/`,
+            {withCredentials: true}
+        ).pipe(map((accounts: any[]) => accounts.map(account => new Account(account))));
     }
 }
