@@ -3,7 +3,7 @@ import {HttpClient, HttpEvent} from '@angular/common/http';
 import {EndpointService} from '../../endpoint/endpoint.service';
 import {Observable, throwError} from 'rxjs';
 import {Company} from '../../model/Company';
-import {delay, map, tap} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {Coupon} from '../../model/Coupon';
 import {Category} from '../../model/Category';
 import {CouponRestService} from '../../coupon/services/interfaces/CouponRestService';
@@ -112,7 +112,7 @@ export class CompanyService implements CouponRestService {
         }
         return this.client.put<Company>(
             `${this.endpoint.url}company/`,
-            company.serialize(),
+            company.serialize,
             {withCredentials: true}
         ).pipe(map(company => new Company(company)));
     }
