@@ -7,10 +7,10 @@ import {ManualProgressBarService} from '../../../progress-bar/manual-progress-ba
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
 import {Observable} from 'rxjs';
-import {DiscardDialogComponent} from '../../../dialog/discard-dialog/discard-dialog.component';
 import {finalize, tap} from 'rxjs/operators';
 import {CouponManagerService} from '../../services/coupon-manager.service';
 import {TitleService} from '../../../title/title.service';
+import {Company} from '../../../model/Company';
 
 @Component({
   selector: 'app-add-coupon',
@@ -21,6 +21,7 @@ export class AddCouponComponent implements OnInit {
 
     coupon: Coupon = null;
     categories: Category[] = [];
+    companies: Company[] = [];
 
     @ViewChild(CouponFormComponent)
     couponFormComponent: CouponFormComponent = null;
@@ -42,18 +43,18 @@ export class AddCouponComponent implements OnInit {
         this.activatedRoute.data.subscribe((data: { categories: Category[] }) => {
             this.categories = data.categories;
         });
+        this.activatedRoute.parent.parent.data.subscribe((data: { companies: Company[] }) => {
+            this.companies = data.companies;
+        });
     }
 
-    // noinspection JSUnusedGlobalSymbols
     canDeactivate(): Observable<boolean> | boolean {
 
         if (!this.couponFormComponent || this.couponFormComponent.couponForm.pristine) {
             return true;
         }
         this.progressBar.status = false;
-        return this.dialog
-            .open(DiscardDialogComponent)
-            .afterClosed()
+        return this.couponManagerService.getWarningDialog()
             .pipe(tap(value => this.progressBar.status = value));
     }
 

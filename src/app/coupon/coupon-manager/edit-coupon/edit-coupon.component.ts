@@ -6,7 +6,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ManualProgressBarService} from '../../../progress-bar/manual-progress-bar.service';
 import {MatDialog} from '@angular/material/dialog';
 import {Observable} from 'rxjs';
-import {DiscardDialogComponent} from '../../../dialog/discard-dialog/discard-dialog.component';
 import {finalize, tap} from 'rxjs/operators';
 import {CouponManagerService} from '../../services/coupon-manager.service';
 import {TitleService} from '../../../title/title.service';
@@ -47,14 +46,11 @@ export class EditCouponComponent implements OnInit {
     }
 
     canDeactivate(): Observable<boolean> | boolean {
-
         if (!this.couponFormComponent || this.couponFormComponent.couponForm.pristine) {
             return true;
         }
         this.progressBar.status = false;
-        return this.dialog
-            .open(DiscardDialogComponent)
-            .afterClosed()
+        return this.couponManagerService.getWarningDialog()
             .pipe(tap(value => this.progressBar.status = value));
     }
 

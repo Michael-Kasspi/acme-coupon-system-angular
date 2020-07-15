@@ -5,6 +5,7 @@
             class="company-add-coupon-form"
             controls="add"
             [categories]="categories"
+            [companies]="companies"
             (saveEvent)="addCoupon($event)"
             (imageSelectedEvent)="image = $event"
             (deleteEvent)="removeImage()"
