@@ -1,21 +1,52 @@
-.not-found {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100%;
-  width: 100%;
+@import "~src/custom-theme";
+@import '~@angular/material/theming';
+
+$accent: map-get($custom-theme, accent);
+
+:host {
+    width: 100%;
+    min-height: 100%;
+    box-sizing: border-box;
+    padding: 32px;
+    display: block;
 }
 
-.not-found-message {
-  font-weight: 500;
-  font-size: 36px;
+h3, p {
+    margin: unset;
 }
 
-.not-found-icon {
-  user-select: none;
-  width: auto;
-  text-align: center;
-  height: 160px;
-  font-size: 160px;
+.no-results-card {
+    box-sizing: border-box;
+    @include mat-elevation(3);
+}
+
+.no-results-message {
+    margin-bottom: 16px;
+    font-size: 34px;
+    font-weight: normal;
+    letter-spacing: 0.25px;
+}
+
+.no-results-subtitle {
+    color: mat-color($accent);
+    margin-bottom: 16px;
+    font-size: 16px;
+    font-weight: normal;
+    letter-spacing: 0.15px;
+}
+
+.error-message-actions {
+    margin-bottom: 16px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.error-message-divider {
+    display: flex;
+    justify-content: center;
+    height: 16px;
+}
+
+.error-message-text {
+    margin-left: 16px;
 }
