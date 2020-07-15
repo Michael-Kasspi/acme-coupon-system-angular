@@ -10,6 +10,7 @@ import {EmailValidatorService} from '../../validators/email-validator.service';
 import {AccountService} from '../../services/account.service';
 import {Account} from '../../../model/Account';
 import {WarningDialogComponent} from '../../../dialog/warning-dialog/warning-dialog.component';
+import {AccountDetailsService} from '../../services/account-details.service';
 
 @Component({
     selector: 'app-account-form',
@@ -63,7 +64,8 @@ export class AccountFormComponent implements OnInit, AfterViewInit {
         private snackBar: MatSnackBar,
         private progressBarService: ManualProgressBarService,
         private dialogService: MatDialog,
-        private emailValidator: EmailValidatorService
+        private emailValidator: EmailValidatorService,
+        private accountDetailsService: AccountDetailsService
     ) {
     }
 
@@ -178,6 +180,7 @@ export class AccountFormComponent implements OnInit, AfterViewInit {
             .pipe(
                 tap(account => {
                     this.account.deserialize(account);
+                    this.accountDetailsService.account = this.account;
                     this.afterSaved();
                 }), finalize(() => this.progressBarService.status = this.saveInProgress = false)
             );
