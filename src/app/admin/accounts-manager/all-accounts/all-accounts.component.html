@@ -13,15 +13,15 @@
                         </div>
                     </div>
                     <div class="controls">
-                        <button
+                        <a
                             matTooltip="Edit"
                             matTooltipClass="custom-tooltip"
                             matTooltipPosition="above"
+                            routerLink="../edit/{{account.id}}"
                             color="accent"
-                            (click)="editAccount(account)"
                             mat-icon-button>
                             <mat-icon>edit</mat-icon>
-                        </button>
+                        </a>
                         <button
                             matTooltip="Delete"
                             matTooltipClass="custom-tooltip"
