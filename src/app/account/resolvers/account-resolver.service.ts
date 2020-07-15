@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot} from "@angular/router";
 import {catchError} from "rxjs/operators";
-import {EMPTY} from "rxjs";
+import {EMPTY, Observable} from 'rxjs';
 import {AccountService} from '../services/account.service';
+import {Account} from '../../model/Account';
 
 @Injectable({
     providedIn: 'root'
@@ -15,8 +16,7 @@ export class AccountResolverService implements Resolve<Account> {
     ) {
     }
 
-
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Account> {
         return this.accountService.getAccount().pipe(
             catchError(err => {
                 this.router.navigate(['/..']);
