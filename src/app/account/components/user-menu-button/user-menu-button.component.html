@@ -7,7 +7,7 @@
     <img class="avatar" *ngIf="image" [src]="image" alt="avatar">
 </a>
 <mat-menu #profileCircle="matMenu">
-    <div class="profile-details">
+    <div *ngIf="account" class="profile-details">
         <div class="profile-details-main">
             <div class="profile-details-title profile-details--row capitalize">{{account?.fullName}}</div>
         </div>
