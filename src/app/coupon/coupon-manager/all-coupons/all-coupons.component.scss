@@ -1,3 +1,4 @@
+@import '~@angular/material/theming';
 @import "~src/custom-theme";
 
 $primary: map-get($custom-theme, primary);
@@ -7,6 +8,10 @@ $accent: map-get($custom-theme, accent);
     display: flex;
     flex-direction: row;
     width: 100%;
+}
+
+.mat-card {
+    @include mat-elevation(3);
 }
 
 .company-all-coupons-container {
@@ -42,10 +47,14 @@ $accent: map-get($custom-theme, accent);
     line-height: 1.375rem;
     font-weight: 500;
     letter-spacing: .0071428571em;
+    padding: 12px;
+    box-sizing: border-box;
 }
 
 .mat-cell {
+    padding: 12px;
     font-size: 16px;
+    box-sizing: border-box;
 }
 
 .image-thumbnail {
@@ -55,7 +64,7 @@ $accent: map-get($custom-theme, accent);
 }
 
 .mat-column-imageUrl {
-    width: 10%;
+    width: 5%;
     text-align: center;
 }
 
@@ -69,21 +78,25 @@ $accent: map-get($custom-theme, accent);
     margin: auto 16px;
 }
 
-.mat-column-price, .mat-column-amount, .mat-column-category {
+.mat-column-price, .mat-column-amount {
+    min-width: 108px;
+    width: 5%;
+}
+
+.mat-column-category {
     width: 10%;
 }
 
-.mat-column-startDate, .mat-column-endDate {
-    width: 10%;
-}
-
-.mat-column-title {
+.mat-column-company {
     width: 15%;
 }
 
-.mat-column-view, .mat-column-edit, .mat-column-delete {
+.mat-column-startDate, .mat-column-endDate {
     width: 5%;
-    text-align: center;
+}
+
+.mat-column-title {
+    width: 20%;
 }
 
 .company-all-coupons-title {
@@ -111,6 +124,11 @@ $accent: map-get($custom-theme, accent);
 }
 
 .title-text {
+    min-width: 166px;
+    width: 100%;
+}
+
+.text-truncate {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
@@ -119,4 +137,22 @@ $accent: map-get($custom-theme, accent);
     -webkit-line-clamp: 2;
 }
 
+.controls {
+    display: none;
+    width: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.controls button:not(:last-child){
+    margin-right: 8px;
+}
+
+.mat-row:hover .controls {
+    display: inline-flex;
+}
+
+.mat-row:hover .title-text {
+    display: none;
+}
 
