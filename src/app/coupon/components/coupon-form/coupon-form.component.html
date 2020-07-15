@@ -26,19 +26,35 @@
     <div class="coupon-form-divider">
         <mat-divider></mat-divider>
     </div>
-    <mat-form-field class="coupon-form-category">
-        <mat-label>Category</mat-label>
-        <mat-select formControlName="category" required [compareWith]="currentCategory">
-            <mat-option *ngFor="let category of categories" [value]="category">
-                {{category.name}}
-            </mat-option>
-        </mat-select>
-        <mat-icon *ngIf="category.invalid && category.touched" color="warn" matSuffix>error</mat-icon>
-        <mat-hint>The category of the coupon</mat-hint>
-        <mat-error *ngIf="category.invalid">
-            <span *ngIf="category?.errors?.required">The category is required</span>
-        </mat-error>
-    </mat-form-field>
+    <div class="dates-row">
+        <mat-form-field class="coupon-form-select">
+            <mat-label>Company</mat-label>
+            <mat-select formControlName="company" required [compareWith]="currentSelectionById">
+                <mat-option *ngIf="!companies" [value]="coupon?.company">{{coupon.company.name}}</mat-option>
+                <mat-option *ngFor="let company of companies" [value]="company">
+                    {{company.name}}
+                </mat-option>
+            </mat-select>
+            <mat-icon *ngIf="company.invalid && company.touched" color="warn" matSuffix>error</mat-icon>
+            <mat-hint>The company of the coupon</mat-hint>
+            <mat-error *ngIf="company.invalid">
+                <span *ngIf="company?.errors?.required">The company is required</span>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="coupon-form-select">
+            <mat-label>Category</mat-label>
+            <mat-select formControlName="category" required [compareWith]="currentSelectionById">
+                <mat-option *ngFor="let category of categories" [value]="category">
+                    {{category.name}}
+                </mat-option>
+            </mat-select>
+            <mat-icon *ngIf="category.invalid && category.touched" color="warn" matSuffix>error</mat-icon>
+            <mat-hint>The category of the coupon</mat-hint>
+            <mat-error *ngIf="category.invalid">
+                <span *ngIf="category?.errors?.required">The category is required</span>
+            </mat-error>
+        </mat-form-field>
+    </div>
     <div class="coupon-form-divider">
         <mat-divider></mat-divider>
     </div>
@@ -108,7 +124,8 @@
              class="coupon-form-image-edit-container">
             <mat-icon inline class="coupon-form-image-edit-icon">edit</mat-icon>
         </div>
-        <div *ngIf="controls === EDIT_CONTROLS && (coupon.imagePreview && !coupon.imageUrl)" class="coupon-form-image-preview-spinner-container">
+        <div *ngIf="controls === EDIT_CONTROLS && (coupon.imagePreview && !coupon.imageUrl)"
+             class="coupon-form-image-preview-spinner-container">
             <mat-progress-spinner class="coupon-form-image-preview-spinner" strokeWidth="5" mode="determinate"
                                   [value]="progress"
                                   diameter="75"></mat-progress-spinner>

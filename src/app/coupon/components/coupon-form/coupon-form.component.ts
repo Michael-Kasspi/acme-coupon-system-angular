@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 import {EndpointService} from '../../../endpoint/endpoint.service';
 import {first} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
+import {Company} from '../../../model/Company';
 
 
 @Component({
@@ -21,6 +22,9 @@ export class CouponFormComponent implements OnInit {
     readonly EDIT_CONTROLS: string = 'edit';
     readonly DEFAULT_CONTROLS: string = this.ADD_CONTROLS;
 
+    private readonly FIRST: number = 0;
+    private readonly SINGLE: number = 1;
+
     @Input()
     controls: string = this.DEFAULT_CONTROLS;
 
@@ -29,6 +33,9 @@ export class CouponFormComponent implements OnInit {
 
     @Input()
     categories: Category[] = null;
+
+    @Input()
+    companies: Company[] = null;
 
     image: File = null;
 
@@ -85,6 +92,13 @@ export class CouponFormComponent implements OnInit {
             ),
             'category': new FormControl(
                 this.coupon.category, Validators.required
+            ),
+            'company': new FormControl(
+                {
+                    value: (this.coupon.company || (this?.companies.length === this.SINGLE ? this?.companies[this.FIRST] : null)),
+                    disabled: !this.companies
+                },
+                [Validators.required]
             ),
             'price': new FormControl(this.coupon.price || (this.coupon.id === 0 ? '' : 0),
                 [Validators.required, Validators.min(0)]
@@ -155,9 +169,9 @@ export class CouponFormComponent implements OnInit {
         this.updateEvent.emit(Object.assign(this.coupon, this.couponForm.getRawValue()));
     }
 
-    currentCategory(current: Category, selected: Category) {
+    currentSelectionById(current: any, selected: any) {
         if (selected) {
-            return current.id === selected.id;
+            return current?.id === selected?.id;
         }
         return false;
     }
@@ -200,6 +214,10 @@ export class CouponFormComponent implements OnInit {
 
     get category(): AbstractControl {
         return this.couponForm.get('category');
+    }
+
+    get company(): AbstractControl {
+        return this.couponForm.get('company');
     }
 
     get price(): AbstractControl {
