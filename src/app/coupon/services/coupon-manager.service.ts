@@ -13,6 +13,7 @@ import {ManualProgressBarService} from '../../progress-bar/manual-progress-bar.s
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Category} from '../../model/Category';
 import {HttpEvent, HttpEventType, HttpResponse} from '@angular/common/http';
+import {Company} from '../../model/Company';
 
 @Injectable({
     providedIn: 'root'
@@ -151,12 +152,26 @@ export class CouponManagerService {
 
     public deleteImage(couponId: number): Observable<Coupon> {
         return this.service.pipe(flatMap(service => {
-            return service.deleteImage(couponId);
+            return service.deleteCouponImage(couponId);
         })).pipe(tap(_ => this.snackBar.open('The image has been deleted successfully')));
     }
 
     public get uploadProgressPercentage(): number | undefined {
         return this._uploadProgressPercentage;
+    }
+
+    public getAllCompanies(): Observable<Company[]> {
+        return this.sessionService.userType$().pipe(first(),
+            flatMap(userType => {
+                if (userType === UserType.ADMIN) {
+                    return this.adminService.getAllCompanies();
+                } else if (userType === UserType.COMPANY) {
+                    return this.companyService.getCompany()
+                        .pipe(map((company: Company) => [company]));
+                } else {
+                    return throwError(`Unable to fetch companies, invalid user type: ${userType}`);
+                }
+            }));
     }
 
     private _uploadImage(lastAddedCoupon: Coupon, image: File, subscriber) {

@@ -2,9 +2,10 @@ import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
 import {CouponManagerComponent} from './coupon-manager.component';
+import {AllCompaniesResolverService} from '../resolvers/all-companies-resolver.service';
 
 const routes: Routes = [{
-    path: '', component: CouponManagerComponent, children: [
+    path: '', component: CouponManagerComponent, resolve: {companies: AllCompaniesResolverService}, children: [
         {path: '', pathMatch: 'full', redirectTo: 'all'},
         {
             path: 'all',
