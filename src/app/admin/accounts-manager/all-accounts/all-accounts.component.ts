@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {EndpointService} from '../../../endpoint/endpoint.service';
 
 @Component({
     selector: 'app-all-accounts',
@@ -9,7 +10,7 @@ import {ActivatedRoute} from '@angular/router';
 export class AllAccountsComponent implements OnInit {
 
     displayedColumns: string[] = [
-        'id',
+        'profile',
         'email',
         'lastName',
         'firstName',
@@ -19,7 +20,10 @@ export class AllAccountsComponent implements OnInit {
 
     public accounts: Account[] = null;
 
-    constructor(private activatedRoute: ActivatedRoute) {
+    constructor(
+        private activatedRoute: ActivatedRoute,
+        private endpoint: EndpointService
+    ) {
     }
 
     ngOnInit(): void {
@@ -33,5 +37,12 @@ export class AllAccountsComponent implements OnInit {
 
     public deleteAccount(account: Account): void {
 
+    }
+
+    generateUrl(profilePictureUrl: string): string {
+        if (!profilePictureUrl) {
+            return '';
+        }
+        return `${this.endpoint.res}${profilePictureUrl}`;
     }
 }

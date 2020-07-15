@@ -1,10 +1,17 @@
 <div class="all-accounts-container">
     <mat-card class="all-accounts-card">
         <table #accountsTable mat-table [dataSource]="accounts" class="accounts-table">
-            <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef>Id</th>
+            <ng-container matColumnDef="profile">
+                <th mat-header-cell *matHeaderCellDef></th>
                 <td mat-cell *matCellDef="let account">
-                    <div class="account-id">{{account.id}}</div>
+                    <div class="profile-image-container">
+                        <div class="profile-image">
+                            <img *ngIf="account?.profilePictureUrl else placeholder" [src]="generateUrl(account?.profilePictureUrl)">
+                            <ng-template #placeholder>
+                                <mat-icon color="accent" class="account-circle">account_circle</mat-icon>
+                            </ng-template>
+                        </div>
+                    </div>
                     <div class="controls">
                         <button
                             matTooltip="Edit"
@@ -46,7 +53,9 @@
             <ng-container matColumnDef="userType">
                 <th mat-header-cell *matHeaderCellDef>User Type</th>
                 <td mat-cell
-                    *matCellDef="let account"> <div class="capitalize">{{account?.user?.type}}</div></td>
+                    *matCellDef="let account">
+                    <div class="capitalize">{{account?.user?.type}}</div>
+                </td>
             </ng-container>
             <ng-container matColumnDef="credits">
                 <th mat-header-cell *matHeaderCellDef>Credits</th>
