@@ -21,9 +21,9 @@ export class AccountManagerFormComponent implements OnInit {
 
     @Input() public readonly USER_TYPES: string[] = [UserType.ADMIN, UserType.COMPANY, UserType.CUSTOMER];
 
-    private readonly MODE_ADD: string = 'add';
-    private readonly MODE_UPDATE: string = 'update';
-    private readonly MODE_DEFAULT: string = this.MODE_ADD;
+    public readonly MODE_ADD: string = 'add';
+    public readonly MODE_UPDATE: string = 'update';
+    public readonly MODE_DEFAULT: string = this.MODE_ADD;
 
     @Input() public readonly MODE: string = this.MODE_DEFAULT;
     @Input() public readonly actionText: string = null;
