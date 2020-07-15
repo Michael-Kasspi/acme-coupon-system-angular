@@ -1,0 +1,12 @@
+:host {
+    min-height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+}
+
+.account-form {
+    flex: 1 1 auto;
+}
