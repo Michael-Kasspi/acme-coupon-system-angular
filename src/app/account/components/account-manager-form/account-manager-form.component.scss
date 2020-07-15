@@ -1,0 +1,23 @@
+section {
+    margin-bottom: 16px;
+}
+
+.divider {
+    height: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mat-form-field {
+    min-width: 264px;
+}
+
+.mat-form-field:not(:last-child) {
+    margin-right: 16px;
+    margin-bottom: 16px;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}

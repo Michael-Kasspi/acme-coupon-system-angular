@@ -1,0 +1,91 @@
+<form>
+    <section>
+        <mat-form-field appearance="fill">
+            <mat-label>First Name</mat-label>
+            <input matInput
+                   #firstNameInput
+                   required
+                   placeholder="E.g. John"
+                   [min]="NAME_MIN_CHAR"
+                   [max]="NAME_MAX_CHAR"
+                   type="text">
+            <mat-hint>Minimum {{NAME_MIN_CHAR}} characters</mat-hint>
+            <mat-hint align="end">{{firstNameInput.value.length || 0}}/{{NAME_MAX_CHAR}}</mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Last Name</mat-label>
+            <input matInput
+                   #lastNameInput
+                   required
+                   placeholder="E.g. Smith"
+                   [min]="NAME_MIN_CHAR"
+                   [max]="NAME_MAX_CHAR"
+                   type="text">
+            <mat-hint>Minimum {{NAME_MIN_CHAR}} characters</mat-hint>
+            <mat-hint align="end">{{lastNameInput.value.length || 0}}/{{NAME_MAX_CHAR}}</mat-hint>
+        </mat-form-field>
+        <div class="divider">
+            <mat-divider></mat-divider>
+        </div>
+    </section>
+    <section>
+        <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput
+                   required
+                   placeholder="example@mail.com"
+                   type="email">
+            <mat-hint>Enter the email address</mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Password</mat-label>
+            <input matInput
+                   #passwordInput
+                   placeholder="Strong password"
+                   required
+                   [min]="PASSWORD_MIN_CHAR"
+                   [max]="PASSWORD_MAX_CHAR"
+                   [type]="showPassword ? 'text' : 'password'">
+            <button mat-icon-button
+                    color="accent"
+                    type="button"
+                    matSuffix
+                    (click)="showPassword = !showPassword">
+                <mat-icon>{{showPassword ? 'visibility' : 'visibility_off'}}</mat-icon>
+            </button>
+            <mat-hint>Minimum {{PASSWORD_MIN_CHAR}} characters</mat-hint>
+            <mat-hint align="end">{{passwordInput?.value?.length || 0}}/{{PASSWORD_MAX_CHAR}}</mat-hint>
+        </mat-form-field>
+        <div class="divider">
+            <mat-divider></mat-divider>
+        </div>
+    </section>
+    <section>
+        <mat-form-field appearance="fill">
+            <mat-label>User Type</mat-label>
+            <mat-select required [(value)]="userType">
+                <mat-option *ngFor="let user of USER_TYPES" [value]="user">
+                    <span class="capitalize">{{user}}</span>
+                </mat-option>
+            </mat-select>
+            <mat-hint>Select the user type</mat-hint>
+        </mat-form-field>
+        <div class="divider">
+            <mat-divider></mat-divider>
+        </div>
+    </section>
+    <div [ngSwitch]="userType">
+        <section *ngSwitchCase="ADMIN">
+            <mat-slide-toggle>MAIN ADMIN</mat-slide-toggle>
+            <div class="divider">
+                <mat-divider></mat-divider>
+            </div>
+        </section>
+        <section *ngSwitchCase="COMPANY">
+            company
+            <div class="divider">
+                <mat-divider></mat-divider>
+            </div>
+        </section>
+    </div>
+</form>
