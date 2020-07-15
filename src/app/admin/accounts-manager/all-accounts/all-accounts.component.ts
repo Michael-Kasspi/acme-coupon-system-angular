@@ -31,10 +31,6 @@ export class AllAccountsComponent implements OnInit {
             this.accounts = data.accounts;});
     }
 
-    public editAccount(account: Account): void {
-
-    }
-
     public deleteAccount(account: Account): void {
 
     }
