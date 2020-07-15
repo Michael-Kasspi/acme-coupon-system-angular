@@ -17,8 +17,8 @@ import {HttpEvent, HttpEventType, HttpResponse} from '@angular/common/http';
 export class AccountCardComponent implements OnInit {
 
     @Input()
-    account: Account = null;
-    private uploadProgress: number = undefined;
+    public  account: Account = null;
+    public uploadProgress: number = undefined;
 
     constructor(
         private matDialog: MatDialog,
