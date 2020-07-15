@@ -1,4 +1,30 @@
-<div class="admin-menu">
-    <a mat-flat-button color="primary" class="admin-menu-links" routerLink="companies">Companies</a>
-</div>
+<mat-toolbar color="primary">
+    <button
+        class="admin-nav-button"
+        mat-flat-button
+        color="primary"
+        routerLink="companies"
+        routerLinkActive="admin-nav-button-active"
+    >
+        Companies
+    </button>
+    <button
+        class="admin-nav-button"
+        mat-flat-button
+        color="primary"
+        routerLink="accounts"
+        routerLinkActive="admin-nav-button-active"
+    >
+        Accounts
+    </button>
+    <button
+        class="admin-nav-button"
+        mat-flat-button
+        color="primary"
+        routerLink="coupons"
+        routerLinkActive="admin-nav-button-active"
+    >
+        Coupons
+    </button>
+</mat-toolbar>
 <router-outlet></router-outlet>
