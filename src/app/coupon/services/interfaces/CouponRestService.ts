@@ -19,5 +19,5 @@ export interface CouponRestService {
 
     getCoupons(): Observable<Coupon[]>;
 
-    deleteImage(couponId: number): Observable<Coupon>;
+    deleteCouponImage(couponId: number): Observable<Coupon>;
 }
