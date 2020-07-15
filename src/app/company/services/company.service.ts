@@ -96,7 +96,7 @@ export class CompanyService implements CouponRestService {
         );
     }
 
-    deleteImage(couponId: number): Observable<Coupon> {
+    deleteCouponImage(couponId: number): Observable<Coupon> {
         if (!couponId) {
             throwError('Unable to delete coupon image without id');
         }
