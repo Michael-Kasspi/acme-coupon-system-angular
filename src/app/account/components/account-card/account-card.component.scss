@@ -8,6 +8,10 @@ $accent: map-get($custom-theme, accent);
     @include mat-elevation(2);
 }
 
+.mat-card-header .mat-card-title {
+    margin-bottom: 16px;
+}
+
 .account-avatar {
     font-size: 50px;
     flex-shrink: 0;
@@ -64,6 +68,7 @@ $accent: map-get($custom-theme, accent);
 
 .account-name {
     color: mat-color($accent);
+    margin-bottom: 16px;
 }
 
 .account-profile-image {
@@ -84,5 +89,43 @@ $accent: map-get($custom-theme, accent);
     width: 50px;
     display: flex;
     justify-content: center;
+    align-items: center;
+}
+
+.profile-details-icon-subtitle {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-details-icon-subtitle:not(:last-child) {
+    margin-right: 8px;
+}
+
+.profile-details-icon {
+    margin-right: 8px;
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
+    user-select: none;
+}
+
+.profile-details-subtitle {
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 14px;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+.profile-details--row {
+    margin-bottom: 8px;
+}
+
+.profile-details-secondary {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
     align-items: center;
 }

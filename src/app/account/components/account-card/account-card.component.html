@@ -1,10 +1,8 @@
 <mat-card>
     <mat-card-header>
-
         <div
-             mat-card-avatar
-             class="account-avatar-container">
-
+            mat-card-avatar
+            class="account-avatar-container">
             <mat-icon
                 *ngIf="!(account.profilePictureUrl || account.profilePicturePreview)"
                 class="account-avatar"
@@ -12,7 +10,6 @@
                 color="accent">
                 account_circle
             </mat-icon>
-
             <img mat-card-avatar
                  class="account-profile-image"
                  *ngIf="account.profilePictureUrl || account.profilePicturePreview"
@@ -29,17 +26,33 @@
                 <mat-progress-spinner [value]="uploadProgress" color="primary" diameter="35"
                                       strokeWidth="3"></mat-progress-spinner>
             </div>
-
         </div>
-
         <mat-card-title class="account-name">
             {{account.fullName}}
         </mat-card-title>
-
         <mat-card-subtitle>
-            {{account.email}}
+            <div matTooltip="User Type" matTooltipShowDelay="325" class="profile-details-icon-subtitle profile-details--row">
+                <mat-icon color="accent" class="profile-details-icon">email</mat-icon>
+                <div class="profile-details-subtitle">
+                    {{account.email}}
+                </div>
+            </div>
+            <div>
+                <div matTooltip="User Type" matTooltipShowDelay="325" class="profile-details-icon-subtitle capitalize">
+                    <mat-icon color="accent" class="profile-details-icon">perm_identity</mat-icon>
+                    <div class="profile-details-subtitle">
+                        {{account?.user.type}}
+                    </div>
+                </div>
+                <div matTooltip="Credits" matTooltipShowDelay="325" *ngIf="account?.credit"
+                     class="profile-details-icon-subtitle">
+                    <mat-icon color="accent" class="profile-details-icon">monetization_on</mat-icon>
+                    <div class="profile-details-subtitle">
+                        {{account?.credit | number: '1.2-2'}}
+                    </div>
+                </div>
+            </div>
         </mat-card-subtitle>
-
     </mat-card-header>
 </mat-card>
 
