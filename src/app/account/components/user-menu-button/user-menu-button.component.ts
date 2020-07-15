@@ -15,6 +15,7 @@ import {Account} from '../../../model/Account';
 export class UserMenuButtonComponent implements OnInit, OnDestroy {
 
     customer: string = UserType.CUSTOMER;
+    company: string = UserType.COMPANY;
 
     @Input()
     image: string = null;
@@ -38,8 +39,8 @@ export class UserMenuButtonComponent implements OnInit, OnDestroy {
         this.accountSubscription$ = this.avatarService.account$
             .subscribe(account => {
                 this.account = account;
-                this.image = this.generateAvatarUrl(account.profilePictureUrl);
-            })
+                this.image = this.generateAvatarUrl(account?.profilePictureUrl);
+            });
     }
 
     ngOnDestroy(): void {

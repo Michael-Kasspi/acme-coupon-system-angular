@@ -7,6 +7,40 @@
     <img class="avatar" *ngIf="image" [src]="image" alt="avatar">
 </a>
 <mat-menu #profileCircle="matMenu">
+    <div class="profile-details">
+        <div class="profile-details-main">
+            <div class="profile-details-title profile-details--row capitalize">{{account?.fullName}}</div>
+        </div>
+        <div class="profile-details-secondary">
+            <div class="profile-details-icon-subtitle profile-details--row" matTooltip="Email Address"
+                 matTooltipShowDelay="325">
+                <mat-icon color="accent" class="profile-details-icon">email</mat-icon>
+                <div class="profile-details-icon-subtitle">
+                    <div class="profile-details-subtitle">
+                        {{account?.email}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="profile-details-secondary">
+            <div matTooltip="User Type" matTooltipShowDelay="325" class="profile-details-icon-subtitle capitalize">
+                <mat-icon color="accent" class="profile-details-icon">perm_identity</mat-icon>
+                <div class="profile-details-subtitle">
+                    {{account?.user.type}}
+                </div>
+            </div>
+            <div matTooltip="Credits" matTooltipShowDelay="325" *ngIf="account?.credit"
+                 class="profile-details-icon-subtitle">
+                <mat-icon color="accent" class="profile-details-icon">monetization_on</mat-icon>
+                <div class="profile-details-subtitle">
+                    {{account?.credit | number: '1.2-2'}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="user-menu-divider">
+        <mat-divider></mat-divider>
+    </div>
     <a routerLink="/dashboard" mat-menu-item>
         <mat-icon color="accent">account_box</mat-icon>
         <span>Dashboard</span>
@@ -23,6 +57,19 @@
             <a routerLink="/dashboard/customer/credits" mat-menu-item>
                 <mat-icon color="accent">credit_card</mat-icon>
                 <span>Add credits</span>
+            </a>
+        </div>
+        <div *ngSwitchCase="company">
+            <div class="user-menu-divider">
+                <mat-divider></mat-divider>
+            </div>
+            <a routerLink="/dashboard/company/coupons" mat-menu-item>
+                <mat-icon color="accent">chrome_reader_mode</mat-icon>
+                <span>Coupons Manager</span>
+            </a>
+            <a routerLink="/dashboard/company/profile" mat-menu-item>
+                <mat-icon color="accent">perm_identity</mat-icon>
+                <span>Company Profile</span>
             </a>
         </div>
         <div class="user-menu-divider">

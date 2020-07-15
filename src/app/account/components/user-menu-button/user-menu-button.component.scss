@@ -35,3 +35,56 @@ a {
     font-weight: 500;
     font-size: 16px;
 }
+
+.profile-details {
+    padding: 12px 16px 16px 16px;
+}
+
+.profile-details-main {
+    margin-bottom: 16px;
+}
+
+.profile-details-secondary {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+}
+
+.profile-details--row {
+    margin-bottom: 8px;
+}
+
+.profile-details-title {
+    color: mat-color($primary);
+    font-size: 24px;
+    font-weight: normal;
+    letter-spacing: 0;
+}
+
+.profile-details-subtitle {
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 14px;
+}
+
+.profile-details-icon {
+    margin-right: 8px;
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
+    user-select: none;
+}
+
+.profile-details-icon-subtitle {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-details-icon-subtitle:not(:last-child) {
+    margin-right: 8px;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
