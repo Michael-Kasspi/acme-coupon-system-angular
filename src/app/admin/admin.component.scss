@@ -1,10 +1,26 @@
+@import '~@angular/material/theming';
+
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
 a:first-child {
-  margin-left: -4px;
+    margin-left: -4px;
 }
 
 .admin-toolbar {
+    position: relative;
+    z-index: 3;
     display: inline-flex;
     align-items: center;
+}
+
+.mat-toolbar {
+    @include mat-elevation(2);
 }
 
 .admin-nav-button {

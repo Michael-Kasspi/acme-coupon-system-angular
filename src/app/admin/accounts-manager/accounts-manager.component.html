@@ -1,1 +1,29 @@
-<p>accounts-manager works!</p>
+<nav mat-tab-nav-bar>
+    <a mat-tab-link
+       routerLink="all"
+       routerLinkActive
+       #rlaAll="routerLinkActive"
+       [active]="rlaAll.isActive"
+    >
+        All Accounts
+    </a>
+    <a mat-tab-link
+       routerLink="add"
+       routerLinkActive
+       #rlaAdd="routerLinkActive"
+       [active]="rlaAdd.isActive"
+    >
+        Add Account
+    </a>
+    <a mat-tab-link
+       routerLink="edit"
+       routerLinkActive
+       #rlaEdit="routerLinkActive"
+       [active]="rlaEdit.isActive"
+    >
+        Edit Account
+    </a>
+</nav>
+<div class="admin-dashboard-content">
+    <router-outlet></router-outlet>
+</div>
