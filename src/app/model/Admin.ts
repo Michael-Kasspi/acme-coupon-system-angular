@@ -15,6 +15,14 @@ export class Admin extends User {
         }
     }
 
+    get serialize(): Object {
+        return {
+            id: this.id,
+            type: UserType.ADMIN,
+            main: this.main
+        };
+    }
+
     deserialize(input: any): this {
         return Object.assign(this, input);
     }

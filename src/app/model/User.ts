@@ -7,6 +7,8 @@ export abstract class User implements Deserializable {
 
     abstract deserialize(input: any): this;
 
+    abstract get serialize(): Object;
+
     get type(): UserType {
         return this._type;
     }

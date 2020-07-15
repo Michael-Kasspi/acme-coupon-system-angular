@@ -11,12 +11,23 @@ export class Customer extends User {
 
     constructor(input?: any) {
         super(UserType.CUSTOMER);
-        if (input != null) { this.deserialize(input); }
+        if (input != null) {
+            this.deserialize(input);
+        }
     }
 
     deserialize(input: any): this {
         Object.assign(this, input);
         return this;
+    }
+
+    get serialize(): Object {
+        return {
+            id: this.id,
+            coupons: this.coupons,
+            cart: this.cart,
+            wishlist: this.wishlist
+        };
     }
 
     get id(): number {
