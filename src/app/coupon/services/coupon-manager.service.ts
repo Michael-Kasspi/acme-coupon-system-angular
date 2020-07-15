@@ -174,6 +174,18 @@ export class CouponManagerService {
             }));
     }
 
+    public getWarningDialog() {
+        return this.dialog
+            .open(WarningDialogComponent, {
+                data: {
+                    title: 'Confirm discard changes',
+                    body: 'Do you wish to discard changes?',
+                    action: 'Discard'
+                }
+            })
+            .afterClosed();
+    }
+
     private _uploadImage(lastAddedCoupon: Coupon, image: File, subscriber) {
         this.uploadImage(lastAddedCoupon, image, true).subscribe(coupon => {
             lastAddedCoupon.imageUrl = coupon.imageUrl;
