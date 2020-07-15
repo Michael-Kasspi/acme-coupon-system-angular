@@ -1,11 +1,12 @@
 import {User} from './User';
-import {Serializable} from './Serializable';
 import {Deserializable} from './Deserializable';
 import {UserFactory} from './UserFactory';
 
-export class Account implements Serializable, Deserializable {
+export class Account implements Deserializable {
+
     private _id: number = 0;
     private _email: string = null;
+    private _password: string = null;
     private _firstName: string = null;
     private _lastName: string = null;
     private _credit: number = 0;
@@ -29,14 +30,15 @@ export class Account implements Serializable, Deserializable {
         return this;
     }
 
-    serialize(): Object {
+    get serialize(): Object {
         return {
             id: this.id,
             email: this.email,
+            password: this.password,
             firstName: this.firstName,
             lastName: this.lastName,
             credit: this.credit,
-            user: this.user,
+            user: this.user.serialize,
         };
     }
 
@@ -106,5 +108,13 @@ export class Account implements Serializable, Deserializable {
 
     set profilePicturePreview(value: string) {
         this._profilePicturePreview = value;
+    }
+
+    get password(): string {
+        return this._password;
+    }
+
+    set password(value: string) {
+        this._password = value;
     }
 }
