@@ -21,8 +21,8 @@ export class AllAccountsComponent implements OnInit {
     displayedColumns: string[] = [
         'profile',
         'email',
-        'lastName',
         'firstName',
+        'lastName',
         'userType',
         'credits',
     ];
