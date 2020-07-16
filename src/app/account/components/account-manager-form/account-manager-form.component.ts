@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {UserType} from '../../../model/UserType';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Account} from '../../../model/Account';
@@ -12,7 +12,7 @@ import {EmailValidatorPublicService} from '../../validators/email-validator-publ
     templateUrl: './account-manager-form.component.html',
     styleUrls: ['./account-manager-form.component.scss']
 })
-export class AccountManagerFormComponent implements OnInit {
+export class AccountManagerFormComponent implements OnInit, OnDestroy {
 
     public readonly PASSWORD_MIN_CHAR: number = 4;
     public readonly PASSWORD_MAX_CHAR: number = 25;
@@ -53,6 +53,10 @@ export class AccountManagerFormComponent implements OnInit {
 
     ngOnInit(): void {
         this.initForm();
+    }
+
+    ngOnDestroy(): void {
+        this.emailValidator.currentEmail = null;
     }
 
     public onActionClick(): void {
