@@ -132,6 +132,7 @@ export class AccountFormComponent implements OnInit, AfterViewInit {
     }
 
     setCredentials(): void {
+        this.isNewPassword = false;
         this.credentials.reset({
             email: this.account.email,
             currentPassword: '',
@@ -197,7 +198,6 @@ export class AccountFormComponent implements OnInit, AfterViewInit {
     }
 
     toggleNewPassword() {
-
         this.isNewPassword = !this.isNewPassword;
 
         if (this.credentials.contains(this.NEW_PASSWORD)) {
