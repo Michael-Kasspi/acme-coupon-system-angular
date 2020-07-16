@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Account} from '../../../model/Account';
 import {AccountManagerService} from '../../services/account-manager.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {finalize} from 'rxjs/operators';
+import {AccountManagerFormComponent} from '../../../account/components/account-manager-form/account-manager-form.component';
 import {TitleService} from '../../../title/title.service';
 
 @Component({
@@ -10,13 +12,16 @@ import {TitleService} from '../../../title/title.service';
     styleUrls: ['./add-account.component.scss']
 })
 export class AddAccountComponent implements OnInit {
+
     public userTypes: string[] = null;
+
+    @ViewChild(AccountManagerFormComponent)
+    private accountFormComponent: AccountManagerFormComponent;
 
     constructor(
         private activatedRoute: ActivatedRoute,
         private accountManager: AccountManagerService,
         private accountManagerService: AccountManagerService,
-        private router: Router
         private router: Router,
         private titleService: TitleService
     ) {
@@ -29,8 +34,10 @@ export class AddAccountComponent implements OnInit {
     }
 
     public save(account: Account) {
-        this.accountManager.save$(account).subscribe(account => {
-            this.router.navigate([`../edit/${account.id}`], {relativeTo: this.activatedRoute});
-        });
+        this.accountFormComponent.processing = true;
+        this.accountManager.save$(account).pipe(finalize(() => this.accountFormComponent.processing = false))
+            .subscribe(account => {
+                this.router.navigate([`../edit/${account.id}`], {relativeTo: this.activatedRoute});
+            });
     }
 }
