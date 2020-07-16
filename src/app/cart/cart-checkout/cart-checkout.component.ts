@@ -8,6 +8,8 @@ import {finalize} from 'rxjs/operators';
 import {EndpointService} from '../../endpoint/endpoint.service';
 import {TitleService} from '../../title/title.service';
 import {CartService} from '../services/cart.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {AccountDetailsService} from '../../account/services/account-details.service';
 
 
 @Component({
@@ -30,12 +32,14 @@ export class CartCheckoutComponent implements OnInit, AfterViewInit {
     purchasing: boolean = false;
 
     constructor(
-        public titleService: TitleService,
-        public cartService: CartService,
-        public activatedRoute: ActivatedRoute,
         public endpoint: EndpointService,
-        public progressBarService: ManualProgressBarService,
-        public router: Router
+        private titleService: TitleService,
+        private cartService: CartService,
+        private activatedRoute: ActivatedRoute,
+        private progressBarService: ManualProgressBarService,
+        private router: Router,
+        private snackBar: MatSnackBar,
+        private accountDetilasService: AccountDetailsService
     ) {
     }
 
@@ -69,7 +73,9 @@ export class CartCheckoutComponent implements OnInit, AfterViewInit {
                 this.progressBarService.status = false;
                 this.purchasing = false;
             }))
-            .subscribe(_ => {
+            .subscribe((account: Account) => {
+                this.accountDetilasService.account = account;
+                this.snackBar.open('The coupons have been purchased successfully');
                 this.purchased = true;
             });
     }

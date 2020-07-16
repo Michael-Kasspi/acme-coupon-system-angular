@@ -7,6 +7,7 @@ import {Coupon} from '../../model/Coupon';
 import {Observable, Subject} from 'rxjs';
 import {UserType} from '../../model/UserType';
 import {finalize, first, merge, startWith} from 'rxjs/operators';
+import {Account} from '../../model/Account';
 
 @Injectable({
     providedIn: 'root'
@@ -195,7 +196,7 @@ export class CartService {
      * The cart must contain at least one coupon to complete the checkout.
      * The cart is cleared after the checkout is successful.
      */
-    public checkout$(): Observable<Coupon[]> {
+    public checkout$(): Observable<Account> {
         return new Observable(subscriber => {
             this.sessionService.userType$()
                 .pipe(first())
@@ -212,11 +213,12 @@ export class CartService {
                         return;
                     }
                     this.customerService.purchaseCoupons(this._coupons)
-                        .subscribe((coupons: Coupon[]) => {
+                        .subscribe((account: Account) => {
+                            const purchasedCoupons = this._coupons.slice(0);
                             this._coupons.length = 0;
                             this._notifyCouponListeners();
-                            this._cartEvents$.next(new CartEventCheckout(coupons));
-                            subscriber.next(coupons);
+                            this._cartEvents$.next(new CartEventCheckout(purchasedCoupons));
+                            subscriber.next(account);
                             subscriber.complete();
                         });
                 });

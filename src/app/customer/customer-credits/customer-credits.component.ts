@@ -7,6 +7,7 @@ import {finalize} from 'rxjs/operators';
 import {ManualProgressBarService} from '../../progress-bar/manual-progress-bar.service';
 import {TitleService} from '../../title/title.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {AccountDetailsService} from '../../account/services/account-details.service';
 
 @Component({
     selector: 'app-customer-credits',
@@ -30,7 +31,8 @@ export class CustomerCreditsComponent implements OnInit {
         private customerService: CustomerService,
         private progressBar: ManualProgressBarService,
         private titleService: TitleService,
-        private snackBar: MatSnackBar
+        private snackBar: MatSnackBar,
+        private accountDetailsService: AccountDetailsService
     ) {
     }
 
@@ -55,6 +57,7 @@ export class CustomerCreditsComponent implements OnInit {
                 this.purchasing = false;
             }))
             .subscribe((account: Account) => {
+                this.accountDetailsService.account = account;
                 this.balance = account.credit;
                 this.snackBar.open(`${amount} credits have been added to the account`);
                 this.creditsField.reset('');

@@ -22,7 +22,7 @@ export class CustomerService {
             `${this.endpoint.url}customer/cart/${couponId}`,
             null,
             {withCredentials: true}
-        ).pipe(map(coupon => new Coupon(coupon)))
+        ).pipe(map(coupon => new Coupon(coupon)));
     }
 
     addCouponToWishlist(couponId: number): Observable<any> {
@@ -47,14 +47,14 @@ export class CustomerService {
         );
     }
 
-    purchaseCoupons(coupons: Coupon[]): Observable<Coupon[]> {
+    purchaseCoupons(coupons: Coupon[]): Observable<Account> {
         let couponsSerialized = coupons.map(coupon => coupon.serialize());
         return this.client.post(
             `${this.endpoint.url}customer/coupons/`,
             couponsSerialized,
             {withCredentials: true}
         ).pipe(
-            map((coupons: any[]) => coupons.map(coupon => new Coupon(coupon)))
+            map(account => new Account(account))
         );
     }
 
