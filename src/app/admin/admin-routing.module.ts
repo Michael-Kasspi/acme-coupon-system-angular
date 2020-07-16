@@ -6,11 +6,8 @@ import {AdminGuard} from './guards/admin.guard';
 
 const routes: Routes = [{
     path: '', canActivate: [AdminGuard], component: AdminComponent, children: [
-        {path: '', pathMatch: 'full', redirectTo: 'companies'},
+        {path: '', pathMatch: 'full', redirectTo: 'accounts'},
         {
-            path: 'companies',
-            loadChildren: () => import('./company-manager/company-manager.module').then(m => m.CompanyManagerModule)
-        }, {
             path: 'accounts',
             loadChildren: () => import('./accounts-manager/accounts-manager.module').then(m => m.AccountsManagerModule)
         },
