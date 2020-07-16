@@ -3,6 +3,7 @@ import {Account} from '../../../model/Account';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AccountManagerService} from '../../services/account-manager.service';
 import {AccountManagerFormComponent} from '../../../account/components/account-manager-form/account-manager-form.component';
+import {finalize} from 'rxjs/operators';
 import {TitleService} from '../../../title/title.service';
 
 @Component({
@@ -21,7 +22,7 @@ export class EditAccountComponent implements OnInit {
     constructor(
         private activatedRoute: ActivatedRoute,
         private accountManagerService: AccountManagerService,
-        private router: Router
+        private router: Router,
         private titleService: TitleService
     ) {
     }
@@ -52,9 +53,12 @@ export class EditAccountComponent implements OnInit {
             if (!proceed) {
                 return;
             }
-            this.accountManagerService.delete$(account.id).subscribe(account => {
-                this.router.navigate(['../../all'], {relativeTo: this.activatedRoute});
-            });
+            this.accountFormComponent.processing = true;
+            this.accountManagerService.delete$(account.id)
+                .pipe(finalize(() => this.accountFormComponent.processing = false))
+                .subscribe(account => {
+                    this.router.navigate(['../../all'], {relativeTo: this.activatedRoute});
+                });
         });
     }
 }
