@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Account} from '../../../model/Account';
 import {AccountManagerService} from '../../services/account-manager.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {TitleService} from '../../../title/title.service';
 
 @Component({
     selector: 'app-add-account',
@@ -16,10 +17,13 @@ export class AddAccountComponent implements OnInit {
         private accountManager: AccountManagerService,
         private accountManagerService: AccountManagerService,
         private router: Router
+        private router: Router,
+        private titleService: TitleService
     ) {
     }
 
     ngOnInit(): void {
+        this.titleService.append('Add Account | Dashboard');
         this.accountManagerService.getAvailableUserTypes$()
             .subscribe(userTypes => this.userTypes = userTypes);
     }

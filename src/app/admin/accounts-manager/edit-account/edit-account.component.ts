@@ -3,6 +3,7 @@ import {Account} from '../../../model/Account';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AccountManagerService} from '../../services/account-manager.service';
 import {AccountManagerFormComponent} from '../../../account/components/account-manager-form/account-manager-form.component';
+import {TitleService} from '../../../title/title.service';
 
 @Component({
     selector: 'app-edit-account',
@@ -21,12 +22,17 @@ export class EditAccountComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private accountManagerService: AccountManagerService,
         private router: Router
+        private titleService: TitleService
     ) {
     }
 
     ngOnInit(): void {
+        this.titleService.append('Edit Account | Dashboard');
         this.activatedRoute.data.subscribe((data: { account: Account }) => {
             this.account = data.account;
+            if (this.account && this.account.fullName) {
+                this.titleService.append(`Edit Account: ${this.account.fullName} | Dashboard`);
+            }
         });
 
         this.accountManagerService.getAvailableUserTypes$()

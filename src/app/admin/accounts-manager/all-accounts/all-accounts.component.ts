@@ -7,6 +7,7 @@ import {UserType} from '../../../model/UserType';
 import {Admin} from '../../../model/Admin';
 import {AccountManagerService} from '../../services/account-manager.service';
 import {MatTable} from '@angular/material/table';
+import {TitleService} from '../../../title/title.service';
 
 @Component({
     selector: 'app-all-accounts',
@@ -33,11 +34,13 @@ export class AllAccountsComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private endpoint: EndpointService,
         private accountDetailsService: AccountDetailsService,
-        private accountManagerService: AccountManagerService
+        private accountManagerService: AccountManagerService,
+        private titleService: TitleService
     ) {
     }
 
     ngOnInit(): void {
+        this.titleService.append('All Accounts | Dashboard');
         this.activatedRoute.data.subscribe((data: { accounts: Account[] }) => {
             this.removeUserAccount(data.accounts);
             this.removeAdminIfNotMain(data.accounts);
