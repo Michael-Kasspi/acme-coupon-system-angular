@@ -37,7 +37,7 @@ export class AccountManagerFormComponent implements OnInit {
     public showPassword: boolean = false;
     public userType: string = null;
 
-    @Input() private account: Account = new Account();
+    @Input() public account: Account = new Account();
     public accountForm: FormGroup = null;
     public companyForm: FormGroup = null;
     public adminForm: FormGroup = null;
