@@ -46,7 +46,7 @@
         <span>Dashboard</span>
     </a>
     <div [ngSwitch]="userType">
-        <div *ngSwitchCase="customer">
+        <div *ngSwitchCase="CUSTOMER">
             <div class="user-menu-divider">
                 <mat-divider></mat-divider>
             </div>
@@ -59,7 +59,7 @@
                 <span>Add credits</span>
             </a>
         </div>
-        <div *ngSwitchCase="company">
+        <div *ngSwitchCase="COMPANY">
             <div class="user-menu-divider">
                 <mat-divider></mat-divider>
             </div>
@@ -70,6 +70,19 @@
             <a routerLink="/dashboard/company/profile" mat-menu-item>
                 <mat-icon color="accent">perm_identity</mat-icon>
                 <span>Company Profile</span>
+            </a>
+        </div>
+        <div *ngSwitchCase="ADMIN">
+            <div class="user-menu-divider">
+                <mat-divider></mat-divider>
+            </div>
+            <a routerLink="/dashboard/admin/accounts" mat-menu-item>
+                <mat-icon color="accent">perm_identity</mat-icon>
+                <span>Manage Accounts</span>
+            </a>
+            <a routerLink="/dashboard/admin/coupons" mat-menu-item>
+                <mat-icon color="accent">chrome_reader_mode</mat-icon>
+                <span>Manage Coupons</span>
             </a>
         </div>
         <div class="user-menu-divider">

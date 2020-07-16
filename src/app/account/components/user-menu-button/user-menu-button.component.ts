@@ -14,8 +14,9 @@ import {Account} from '../../../model/Account';
 })
 export class UserMenuButtonComponent implements OnInit, OnDestroy {
 
-    customer: string = UserType.CUSTOMER;
-    company: string = UserType.COMPANY;
+    public readonly CUSTOMER: string = UserType.CUSTOMER;
+    public readonly COMPANY: string = UserType.COMPANY;
+    public readonly ADMIN: string = UserType.ADMIN;
 
     @Input()
     image: string = null;
