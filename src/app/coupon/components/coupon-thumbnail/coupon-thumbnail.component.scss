@@ -68,6 +68,13 @@ mat-chip > mat-icon {
     object-fit: cover;
 }
 
+.company-logo__placeholder {
+    font-size: 40px;
+    height: 40px;
+    width: 40px;
+    user-select: none;
+}
+
 .coupon-actions__buttons {
     width: 100%;
 }

@@ -24,10 +24,19 @@
                     [routerLink]="couponService.companyProfileUrl"
                     matRipple>
                     <img
+                        *ngIf="couponService.companyLogoUrl"
                         [title]="couponService.companyName"
                         class="company-logo__image"
                         [src]="couponService.companyLogoUrl"
                         [alt]="couponService.companyName">
+                    <mat-icon
+                        inline
+                        *ngIf="!couponService.companyLogoUrl"
+                        class="company-logo__placeholder"
+                        color="accent">
+                        account_circle
+                    </mat-icon>
+
                 </a>
                 <div>
                     <p class="company-name text-hover-link text-truncate"

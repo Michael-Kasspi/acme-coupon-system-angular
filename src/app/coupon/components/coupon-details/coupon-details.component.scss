@@ -99,6 +99,13 @@ h5, p {
     object-fit: cover;
 }
 
+.company-logo__placeholder {
+    font-size: 50px;
+    height: 50px;
+    width: 50px;
+    user-select: none;
+}
+
 .text-hover-link:hover {
     cursor: pointer;
     text-decoration: underline;

@@ -62,11 +62,18 @@
             matRipple
             mat-card-avatar
             class="company-logo">
-            <img
+            <img *ngIf="couponService.companyLogoUrl"
                 [title]="couponService.companyName"
                 class="company-logo__image"
                 [src]="couponService.companyLogoUrl"
                 [alt]="couponService.companyName">
+            <mat-icon
+                inline
+                *ngIf="!couponService.companyLogoUrl"
+                class="company-logo__placeholder"
+                color="accent">
+                account_circle
+            </mat-icon>
         </a>
         <mat-card-title
             [title]="couponService.couponTitle"
