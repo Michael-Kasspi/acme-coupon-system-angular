@@ -26,7 +26,7 @@
             <div matTooltip="User Type" matTooltipShowDelay="325" class="profile-details-icon-subtitle capitalize">
                 <mat-icon color="accent" class="profile-details-icon">perm_identity</mat-icon>
                 <div class="profile-details-subtitle">
-                    {{account?.user.type}}
+                    {{account?.user?.type}}
                 </div>
             </div>
             <div matTooltip="Credits" matTooltipShowDelay="325" *ngIf="account?.credit"

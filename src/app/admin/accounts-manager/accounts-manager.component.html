@@ -15,10 +15,12 @@
     >
         Add Account
     </a>
+    <span routerLink="edit"
+          routerLinkActive
+          #rlaEdit="routerLinkActive"></span>
     <a mat-tab-link
        routerLink="edit"
-       routerLinkActive
-       #rlaEdit="routerLinkActive"
+       *ngIf="rlaEdit.isActive"
        [active]="rlaEdit.isActive"
     >
         Edit Account

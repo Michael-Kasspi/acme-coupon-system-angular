@@ -7,10 +7,15 @@
                    #firstNameInput
                    required
                    placeholder="E.g. John"
-                   [min]="NAME_MIN_CHAR"
-                   [max]="NAME_MAX_CHAR"
+                   [minlength]="NAME_MIN_CHAR"
+                   [maxlength]="NAME_MAX_CHAR"
                    type="text">
             <mat-hint>Minimum {{NAME_MIN_CHAR}} characters</mat-hint>
+            <mat-error *ngIf="firstName?.errors">
+                <span *ngIf="firstName.errors?.minlength">Must be at least {{NAME_MIN_CHAR}} characters</span>
+                <span *ngIf="firstName.errors?.maxlength">Must be at up to {{NAME_MAX_CHAR}} characters</span>
+                <span *ngIf="firstName.errors?.required">This field is required</span>
+            </mat-error>
             <mat-hint align="end">{{firstNameInput.value.length || 0}}/{{NAME_MAX_CHAR}}</mat-hint>
         </mat-form-field>
         <mat-form-field appearance="fill">
@@ -20,11 +25,16 @@
                    #lastNameInput
                    required
                    placeholder="E.g. Smith"
-                   [min]="NAME_MIN_CHAR"
-                   [max]="NAME_MAX_CHAR"
+                   [minlength]="NAME_MIN_CHAR"
+                   [maxlength]="NAME_MAX_CHAR"
                    type="text">
             <mat-hint>Minimum {{NAME_MIN_CHAR}} characters</mat-hint>
             <mat-hint align="end">{{lastNameInput.value.length || 0}}/{{NAME_MAX_CHAR}}</mat-hint>
+            <mat-error *ngIf="lastName?.errors">
+                <span *ngIf="lastName.errors?.minlength">Must be at least {{NAME_MIN_CHAR}} characters</span>
+                <span *ngIf="lastName.errors?.maxlength">Must be at up to {{NAME_MAX_CHAR}} characters</span>
+                <span *ngIf="lastName.errors?.required">This field is required</span>
+            </mat-error>
         </mat-form-field>
         <div class="divider">
             <mat-divider></mat-divider>
@@ -39,6 +49,10 @@
                    placeholder="example@mail.com"
                    type="email">
             <mat-hint>Enter the email address</mat-hint>
+            <mat-error *ngIf="email?.errors">
+                <span *ngIf="email.errors?.required">This field is required</span>
+                <span *ngIf="email.errors?.email">The email address is invalid</span>
+            </mat-error>
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Password</mat-label>
@@ -46,9 +60,9 @@
                    formControlName="password"
                    #passwordInput
                    placeholder="Strong password"
-                   required
-                   [min]="PASSWORD_MIN_CHAR"
-                   [max]="PASSWORD_MAX_CHAR"
+                   [required]="!account?.id"
+                   [minlength]="PASSWORD_MIN_CHAR"
+                   [maxlength]="PASSWORD_MAX_CHAR"
                    [type]="showPassword ? 'text' : 'password'">
             <button mat-icon-button
                     color="accent"
@@ -59,6 +73,11 @@
             </button>
             <mat-hint>Minimum {{PASSWORD_MIN_CHAR}} characters</mat-hint>
             <mat-hint align="end">{{passwordInput?.value?.length || 0}}/{{PASSWORD_MAX_CHAR}}</mat-hint>
+            <mat-error *ngIf="password?.errors">
+                <span *ngIf="password.errors?.minlength">Must be at least {{PASSWORD_MIN_CHAR}} characters</span>
+                <span *ngIf="password.errors?.maxlength">Must be at up to {{PASSWORD_MAX_CHAR}} characters</span>
+                <span *ngIf="password.errors?.required">This field is required</span>
+            </mat-error>
         </mat-form-field>
         <div class="divider">
             <mat-divider></mat-divider>
@@ -67,12 +86,12 @@
     <section>
         <mat-form-field appearance="fill">
             <mat-label>User Type</mat-label>
-            <mat-select (selectionChange)="onUserSelect($event)" required [value]="userType">
-                <mat-option *ngFor="let user of USER_TYPES" [value]="user">
+            <mat-select formControlName="userType" (selectionChange)="onUserSelect($event)" required [value]="userType">
+                <mat-option *ngFor="let user of userTypes" [value]="user">
                     <span class="capitalize">{{user}}</span>
                 </mat-option>
             </mat-select>
-            <mat-hint>Select the user type</mat-hint>
+            <mat-hint>{{!!account?.user?.id ? 'The user\'s type' : 'Select the user type'}}</mat-hint>
         </mat-form-field>
         <div class="divider">
             <mat-divider></mat-divider>
@@ -81,7 +100,7 @@
     <div [ngSwitch]="userType">
         <section *ngSwitchCase="ADMIN">
             <form [formGroup]="adminForm">
-                <mat-slide-toggle formControlName="main" color="primary" class="toggle-slide"><span
+                <mat-slide-toggle (change)="main.markAsTouched()" formControlName="main" color="primary" class="toggle-slide"><span
                     class="toggle-slide__text">MAIN ADMIN</span>
                 </mat-slide-toggle>
             </form>
@@ -99,12 +118,18 @@
                                #companyNameInput
                                required
                                placeholder="E.g. Acme Inc."
-                               [min]="COMPANY_NAME_MIN_CHAR"
-                               [max]="COMPANY_NAME_MAX_CHAR"
+                               [minlength]="COMPANY_NAME_MIN_CHAR"
+                               [maxlength]="COMPANY_NAME_MAX_CHAR"
                                type="text">
                         <mat-hint>Minimum {{NAME_MIN_CHAR}} characters</mat-hint>
-                        <mat-hint align="end">{{companyNameInput.value.length || 0}}
-                            /{{COMPANY_NAME_MAX_CHAR}}</mat-hint>
+                        <mat-hint align="end">
+                            {{companyNameInput.value.length || 0}}/{{COMPANY_NAME_MAX_CHAR}}
+                        </mat-hint>
+                        <mat-error *ngIf="name?.errors">
+                            <span *ngIf="name.errors?.minlength">Must be at least {{COMPANY_NAME_MIN_CHAR}} characters</span>
+                            <span *ngIf="name.errors?.maxlength">Must be at up to {{COMPANY_NAME_MAX_CHAR}} characters</span>
+                            <span *ngIf="name.errors?.required">This field is required</span>
+                        </mat-error>
                     </mat-form-field>
                 </div>
                 <div>
@@ -128,13 +153,22 @@
         </section>
         <div class="form-actions">
             <div class="form-actions__start">
-                <button type="button" (click)="onActionClick()" mat-flat-button color="primary">
-                    {{actionText || (MODE === 'add' ? 'SAVE' : 'UPDATE')}}
+                <button mat-flat-button
+                        [disabled]="accountForm.invalid || accountForm.pristine"
+                        type="button"
+                        (click)="onActionClick()"
+                        color="primary">
+                    {{actionText || (mode === MODE_ADD ? 'SAVE' : 'UPDATE')}}
                 </button>
-                <button type="button" mat-button>RESET</button>
+                <button mat-button
+                        [disabled]="(mode === MODE_ADD ? accountForm.untouched : accountForm.pristine)"
+                        type="button"
+                        (click)="reset()">
+                    {{(mode === MODE_ADD ? 'RESET' : 'REVERT')}}
+                </button>
             </div>
             <div class="form-actions__end">
-                <button type="button" *ngIf="MODE === MODE_UPDATE" (click)="deleteEvent.emit()" mat-flat-button
+                <button type="button" *ngIf="mode === MODE_EDIT" (click)="deleteEvent.emit(account)" mat-flat-button
                         color="warn">DELETE
                 </button>
             </div>

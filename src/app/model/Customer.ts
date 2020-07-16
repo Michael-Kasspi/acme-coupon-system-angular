@@ -24,6 +24,7 @@ export class Customer extends User {
     get serialize(): Object {
         return {
             id: this.id,
+            type: UserType.CUSTOMER,
             coupons: this.coupons,
             cart: this.cart,
             wishlist: this.wishlist

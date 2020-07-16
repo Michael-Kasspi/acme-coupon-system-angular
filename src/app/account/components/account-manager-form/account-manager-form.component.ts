@@ -3,6 +3,8 @@ import {UserType} from '../../../model/UserType';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Account} from '../../../model/Account';
 import {MatSelectChange} from '@angular/material/select';
+import {Company} from '../../../model/Company';
+import {Admin} from '../../../model/Admin';
 
 @Component({
     selector: 'app-account-manager-form',
@@ -19,14 +21,14 @@ export class AccountManagerFormComponent implements OnInit {
     public readonly COMPANY_NAME_MAX_CHAR: number = 50;
     public readonly COMPANY_DESC_MAX_CHAR: number = 250;
 
-    @Input() public readonly USER_TYPES: string[] = [UserType.ADMIN, UserType.COMPANY, UserType.CUSTOMER];
+    @Input() public readonly userTypes: string[] = [UserType.ADMIN, UserType.COMPANY, UserType.CUSTOMER];
 
     public readonly MODE_ADD: string = 'add';
-    public readonly MODE_UPDATE: string = 'update';
+    public readonly MODE_EDIT: string = 'edit';
     public readonly MODE_DEFAULT: string = this.MODE_ADD;
 
-    @Input() public readonly MODE: string = this.MODE_DEFAULT;
-    @Input() public readonly actionText: string = null;
+    @Input() public mode: string = this.MODE_DEFAULT;
+    @Input() public actionText: string = null;
 
     public readonly ADMIN: string = UserType.ADMIN;
     public readonly COMPANY: string = UserType.COMPANY;
@@ -40,7 +42,7 @@ export class AccountManagerFormComponent implements OnInit {
     public companyForm: FormGroup = null;
     public adminForm: FormGroup = null;
 
-    @Output() public deleteEvent: EventEmitter<any> = new EventEmitter();
+    @Output() public deleteEvent: EventEmitter<Account> = new EventEmitter();
     @Output() private saveEvent: EventEmitter<Account> = new EventEmitter();
     @Output() private updateEvent: EventEmitter<Account> = new EventEmitter();
 
@@ -51,42 +53,11 @@ export class AccountManagerFormComponent implements OnInit {
         this.initForm();
     }
 
-    public initForm(): void {
-        this.accountForm = new FormGroup({
-            'firstName': new FormControl('',
-                [
-                    Validators.required,
-                    Validators.min(this.NAME_MIN_CHAR),
-                    Validators.max(this.NAME_MAX_CHAR),
-                ]
-            ),
-            'lastName': new FormControl('',
-                [
-                    Validators.required,
-                    Validators.min(this.NAME_MIN_CHAR),
-                    Validators.max(this.NAME_MAX_CHAR),
-                ]
-            ),
-            'email': new FormControl('',
-                [
-                    Validators.required,
-                    Validators.email
-                ]
-            ),
-            'password': new FormControl('',
-                [
-                    Validators.required,
-                    Validators.min(this.PASSWORD_MIN_CHAR),
-                    Validators.max(this.PASSWORD_MAX_CHAR),
-                ]
-            ),
-            'user': new FormGroup({}),
-        });
-    }
-
     public onActionClick(): void {
         const account = new Account(this.accountForm.value);
-        if (this.MODE === this.MODE_ADD) {
+        account.id = this.account.id;
+
+        if (this.mode === this.MODE_ADD) {
             this.saveEvent.emit(account);
         } else {
             this.updateEvent.emit(account);
@@ -94,9 +65,101 @@ export class AccountManagerFormComponent implements OnInit {
     }
 
     public onUserSelect(selectChange: MatSelectChange) {
-        const userType = selectChange.value;
+        this.selectUser(selectChange.value);
+    }
+
+    public get firstName(): AbstractControl {
+        return this.accountForm.get('firstName');
+    }
+
+    public get lastName(): AbstractControl {
+        return this.accountForm.get('lastName');
+    }
+
+    public get email(): AbstractControl {
+        return this.accountForm.get('email');
+    }
+
+    public get password(): AbstractControl {
+        return this.accountForm.get('password');
+    }
+
+    public get main(): AbstractControl {
+        return this.adminForm.get('main');
+    }
+
+    public get name(): AbstractControl {
+        return this.companyForm.get('name');
+    }
+
+    public get description(): AbstractControl {
+        return this.companyForm.get('description');
+    }
+
+    public get userTypeControl(): AbstractControl {
+        return this.accountForm.get('userType');
+    }
+
+    public reset() {
+        this.initForm();
+        this.userType = this.userTypeControl.value;
+    }
+
+    private initForm() {
+        this.initAccountForm();
+        if (this.account && this.account.user) {
+            this.selectUser(this.account.user.type);
+        }
+    }
+
+    private selectUser(userType) {
         this.accountForm.setControl('user', this.getUserControls(userType));
         this.userType = userType;
+    }
+
+    private initAccountForm(): void {
+        this.accountForm = new FormGroup({
+            'firstName': new FormControl(this?.account?.firstName || '',
+                [
+                    Validators.required,
+                    Validators.minLength(this.NAME_MIN_CHAR),
+                    Validators.maxLength(this.NAME_MAX_CHAR),
+                ]
+            ),
+            'lastName': new FormControl(this?.account?.lastName || '',
+                [
+                    Validators.required,
+                    Validators.minLength(this.NAME_MIN_CHAR),
+                    Validators.maxLength(this.NAME_MAX_CHAR),
+                ]
+            ),
+            'email': new FormControl(this?.account?.email || '',
+                [
+                    Validators.required,
+                    Validators.email
+                ]
+            ),
+            'password': new FormControl(this?.account?.password || '',
+                this.getPasswordValidators()
+            ),
+            'userType': new FormControl({
+                    value: this?.account?.user?.type || '',
+                    disabled: !!this?.account?.user?.id
+                },
+                [Validators.required]
+            ),
+        });
+    }
+
+    private getPasswordValidators() {
+        const validatorFns = [
+            Validators.minLength(this.PASSWORD_MIN_CHAR),
+            Validators.maxLength(this.PASSWORD_MAX_CHAR),
+        ];
+        if (!this?.account?.id) {
+            validatorFns.push(Validators.required);
+        }
+        return validatorFns;
     }
 
     private getUserControls(userType) {
@@ -106,15 +169,15 @@ export class AccountManagerFormComponent implements OnInit {
             case this.COMPANY:
                 return this.companyForm = this.companyControls;
             case this.CUSTOMER:
-                return AccountManagerFormComponent.getTypeControl(this.CUSTOMER);
+                return this.customerControls;
         }
     }
 
     private get adminControls(): FormGroup {
         return new FormGroup({
             'type': AccountManagerFormComponent.getTypeControl(this.ADMIN),
-            'main': new FormControl('',
-                [Validators.max(this.COMPANY_DESC_MAX_CHAR)]
+            'main': new FormControl((this?.account?.user as Admin)?.main || false,
+                [Validators.maxLength(this.COMPANY_DESC_MAX_CHAR)]
             ),
         });
     }
@@ -122,16 +185,22 @@ export class AccountManagerFormComponent implements OnInit {
     private get companyControls(): FormGroup {
         return new FormGroup({
             'type': AccountManagerFormComponent.getTypeControl(this.COMPANY),
-            'name': new FormControl('',
+            'name': new FormControl((this?.account?.user as Company)?.name || '',
                 [
                     Validators.required,
-                    Validators.min(this.COMPANY_NAME_MIN_CHAR),
-                    Validators.max(this.COMPANY_NAME_MAX_CHAR),
+                    Validators.minLength(this.COMPANY_NAME_MIN_CHAR),
+                    Validators.maxLength(this.COMPANY_NAME_MAX_CHAR),
                 ]
             ),
-            'description': new FormControl('',
-                [Validators.max(this.COMPANY_DESC_MAX_CHAR)]
+            'description': new FormControl((this?.account?.user as Company)?.description || '',
+                [Validators.maxLength(this.COMPANY_DESC_MAX_CHAR)]
             ),
+        });
+    }
+
+    private get customerControls(): FormGroup {
+        return new FormGroup({
+            'type': AccountManagerFormComponent.getTypeControl(this.CUSTOMER),
         });
     }
 

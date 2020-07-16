@@ -148,4 +148,36 @@ export class AdminService implements CouponRestService {
             {withCredentials: true}
         ).pipe(map(account => new Account(account)));
     }
+
+    getAccount(id: number): Observable<Account> {
+        if (!id || isNaN(id)) {
+            throw new Error('Unable to get account without Id');
+        }
+
+        return this.client.get<Account>(
+            `${this.endpoint.url}admin/accounts/${id}`,
+            {withCredentials: true}
+        ).pipe(map(account => new Account(account)));
+    }
+
+    updateAccount(account: Account): Observable<Account> {
+        if (!account || !account.id) {
+            throw new Error('Unable to update account without Account or Id');
+        }
+        return this.client.put<Account>(
+            `${this.endpoint.url}admin/accounts/`,
+            account.serialize,
+            {withCredentials: true}
+        ).pipe(map(account => new Account(account)));
+    }
+
+    deleteAccount(id: number): Observable<any> {
+        if (!id || isNaN(id)) {
+            throw new Error('Unable to delete account without Id');
+        }
+        return this.client.delete<Account>(
+            `${this.endpoint.url}admin/accounts/${id}`,
+            {withCredentials: true}
+        ).pipe(map(account => new Account(account)));
+    }
 }

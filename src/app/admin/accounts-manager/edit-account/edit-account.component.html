@@ -1,1 +1,14 @@
-<p>edit-account works!</p>
+<mat-card *ngIf="account else errorMessage" class="account-form">
+    <app-account-manager-form
+        [account]="account"
+        [userTypes]="userTypes"
+        mode="edit"
+        (deleteEvent)="delete($event)"
+        (updateEvent)="update($event)">
+    </app-account-manager-form>
+</mat-card>
+<ng-template #errorMessage>
+    <mat-card class="error-card">
+        There was an error loading the account.
+    </mat-card>
+</ng-template>

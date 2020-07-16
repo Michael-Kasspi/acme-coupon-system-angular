@@ -6,7 +6,7 @@ import { Customer } from './Customer';
 
 export class UserFactory {
 
-    public static get(type: UserType): User {
+    public static get(type: string): User {
         switch (type) {
             case UserType.ADMIN:
                 return new Admin();
@@ -15,7 +15,7 @@ export class UserFactory {
             case UserType.CUSTOMER:
                 return new Customer();
             default:
-                throw new Error('Unsupported user type');
+                throw new Error(`Unsupported user type ${type}`);
         }
     }
 
