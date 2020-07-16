@@ -115,23 +115,16 @@
     <div class="coupon-form-divider">
         <mat-divider></mat-divider>
     </div>
-    <button *ngIf="!coupon.imageUrl && !coupon.imagePreview" type="button" mat-raised-button
-            (click)="openImageSelectDialog()">
-        {{(controls === EDIT_CONTROLS ? 'Upload' : 'Select') + ' Image'}}
-    </button>
-    <div *ngIf="coupon.imageUrl || coupon.imagePreview" class="coupon-form-image-preview-container">
-        <div *ngIf="progress == undefined" (click)="openImageSelectDialog()"
-             class="coupon-form-image-edit-container">
-            <mat-icon inline class="coupon-form-image-edit-icon">edit</mat-icon>
-        </div>
-        <div *ngIf="controls === EDIT_CONTROLS && (coupon.imagePreview && !coupon.imageUrl)"
-             class="coupon-form-image-preview-spinner-container">
-            <mat-progress-spinner class="coupon-form-image-preview-spinner" strokeWidth="5" mode="determinate"
-                                  [value]="progress"
-                                  diameter="75"></mat-progress-spinner>
-        </div>
-        <img class="coupon-form-image-preview" [src]="imageUrl" alt="">
-    </div>
+    <app-image-manager
+        (imageSelectedEvent)="onImageSelect($event)"
+        (imageDeleteEvent)="onImageDelete()"
+        (imagePreviewEvent)="imagePreviewEvent.emit($event)"
+        (imageBrowseEvent)="imageBrowseEvent.emit()"
+        [mode]="controls === ADD_CONTROLS ? 'select' : 'upload'"
+        [imageUrl]="coupon.imageUrl"
+        [progress]="progress"
+        class="image-preview">
+    </app-image-manager>
     <div class="coupon-form-divider">
         <mat-divider></mat-divider>
     </div>

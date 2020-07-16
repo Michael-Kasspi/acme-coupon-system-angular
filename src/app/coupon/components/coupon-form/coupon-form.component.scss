@@ -143,3 +143,10 @@ mat-icon {
 .coupon-form-image-preview-container:hover > .coupon-form-image-edit-container {
     display: flex;
 }
+
+.image-preview {
+    margin-bottom: 16px;
+    width: min-content;
+    height: auto;
+    display: block;
+}

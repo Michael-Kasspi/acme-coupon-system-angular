@@ -69,6 +69,9 @@ export class CouponFormComponent implements OnInit {
     @Output()
     imageDeleteEvent: EventEmitter<Coupon> = new EventEmitter();
 
+    @Output()
+    imagePreviewEvent: EventEmitter<string> = new EventEmitter();
+
     constructor(
         public dialog: MatDialog,
         public router: Router,
@@ -131,12 +134,23 @@ export class CouponFormComponent implements OnInit {
             });
     }
 
+    public onImageSelect(file: File) {
+        if (file) {
+            this.uploadImage(file);
+        }
+    }
+
     private deleteImageListener(dialogRef): Subscription {
         return dialogRef.componentInstance.deleteFileEvent.pipe(first())
             .subscribe(event => {
                 this.coupon.imagePreview = null;
                 this.imageDeleteEvent.emit(this.coupon);
             });
+    }
+
+    public onImageDelete() {
+        this.coupon.imagePreview = null;
+        this.imageDeleteEvent.emit(this.coupon);
     }
 
     private configDialog() {
