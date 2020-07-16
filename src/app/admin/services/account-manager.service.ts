@@ -80,4 +80,15 @@ export class AccountManagerService {
         return userAccount?.user?.type === UserType.ADMIN && (userAccount.user as Admin).main;
     }
 
+    getDiscardDialog(): Observable<any> {
+        return this.dialog
+            .open(WarningDialogComponent, {
+                data: {
+                    title: 'Confirm discard changes',
+                    body: 'Do you wish to discard changes?',
+                    action: 'Discard'
+                }
+            })
+            .afterClosed();
+    }
 }

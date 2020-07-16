@@ -2,9 +2,11 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Account} from '../../../model/Account';
 import {AccountManagerService} from '../../services/account-manager.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {finalize} from 'rxjs/operators';
+import {finalize, tap} from 'rxjs/operators';
 import {AccountManagerFormComponent} from '../../../account/components/account-manager-form/account-manager-form.component';
 import {TitleService} from '../../../title/title.service';
+import {Observable} from 'rxjs';
+import {ManualProgressBarService} from '../../../progress-bar/manual-progress-bar.service';
 
 @Component({
     selector: 'app-add-account',
@@ -23,7 +25,8 @@ export class AddAccountComponent implements OnInit {
         private accountManager: AccountManagerService,
         private accountManagerService: AccountManagerService,
         private router: Router,
-        private titleService: TitleService
+        private titleService: TitleService,
+        private progressBarService: ManualProgressBarService
     ) {
     }
 
@@ -39,5 +42,14 @@ export class AddAccountComponent implements OnInit {
             .subscribe(account => {
                 this.router.navigate([`../edit/${account.id}`], {relativeTo: this.activatedRoute});
             });
+    }
+
+    public canDeactivate(): Observable<boolean> | boolean {
+        if (!this.accountFormComponent || this.accountFormComponent.accountForm.pristine) {
+            return true;
+        }
+        this.progressBarService.status = false;
+        return this.accountManagerService.getDiscardDialog()
+            .pipe(tap(value => this.progressBarService.status = value));
     }
 }

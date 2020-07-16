@@ -3,8 +3,10 @@ import {Account} from '../../../model/Account';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AccountManagerService} from '../../services/account-manager.service';
 import {AccountManagerFormComponent} from '../../../account/components/account-manager-form/account-manager-form.component';
-import {finalize} from 'rxjs/operators';
+import {finalize, tap} from 'rxjs/operators';
 import {TitleService} from '../../../title/title.service';
+import {Observable} from 'rxjs';
+import {ManualProgressBarService} from '../../../progress-bar/manual-progress-bar.service';
 
 @Component({
     selector: 'app-edit-account',
@@ -23,7 +25,8 @@ export class EditAccountComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private accountManagerService: AccountManagerService,
         private router: Router,
-        private titleService: TitleService
+        private titleService: TitleService,
+        private progressBarService: ManualProgressBarService
     ) {
     }
 
@@ -60,5 +63,14 @@ export class EditAccountComponent implements OnInit {
                     this.router.navigate(['../../all'], {relativeTo: this.activatedRoute});
                 });
         });
+    }
+
+    public canDeactivate(): Observable<boolean> | boolean {
+        if (!this.accountFormComponent || this.accountFormComponent.accountForm.pristine) {
+            return true;
+        }
+        this.progressBarService.status = false;
+        return this.accountManagerService.getDiscardDialog()
+            .pipe(tap(value => this.progressBarService.status = value));
     }
 }
