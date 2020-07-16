@@ -40,6 +40,7 @@ export class AddAccountComponent implements OnInit {
         this.accountFormComponent.processing = true;
         this.accountManager.save$(account).pipe(finalize(() => this.accountFormComponent.processing = false))
             .subscribe(account => {
+                this.accountFormComponent.accountForm.markAsPristine();
                 this.router.navigate([`../edit/${account.id}`], {relativeTo: this.activatedRoute});
             });
     }
