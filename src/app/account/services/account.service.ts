@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {EndpointService} from "../../endpoint/endpoint.service";
-import {Observable} from "rxjs";
+import {Observable, of} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Account} from '../../model/Account';
 
@@ -25,6 +25,14 @@ export class AccountService {
 
     public updateAccount(account, password = ''): Observable<any> {
 
+        if (!account) {
+            throw new Error('Unable to update account without account');
+        }
+
+        if (!password) {
+            throw new Error('Unable to update account without password');
+        }
+
         let headers = new HttpHeaders();
         headers = headers.append('password', password);
 
@@ -38,6 +46,9 @@ export class AccountService {
     }
 
     public isDuplicateEmail(email: string = ''): Observable<boolean> {
+        if (!email) {
+            return of(false);
+        }
         let headers = new HttpHeaders();
         headers = headers.append('email', email);
 
@@ -50,6 +61,9 @@ export class AccountService {
     }
 
     public isDuplicateEmailPublic(email: string = ''): Observable<boolean> {
+        if (!email) {
+            return of(false);
+        }
         let headers = new HttpHeaders();
         headers = headers.append('email', email);
 
@@ -62,7 +76,6 @@ export class AccountService {
     }
 
     public uploadProfileImage(image: File = null): Observable<any> {
-
         if (!image) {
             throw new Error('Unable to upload image without a file');
         }

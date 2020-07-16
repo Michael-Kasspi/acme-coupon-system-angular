@@ -21,33 +21,11 @@ export class AdminService implements CouponRestService {
     ) {
     }
 
-    public addCompany(company: any): Observable<any> {
-        company.type = UserType.COMPANY;
-        return this.client.post<any>(
-            `${this.endpoint.url}admin/companies`,
-            company,
-            {withCredentials: true});
-    }
-
-    public updateCompany(company: any): Observable<any> {
-        company.type = UserType.COMPANY;
-        return this.client.put<any>(
-            `${this.endpoint.url}admin/companies`,
-            company,
-            {withCredentials: true});
-    }
-
     public getAllCompanies(): Observable<Company[]> {
         return this.client.get<Company[]>(
             `${this.endpoint.url}admin/companies`,
             {withCredentials: true}
         ).pipe(map((companies: any[]) => companies.map(company => new Company(company))));
-    }
-
-    public deleteCompany(id: number): Observable<any> {
-        return this.client.delete<any>(
-            `${this.endpoint.url}admin/companies/${id}`,
-            {withCredentials: true});
     }
 
     addCoupon(coupon: Coupon): Observable<Coupon> {
@@ -119,6 +97,10 @@ export class AdminService implements CouponRestService {
     uploadCouponImage(couponId: number, image: File): Observable<HttpEvent<Coupon>> {
         if (!image) {
             return throwError('Unable to upload coupon image without image');
+        }
+
+        if (!couponId) {
+            return throwError('Unable to upload coupon image without coupon Id');
         }
         const formData = new FormData();
         formData.append('image', image);

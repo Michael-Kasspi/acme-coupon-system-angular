@@ -17,6 +17,9 @@ export class CouponService {
     }
 
     getCoupon(id: number): Observable<any> {
+        if (!id || isNaN(id)) {
+            throw new Error('Unable to get coupon without Id')
+        }
         return this.client.get<any>(`${this.endpoint.url}public/coupons/${id}`);
     }
 
@@ -26,11 +29,17 @@ export class CouponService {
     }
 
     getCouponsByCategory(id: number) {
+        if (!id || isNaN(id)) {
+            throw new Error('Unable to get coupons by category without category Id')
+        }
         return this.client.get<any>(`${this.endpoint.url}public/coupons/categories/${id}`)
             .pipe(map((coupons: []) => coupons.map(coupon => new Coupon(coupon))));
     }
 
     getCouponsByCompany(id: number) {
+        if (!id || isNaN(id)) {
+            throw new Error('Unable to get coupons by company without company Id')
+        }
         return this.client.get<any>(`${this.endpoint.url}public/coupons/companies/${id}`)
             .pipe(map((coupons: []) => coupons.map(coupon => new Coupon(coupon))));
     }

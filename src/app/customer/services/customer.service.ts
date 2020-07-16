@@ -18,19 +18,14 @@ export class CustomerService {
     }
 
     addCouponToCart(couponId: number): Observable<Coupon> {
+        if (!couponId || isNaN(couponId)) {
+            throw new Error('Unable to add coupon to cart without Id')
+        }
         return this.client.post<any>(
             `${this.endpoint.url}customer/cart/${couponId}`,
             null,
             {withCredentials: true}
         ).pipe(map(coupon => new Coupon(coupon)));
-    }
-
-    addCouponToWishlist(couponId: number): Observable<any> {
-        return this.client.post<any>(
-            `${this.endpoint.url}customer/whishlist/${couponId}`,
-            null,
-            {withCredentials: true}
-        );
     }
 
     getCartCoupons(): Observable<any> {
@@ -41,6 +36,9 @@ export class CustomerService {
     }
 
     removeCouponFromCart(couponId: number): Observable<any> {
+        if (!couponId || isNaN(couponId)) {
+            throw new Error('Unable to remove coupon to cart without Id')
+        }
         return this.client.delete<any>(
             `${this.endpoint.url}customer/cart/${couponId}`,
             {withCredentials: true}
@@ -48,6 +46,9 @@ export class CustomerService {
     }
 
     purchaseCoupons(coupons: Coupon[]): Observable<Account> {
+        if (!coupons) {
+            throw new Error('Unable to purchase coupons without coupons')
+        }
         let couponsSerialized = coupons.map(coupon => coupon.serialize());
         return this.client.post(
             `${this.endpoint.url}customer/coupons/`,
@@ -59,6 +60,9 @@ export class CustomerService {
     }
 
     purchaseCredits(amount: number): Observable<Account> {
+        if (!amount || isNaN(amount)) {
+            throw new Error('Unable to purchase credits without credits');
+        }
         let params = new HttpParams().set('amount', amount + '');
 
         return this.client.post<Account>(
@@ -79,6 +83,9 @@ export class CustomerService {
     }
 
     removeCoupon(id: number): Observable<any> {
+        if (!id || isNaN(id)) {
+            throw new Error('Unable to remove coupon without Id')
+        }
         return this.client.delete(
             `${this.endpoint.url}customer/coupons/${id}`,
             {withCredentials: true}

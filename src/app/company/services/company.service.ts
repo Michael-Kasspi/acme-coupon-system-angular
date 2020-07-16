@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpEvent} from '@angular/common/http';
 import {EndpointService} from '../../endpoint/endpoint.service';
-import {Observable, throwError} from 'rxjs';
 import {Company} from '../../model/Company';
 import {map} from 'rxjs/operators';
 import {Coupon} from '../../model/Coupon';
 import {Category} from '../../model/Category';
 import {CouponRestService} from '../../coupon/services/interfaces/CouponRestService';
+import {Observable} from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -35,7 +35,7 @@ export class CompanyService implements CouponRestService {
 
     deleteCoupon(couponId: number): Observable<any> {
         if (!couponId) {
-            throwError('Unable to delete coupon without id');
+            throw new Error('Unable to delete coupon without id');
         }
         return this.client.delete<any>(
             `${this.endpoint.url}company/coupons/${couponId}`,
@@ -45,7 +45,7 @@ export class CompanyService implements CouponRestService {
 
     getCoupon(couponId: number): Observable<Coupon> {
         if (!couponId) {
-            throwError('Unable to get coupon without id');
+            throw new Error('Unable to get coupon without id');
         }
         return this.client.get<Coupon>(
             `${this.endpoint.url}company/coupons/${couponId}`,
@@ -62,7 +62,7 @@ export class CompanyService implements CouponRestService {
 
     addCoupon(coupon: Coupon): Observable<Coupon> {
         if (!coupon) {
-            return throwError('Unable to add coupon without coupon');
+            throw new Error('Unable to add coupon without coupon');
         }
         return this.client.post<Coupon>(
             `${this.endpoint.url}company/coupons/`,
@@ -73,7 +73,7 @@ export class CompanyService implements CouponRestService {
 
     updateCoupon(coupon: Coupon): Observable<Coupon> {
         if (!coupon) {
-            return throwError('Unable to add coupon without coupon');
+            throw new Error('Unable to add coupon without coupon');
         }
         return this.client.put<Coupon>(
             `${this.endpoint.url}company/coupons/`,
@@ -84,7 +84,7 @@ export class CompanyService implements CouponRestService {
 
     uploadCouponImage(couponId: number, image: File): Observable<HttpEvent<Coupon>> {
         if (!image) {
-            return throwError('Unable to upload coupon image without image');
+            throw new Error('Unable to upload coupon image without image');
         }
         const formData = new FormData();
         formData.append('image', image);
@@ -98,7 +98,7 @@ export class CompanyService implements CouponRestService {
 
     deleteCouponImage(couponId: number): Observable<Coupon> {
         if (!couponId) {
-            throwError('Unable to delete coupon image without id');
+            throw new Error('Unable to delete coupon image without id');
         }
         return this.client.delete<Coupon>(
             `${this.endpoint.url}company/coupons/${couponId}/images`,
@@ -108,7 +108,7 @@ export class CompanyService implements CouponRestService {
 
     updateCompany(company: Company): Observable<Company> {
         if (!company) {
-            return throwError('Unable to update company without company');
+            throw new Error('Unable to update company without company');
         }
         return this.client.put<Company>(
             `${this.endpoint.url}company/`,
@@ -119,7 +119,7 @@ export class CompanyService implements CouponRestService {
 
     uploadCompanyLogo(image: File): Observable<HttpEvent<Company>> {
         if (!image) {
-            return throwError('Unable to upload company logo without image');
+            throw new Error('Unable to upload company logo without image');
         }
         const formData = new FormData();
         formData.append('image', image);

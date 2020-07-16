@@ -1,13 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {FileUploadDialogComponent} from '../../../dialog/file-upload-dialog/file-upload-dialog.component';
 import {Coupon} from '../../../model/Coupon';
 import {Category} from '../../../model/Category';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {EndpointService} from '../../../endpoint/endpoint.service';
-import {first} from 'rxjs/operators';
-import {Subscription} from 'rxjs';
 import {Company} from '../../../model/Company';
 
 
@@ -121,49 +118,15 @@ export class CouponFormComponent implements OnInit {
         });
     }
 
-    openImageSelectDialog() {
-        this.imageBrowseEvent.emit();
-        const dialogRef = this.configDialog();
-        const subscription = this.deleteImageListener(dialogRef);
-        dialogRef.afterClosed()
-            .subscribe(file => {
-                subscription.unsubscribe();
-                if (file) {
-                    this.uploadImage(file);
-                }
-            });
-    }
-
     public onImageSelect(file: File) {
         if (file) {
             this.uploadImage(file);
         }
     }
 
-    private deleteImageListener(dialogRef): Subscription {
-        return dialogRef.componentInstance.deleteFileEvent.pipe(first())
-            .subscribe(event => {
-                this.coupon.imagePreview = null;
-                this.imageDeleteEvent.emit(this.coupon);
-            });
-    }
-
     public onImageDelete() {
         this.coupon.imagePreview = null;
         this.imageDeleteEvent.emit(this.coupon);
-    }
-
-    private configDialog() {
-        return this.dialog.open(
-            FileUploadDialogComponent,
-            {
-                data: {
-                    currentImageUrl: this.coupon.imageUrl,
-                    imagePreview: this.coupon.imagePreview,
-                    action: this.controls === this.ADD_CONTROLS ? 'Select' : null
-                }
-            }
-        );
     }
 
     save() {
