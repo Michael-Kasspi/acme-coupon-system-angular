@@ -9,6 +9,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {ReactiveFormsModule} from '@angular/forms';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 
@@ -26,7 +28,9 @@ import {ReactiveFormsModule} from '@angular/forms';
         MatSelectModule,
         MatDividerModule,
         MatSlideToggleModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatProgressSpinnerModule,
+        MatTooltipModule
     ]
 })
 export class AccountManagerFormModule { }

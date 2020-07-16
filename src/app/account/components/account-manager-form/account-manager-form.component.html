@@ -48,9 +48,21 @@
                    required
                    placeholder="example@mail.com"
                    type="email">
+            <mat-spinner
+                matTooltip="Checking availability"
+                matTooltipClass="custom-tooltip"
+                matTooltipPosition="below"
+                matSuffix
+                *ngIf="email.pending"
+                diameter="24"
+                strokeWidth="2"
+                class="account-spinner"
+                color="accent">
+            </mat-spinner>
             <mat-hint>Enter the email address</mat-hint>
             <mat-error *ngIf="email?.errors">
                 <span *ngIf="email.errors?.required">This field is required</span>
+                <span *ngIf="email.errors?.duplicate">This email already exist</span>
                 <span *ngIf="email.errors?.email">The email address is invalid</span>
             </mat-error>
         </mat-form-field>
@@ -154,21 +166,21 @@
         <div class="form-actions">
             <div class="form-actions__start">
                 <button mat-flat-button
-                        [disabled]="accountForm.invalid || accountForm.pristine"
+                        [disabled]="processing || accountForm.invalid || accountForm.pristine"
                         type="button"
                         (click)="onActionClick()"
                         color="primary">
                     {{actionText || (mode === MODE_ADD ? 'SAVE' : 'UPDATE')}}
                 </button>
                 <button mat-button
-                        [disabled]="(mode === MODE_ADD ? accountForm.untouched : accountForm.pristine)"
+                        [disabled]="processing || (mode === MODE_ADD ? accountForm.untouched : accountForm.pristine)"
                         type="button"
                         (click)="reset()">
                     {{(mode === MODE_ADD ? 'RESET' : 'REVERT')}}
                 </button>
             </div>
             <div class="form-actions__end">
-                <button type="button" *ngIf="mode === MODE_EDIT" (click)="deleteEvent.emit(account)" mat-flat-button
+                <button [disabled]="processing" type="button" *ngIf="mode === MODE_EDIT" (click)="deleteEvent.emit(account)" mat-flat-button
                         color="warn">DELETE
                 </button>
             </div>

@@ -49,6 +49,18 @@ export class AccountService {
             });
     }
 
+    public isDuplicateEmailPublic(email: string = ''): Observable<boolean> {
+        let headers = new HttpHeaders();
+        headers = headers.append('email', email);
+
+        return this.client.get<boolean>(
+            this.endpoint.url + 'public/accounts/emails',
+            {
+                headers: headers,
+                withCredentials: true
+            });
+    }
+
     public uploadProfileImage(image: File = null): Observable<any> {
 
         if (!image) {

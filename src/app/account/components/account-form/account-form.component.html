@@ -147,7 +147,7 @@
                     <mat-error *ngIf="!email.valid">
                         <span *ngIf="email.errors?.required">This field is required</span>
                         <span *ngIf="email.errors?.email">Invalid email address</span>
-                        <span *ngIf="email.errors?.uniqueEmail">The email is already taken</span>
+                        <span *ngIf="email.errors?.duplicate">The email is already taken</span>
                     </mat-error>
                     <mat-spinner
                         matTooltip="Checking availability"

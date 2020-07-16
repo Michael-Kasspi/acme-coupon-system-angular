@@ -5,6 +5,7 @@ import {Account} from '../../../model/Account';
 import {MatSelectChange} from '@angular/material/select';
 import {Company} from '../../../model/Company';
 import {Admin} from '../../../model/Admin';
+import {EmailValidatorPublicService} from '../../validators/email-validator-public.service';
 
 @Component({
     selector: 'app-account-manager-form',
@@ -38,6 +39,7 @@ export class AccountManagerFormComponent implements OnInit {
     public userType: string = null;
 
     @Input() public account: Account = new Account();
+    @Input() processing: boolean = false;
     public accountForm: FormGroup = null;
     public companyForm: FormGroup = null;
     public adminForm: FormGroup = null;
@@ -46,7 +48,7 @@ export class AccountManagerFormComponent implements OnInit {
     @Output() private saveEvent: EventEmitter<Account> = new EventEmitter();
     @Output() private updateEvent: EventEmitter<Account> = new EventEmitter();
 
-    constructor() {
+    constructor(private emailValidator: EmailValidatorPublicService,) {
     }
 
     ngOnInit(): void {
@@ -107,8 +109,13 @@ export class AccountManagerFormComponent implements OnInit {
 
     private initForm() {
         this.initAccountForm();
-        if (this.account && this.account.user) {
-            this.selectUser(this.account.user.type);
+        if (this.account) {
+            if (this.account.user) {
+                this.selectUser(this.account.user.type);
+            }
+            if (this.account.email) {
+                this.emailValidator.currentEmail = this.account.email;
+            }
         }
     }
 
@@ -133,11 +140,14 @@ export class AccountManagerFormComponent implements OnInit {
                     Validators.maxLength(this.NAME_MAX_CHAR),
                 ]
             ),
-            'email': new FormControl(this?.account?.email || '',
-                [
-                    Validators.required,
-                    Validators.email
-                ]
+            'email': new FormControl(this?.account?.email || '', {
+                    validators: [
+                        Validators.required,
+                        Validators.email
+                    ],
+                    asyncValidators: [this.emailValidator.validate.bind(this.emailValidator)],
+                    updateOn: 'blur'
+                }
             ),
             'password': new FormControl(this?.account?.password || '',
                 this.getPasswordValidators()

@@ -7,18 +7,31 @@ import {AccountService} from '../services/account.service';
 @Injectable({
     providedIn: 'root'
 })
-export class EmailValidatorService implements AsyncValidator {
+export class EmailValidatorPublicService implements AsyncValidator {
+
+    private _currentEmail: string = null;
 
     constructor(private accountService: AccountService) {
     }
 
     validate(control: AbstractControl): Observable<ValidationErrors | null> {
-        return this.accountService.isDuplicateEmail(control.value).pipe(
+        const email = control.value;
+
+        if (email === this.currentEmail) {
+            return of(null);
+        }
+        return this.accountService.isDuplicateEmailPublic(email).pipe(
             first(),
             map(isDuplicate => (isDuplicate ? {duplicate: true} : null)),
             catchError(() => of(null))
         );
     }
 
+    get currentEmail(): string {
+        return this._currentEmail;
+    }
 
+    set currentEmail(value: string) {
+        this._currentEmail = value;
+    }
 }
