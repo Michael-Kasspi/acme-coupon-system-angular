@@ -5,15 +5,20 @@ import {throwError} from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
 import {ErrorDetailsDialogComponent} from './dialog/error-details-dialog/error-details-dialog.component';
 import {ErrorSnackBarComponent} from './dialog/error-snack-bar/error-snack-bar.component';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ErrorHandlerService {
     private static readonly UNAUTHORIZED: number = 401;
+    public redirect: boolean = true;
 
-    constructor(private snackBar: MatSnackBar, private dialog: MatDialog, private router: Router) {
+    constructor(
+        private snackBar: MatSnackBar,
+        private dialog: MatDialog,
+        private router: Router,
+    ) {
     }
 
     public handleError(error: HttpErrorResponse) {
@@ -23,7 +28,7 @@ export class ErrorHandlerService {
             {data: {message: error.error.message || error.message || 'No error message is available'}}
         );
 
-        if (error.status === ErrorHandlerService.UNAUTHORIZED) {
+        if (error.status === ErrorHandlerService.UNAUTHORIZED && this.redirect) {
             this.router.navigate(['/login']);
         }
 
