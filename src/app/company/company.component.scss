@@ -14,16 +14,24 @@
 }
 
 .company-toolbar {
+    height: 65px;
     @include mat-elevation(2);
     padding: 0 36px;
     z-index: 2;
 }
 
 .company-toolbar-logo {
-    height: auto;
+    height: 100%;
     width: 100%;
     object-fit: cover;
     display: block;
+}
+
+.company-toolbar-logo-placeholder {
+    user-select: none;
+    height: 40px;
+    width: 40px;
+    font-size: 40px;
 }
 
 .company-logo-container {
@@ -35,6 +43,8 @@
     width: 40px;
     background-color: white;
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .company-details {

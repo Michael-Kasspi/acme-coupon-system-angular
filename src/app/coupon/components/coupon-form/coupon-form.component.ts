@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {Coupon} from '../../../model/Coupon';
 import {Category} from '../../../model/Category';
@@ -6,6 +6,7 @@ import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/form
 import {Router} from '@angular/router';
 import {EndpointService} from '../../../endpoint/endpoint.service';
 import {Company} from '../../../model/Company';
+import {ImageManagerComponent} from 'src/app/image-manager/image-manager.component';
 
 
 @Component({
@@ -21,6 +22,9 @@ export class CouponFormComponent implements OnInit {
 
     private readonly FIRST: number = 0;
     private readonly SINGLE: number = 1;
+
+    @ViewChild(ImageManagerComponent)
+    private imageManagerComponent: ImageManagerComponent = null;
 
     @Input()
     controls: string = this.DEFAULT_CONTROLS;
@@ -135,6 +139,7 @@ export class CouponFormComponent implements OnInit {
 
     reset() {
         this.coupon.imagePreview = null;
+        this.imageManagerComponent.imagePreview = null;
         this.initCoupon();
     }
 

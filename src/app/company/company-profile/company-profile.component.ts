@@ -36,7 +36,7 @@ export class CompanyProfileComponent implements OnInit {
         this.activatedRoute.parent.parent.data.subscribe((data: { company: Company }) => {
             this.company = data.company;
             if (this.company && this.company.name) {
-                this.titleService.append(`${this.company.name} | Profile`)
+                this.titleService.append(`${this.company.name} | Profile`);
             }
         });
     }
@@ -80,5 +80,13 @@ export class CompanyProfileComponent implements OnInit {
 
     public setImagePreview(preview: string) {
         this.company.imagePreview = preview;
+    }
+
+    public deleteCompanyLogo() {
+        this.company.imageUrl = null;
+        this.companyService.deleteCompanyLogo().subscribe((company: Company) => {
+            this.company.deserialize(company);
+            this.snackBar.open('The image has been deleted successfully');
+        });
     }
 }

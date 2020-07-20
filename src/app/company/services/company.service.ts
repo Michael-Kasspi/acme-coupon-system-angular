@@ -130,4 +130,11 @@ export class CompanyService implements CouponRestService {
             {withCredentials: true, reportProgress: true, observe: 'events'}
         );
     }
+
+    deleteCompanyLogo() {
+        return this.client.delete<Company>(
+            `${this.endpoint.url}company/logo/`,
+            {withCredentials: true}
+        ).pipe(map(company => new Company(company)));
+    }
 }

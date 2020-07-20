@@ -104,6 +104,7 @@ export class CompanyProfileFormComponent implements OnInit {
     }
 
     public emitImagePreview(preview: string) {
+        this.company.imagePreview = preview;
         this.imagePreviewEvent.emit(preview);
     }
 

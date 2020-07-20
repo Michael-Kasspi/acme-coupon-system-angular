@@ -120,6 +120,7 @@
         (imageDeleteEvent)="onImageDelete()"
         (imagePreviewEvent)="imagePreviewEvent.emit($event)"
         (imageBrowseEvent)="imageBrowseEvent.emit()"
+        [imagePreview]="coupon?.imagePreview"
         [mode]="controls === ADD_CONTROLS ? 'select' : 'upload'"
         [imageUrl]="coupon.imageUrl"
         [progress]="progress"

@@ -2,7 +2,8 @@
     <mat-toolbar color="primary" class="company-toolbar">
         <div class="company-details" routerLink="./profile">
             <div class="company-logo-container">
-                <img class="company-toolbar-logo" [src]="companyImageUrl || company?.imagePreview || ''" alt="">
+                <img *ngIf="companyImageUrl || company?.imagePreview" class="company-toolbar-logo" [src]="companyImageUrl || company?.imagePreview || ''" alt="">
+                <mat-icon *ngIf="!(companyImageUrl || company?.imagePreview)" color="primary" class="company-toolbar-logo-placeholder">account_circle</mat-icon>
             </div>
             <div *ngIf="company" class="company-toolbar-name">
                 {{company?.name}}

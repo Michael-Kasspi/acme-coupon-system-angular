@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Inject, OnInit} from '@angular/core';
+import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {EndpointService} from '../../endpoint/endpoint.service';
 import {WarningDialogComponent} from '../warning-dialog/warning-dialog.component';
@@ -18,7 +18,9 @@ export class FileUploadDialogComponent implements OnInit {
     action: string;
     private _previewImageSrc: any = null;
 
+    @Output()
     deleteFileEvent = new EventEmitter<any>();
+    @Output()
     selectedImagePreviewEvent = new EventEmitter<string>();
 
     constructor(

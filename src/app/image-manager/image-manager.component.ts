@@ -104,6 +104,11 @@ export class ImageManagerComponent implements OnInit {
     }
 
     private previewImageListener(previewEvent: Observable<string>) {
-        return previewEvent.subscribe(this.imagePreviewEvent.emit);
+        return previewEvent.subscribe(preview => {
+            if (preview) {
+                this.imagePreview = preview;
+                this.imagePreviewEvent.emit(preview);
+            }
+        });
     }
 }
