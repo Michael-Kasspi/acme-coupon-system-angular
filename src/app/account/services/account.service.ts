@@ -29,8 +29,8 @@ export class AccountService {
             throw new Error('Unable to update account without account');
         }
 
-        if (!password) {
-            throw new Error('Unable to update account without password');
+        if (account.password && !password) {
+            throw new Error('Unable to update credentials without current password');
         }
 
         let headers = new HttpHeaders();
