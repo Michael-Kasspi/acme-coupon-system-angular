@@ -16,6 +16,6 @@ export class EndpointService {
     }
 
     get res(): string {
-        return this._url;
+        return this._url + 'storage/';
     }
 }
