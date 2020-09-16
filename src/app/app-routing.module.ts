@@ -40,6 +40,8 @@ const appRoutes: Routes = [
         path: 'search',
         loadChildren: () => import('./search/search.module').then(m => m.SearchModule)
     },
+    {path: 'fresh', redirectTo: '/search?filter=&sort=startDate;desc&page=0'},
+    {path: 'popular', redirectTo: '/search?filter=&sort=popularity;desc&page=0'},
     {path: '**', loadChildren: () => import('./not-found/not-found.module').then(m => m.NotFoundModule)}
 ];
 
