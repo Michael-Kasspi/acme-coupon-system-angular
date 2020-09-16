@@ -47,20 +47,8 @@ export class CartCheckoutComponent implements OnInit, AfterViewInit {
 
     ngOnInit(): void {
         this.titleService.append('Checkout');
-        this.activatedRoute.parent.parent.data.subscribe((data: { coupons: Coupon[] }) => {
-            if (data.coupons.length === 0) {
-                this.router.navigate(
-                    ['../items'],
-                    {relativeTo: this.activatedRoute}
-                );
-            }
-
-            this.coupons = data.coupons;
-        });
-        this.activatedRoute.data.subscribe(
-            (data: { account: Account }) => {
-                this.account = new Account(data.account);
-            });
+        this.fetchCoupons();
+        this.fetchAccount();
     }
 
     ngAfterViewInit(): void {
@@ -102,6 +90,35 @@ export class CartCheckoutComponent implements OnInit, AfterViewInit {
 
     get currentBalance(): number {
         return this.account.credit;
+    }
+
+    private fetchAccount() {
+        this.activatedRoute.data.subscribe(
+            (data: { account: Account }) => {
+                this.account = new Account(data.account);
+            });
+    }
+
+    private fetchCoupons() {
+        this.activatedRoute.parent.parent.data.subscribe((data: { coupons: Coupon[] }) => {
+            const empty = this.redirectIfEmpty(data);
+            if (empty) {
+                return;
+            }
+            this.checkStock(data.coupons);
+            this.coupons = data.coupons;
+        });
+    }
+
+    private redirectIfEmpty(data: { coupons: Coupon[] }): boolean {
+        if (data.coupons.length === 0) {
+            this.router.navigate(
+                ['../items'],
+                {relativeTo: this.activatedRoute}
+            );
+            return true;
+        }
+        return false;
     }
 
     private checkStock(coupons: Coupon[]) {
