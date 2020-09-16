@@ -2,6 +2,7 @@
    matTooltip="{{account?.fullName}}"
    matTooltipClass="custom-tooltip"
    matTooltipPosition="below"
+   matTooltipShowDelay="450"
    class="profile-circle">
     <mat-icon *ngIf="!image" [inline]="true" class="profile-icon border">account_circle</mat-icon>
     <img class="avatar" *ngIf="image" [src]="image" alt="avatar">
