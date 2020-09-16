@@ -21,13 +21,19 @@
         <mat-divider></mat-divider>
     </div>
 </div>
-<a routerLink="/feed/popular">
+<a routerLink="/search">
+    <mat-toolbar-row routerLinkActive="active">
+        <mat-icon class="icon" routerLinkActive="icon-active">store</mat-icon>
+        <span>Coupons</span>
+    </mat-toolbar-row>
+</a>
+<a routerLink="/popular">
     <mat-toolbar-row routerLinkActive="active">
         <mat-icon class="icon" routerLinkActive="icon-active">whatshot</mat-icon>
         <span>Popular</span>
     </mat-toolbar-row>
 </a>
-<a routerLink="/feed/fresh">
+<a routerLink="/fresh">
     <mat-toolbar-row routerLinkActive="active">
         <mat-icon class="icon" routerLinkActive="icon-active">access_time</mat-icon>
         <span>Fresh</span>
