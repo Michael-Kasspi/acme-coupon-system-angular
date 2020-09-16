@@ -34,13 +34,13 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.isFiltersActive();
         this.resolver$ = this.activatedRoute.data.subscribe(
             (data: {
                 resultPage: ResultPage<Coupon>,
                 companies: Company[],
                 categories: Category[]
             }) => {
+                this.isFiltersActive();
                 this.resultPage = data.resultPage;
                 this.companies = data.companies;
                 this.categories = data.categories;
