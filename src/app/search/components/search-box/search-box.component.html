@@ -1,9 +1,30 @@
 <form [formGroup]="searchForm" (ngSubmit)="makeSearchRequest()">
     <mat-form-field hideRequiredMarker color="primary" class="search-box-input" appearance="outline" floatLabel="auto">
         <input #searchInput formControlName="search" matInput type="search" placeholder="Search...">
-        <button matTooltip="Search" matTooltipClass="custom-tooltip" matTooltipShowDelay="250" [disabled]="searchInput?.value?.length < 1" type="submit" matSuffix mat-icon-button color="primary">
-            <mat-icon class="grid-center">search</mat-icon>
+        <span matSuffix class="search-flex">
+        <button
+            (click)="clearSearchTerm()"
+            matTooltip="Clear"
+            matTooltipClass="custom-tooltip"
+            matTooltipShowDelay="250"
+            *ngIf="searchInput?.value?.length > 1"
+            type="button"
+            mat-icon-button
+            color="primary">
+            <mat-icon class="grid-center">clear</mat-icon>
         </button>
+        <button
+            matTooltip="Search"
+            matTooltipClass="custom-tooltip"
+            matTooltipShowDelay="250"
+            [disabled]="searchInput?.value?.length < 1"
+            type="submit"
+            mat-icon-button
+            color="primary">
+            <mat-icon class="search-icon">search</mat-icon>
+        </button>
+        </span>
+
     </mat-form-field>
 </form>
 

@@ -43,6 +43,16 @@ export class SearchBoxComponent implements OnInit {
         );
     }
 
+    public clearSearchTerm() {
+        const value = this.search.value;
+        if (value) {
+            this.search.reset();
+            if (this.router.url.includes('/search')) {
+                this.makeSearchRequest();
+            }
+        }
+    }
+
     private static testForAdvancedSearch(query: string): boolean {
         if (!query) {
             return false;
