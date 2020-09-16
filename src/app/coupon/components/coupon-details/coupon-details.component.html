@@ -118,7 +118,7 @@
         <div class="section actions">
             <div class="action-button">
                 <button
-                    [disabled]="!coupon.isInStock"
+                    [disabled]="!coupon.isInStock && !couponService.inCart"
                     (click)="couponService.onCartClick()"
                     [color]="couponService.inCart ? 'primary' : 'accent'"
                     mat-button>

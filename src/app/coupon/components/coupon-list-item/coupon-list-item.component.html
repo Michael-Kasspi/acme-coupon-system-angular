@@ -105,7 +105,7 @@
                             matTooltipPosition="above"
                             matTooltipClass="custom-tooltip"
                             (click)="couponService.onCartClick()"
-                            [disabled]="!coupon.isInStock"
+                            [disabled]="!coupon.isInStock && !couponService.inCart"
                             class="coupon-actions__buttons__btn"
                             [color]="couponService.inCart ? 'primary' : 'accent'"
                             mat-button>
