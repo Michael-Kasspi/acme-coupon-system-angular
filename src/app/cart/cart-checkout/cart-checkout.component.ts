@@ -41,7 +41,7 @@ export class CartCheckoutComponent implements OnInit, AfterViewInit {
         private progressBarService: ManualProgressBarService,
         private router: Router,
         private snackBar: MatSnackBar,
-        private accountDetilasService: AccountDetailsService
+        private accountDetailsService: AccountDetailsService
     ) {
     }
 
@@ -76,7 +76,7 @@ export class CartCheckoutComponent implements OnInit, AfterViewInit {
                 this.purchasing = false;
             }))
             .subscribe((account: Account) => {
-                this.accountDetilasService.account = account;
+                this.accountDetailsService.account = account;
                 this.snackBar.open('The coupons have been purchased successfully');
                 this.purchased = true;
             });
