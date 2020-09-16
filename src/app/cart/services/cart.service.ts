@@ -234,7 +234,7 @@ export class CartService {
                             this._cartEvents$.next(new CartEventCheckout(purchasedCoupons));
                             subscriber.next(account);
                             subscriber.complete();
-                        });
+                        }, error => subscriber.error(error));
                 });
         });
     }
