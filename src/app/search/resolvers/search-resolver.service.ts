@@ -16,8 +16,7 @@ export class SearchResolverService implements Resolve<ResultPage<Coupon>> {
 
     constructor(
         private searchService: SearchService,
-        private titleService: TitleService,
-        private snackBar: MatSnackBar
+        private titleService: TitleService
     ) {
     }
 
@@ -25,11 +24,11 @@ export class SearchResolverService implements Resolve<ResultPage<Coupon>> {
         const queryParamMap = route.queryParamMap;
         const query = queryParamMap.get('query');
 
-        if (!query) {
-            this.snackBar.open('Unable to perform search without search term');
-            return EMPTY;
+        if (query) {
+            this.titleService.append(query);
+        } else {
+            this.titleService.append("Coupons");
         }
-        this.titleService.append(query);
 
         let httpParams = new HttpParams();
         queryParamMap.keys.map(key => {
