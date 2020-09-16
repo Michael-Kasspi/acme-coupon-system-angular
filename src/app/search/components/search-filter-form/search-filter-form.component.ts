@@ -216,6 +216,7 @@ export class SearchFilterFormComponent implements OnInit, AfterViewInit {
     private readonly START_DATE: string = 'startDate';
     private readonly END_DATE: string = 'endDate';
     private readonly AMOUNT: string = 'amount';
+    private readonly POPULARITY: string = 'popularity';
 
     private readonly FILTER: string = 'filter';
     private readonly SORT: string = 'sort';
@@ -264,8 +265,9 @@ export class SearchFilterFormComponent implements OnInit, AfterViewInit {
      */
     private readonly sortMap: Map<string, SortOption> = new Map([
         [this.PRICE, new SortOption('Price', this.PRICE)],
-        [this.START_DATE, new SortOption('Date Added', this.START_DATE)],
+        [this.START_DATE, new SortOption('Date Added', this.START_DATE, true)],
         [this.END_DATE, new SortOption('Expiry Date', this.END_DATE)],
+        [this.POPULARITY, new SortOption('Popularity', this.POPULARITY, true)],
 
     ]);
 
