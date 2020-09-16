@@ -33,6 +33,7 @@ $warn: map-get($custom-theme, warn);
 .mat-cell {
     padding: 16px;
     font-size: 16px;
+    color: inherit;
 }
 
 .image-thumbnail {
@@ -129,4 +130,8 @@ p {
 
 .mat-row:hover {
     background-color: mat-color($accent, 0.06);
+}
+
+.outOfStock {
+    color: mat-color($warn);
 }

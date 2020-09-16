@@ -28,8 +28,10 @@ export class CartCheckoutComponent implements OnInit, AfterViewInit {
     purchased: boolean = false;
     lastTotal: number = 0;
 
-    displayedColumns: string[] = ['imageUrl', 'title', 'company', 'price'];
+    displayedColumns: string[] = ['imageUrl', 'title', 'company', 'price', 'inStock'];
     purchasing: boolean = false;
+
+    allInStock: boolean = true;
 
     constructor(
         public endpoint: EndpointService,
@@ -102,4 +104,11 @@ export class CartCheckoutComponent implements OnInit, AfterViewInit {
         return this.account.credit;
     }
 
+    private checkStock(coupons: Coupon[]) {
+        coupons.forEach(coupons => {
+            if (!coupons.isInStock) {
+                this.allInStock = false;
+            }
+        });
+    }
 }

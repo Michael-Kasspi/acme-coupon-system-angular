@@ -212,6 +212,20 @@ export class CartService {
                         subscriber.error();
                         return;
                     }
+
+                    let allInStock = true;
+                    this._coupons.forEach(coupon => {
+                        if (!coupon.isInStock) {
+                            allInStock = false;
+                        }
+                    });
+
+                    if (!allInStock) {
+                        this.snackBar.open('Unable to checkout: some coupons are not in stock');
+                        subscriber.error();
+                        return;
+                    }
+
                     this.customerService.purchaseCoupons(this._coupons)
                         .subscribe((account: Account) => {
                             const purchasedCoupons = this._coupons.slice(0);
