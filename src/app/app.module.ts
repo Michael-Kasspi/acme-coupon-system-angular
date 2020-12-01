@@ -1,5 +1,5 @@
 import {BrowserModule, Title} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -23,6 +23,7 @@ import {ErrorHandlerModule} from './error-handler/error-handler.module';
 import {MatNativeDateModule} from '@angular/material/core';
 import {WarningDialogComponent} from './dialog/warning-dialog/warning-dialog.component';
 import {SearchFilterFormComponent} from './search/components/search-filter-form/search-filter-form.component';
+import {EndpointService} from './endpoint/endpoint.service';
 
 @NgModule({
     declarations: [
@@ -56,9 +57,16 @@ import {SearchFilterFormComponent} from './search/components/search-filter-form/
         Title,
         CookieService,
         httpInterceptorProviders,
-        materialDefaultSettingsProviders
+        materialDefaultSettingsProviders,
+        {
+            provide: APP_INITIALIZER,
+            useFactory: (endpointService: EndpointService) => () => endpointService.init(),
+            deps: [EndpointService],
+            multi: true
+        }
     ],
     bootstrap: [AppComponent]
 })
+// @ts-ignore
 export class AppModule {
 }

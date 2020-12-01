@@ -18,4 +18,10 @@ export class EndpointService {
     get res(): string {
         return this._url + 'storage/';
     }
+
+    init() {
+        if (environment.production) {
+            this._url = '';
+        }
+    }
 }
