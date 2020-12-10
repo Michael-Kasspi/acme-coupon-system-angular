@@ -1,0 +1,36 @@
+import {Injectable} from '@angular/core';
+import {CategoryClient} from './category.client.interface';
+import {Observable} from 'rxjs';
+import {Category} from '../model/Category';
+
+@Injectable({
+    providedIn: 'root'
+})
+export class CategoryManagerService {
+
+    private _client: CategoryClient = null;
+    private _edit: Category = null;
+
+    constructor() {
+    }
+
+    public getAllCategories(): Observable<Category[]> {
+        return this._client.getAllCategories();
+    }
+
+    public getCategory(id: number): Observable<Category> {
+        return this._client.getCategory(id);
+    }
+
+    set client(value: CategoryClient) {
+        this._client = value;
+    }
+
+    get edit(): Category {
+        return this._edit;
+    }
+
+    set edit(value: Category) {
+        this._edit = value;
+    }
+}
