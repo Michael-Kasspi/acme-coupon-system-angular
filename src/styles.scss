@@ -82,3 +82,7 @@ mat-slide-toggle.filter-toggle .mat-slide-toggle-bar {
 .sidenav .mat-tab-list {
     transform: none !important;
 }
+
+.sidenav mat-form-field#description .mat-form-field-flex {
+    min-height: 96px !important;
+}

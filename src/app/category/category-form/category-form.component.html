@@ -1,1 +1,61 @@
-<p>category-form works!</p>
+<form>
+    <section>
+        <mat-form-field id="name" appearance="fill">
+            <mat-label>Name</mat-label>
+            <input #nameInput id="nameInput" matInput>
+            <mat-hint>The display name of the category</mat-hint>
+            <mat-hint align="end">
+                {{nameInput.value?.length || 0}}/{{nameInput.maxLength}}
+            </mat-hint>
+        </mat-form-field>
+    </section>
+    <section>
+        <mat-form-field id="description" appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea
+                #descriptionInput
+                placeholder="Description"
+                matInput
+                name="description"
+                cdkTextareaAutosize></textarea>
+            <mat-hint>A brief description about the category</mat-hint>
+            <mat-hint align="end">
+                {{descriptionInput.value?.length || 0}}/{{descriptionInput.maxLength}}
+            </mat-hint>
+        </mat-form-field>
+    </section>
+    <section class="controls">
+        <div *ngIf="mode === ADD_MODE " [@controlsSwitch]>
+            <button type="button" mat-flat-button color="primary">
+                <div>
+                    <mat-icon>add_box</mat-icon>
+                    <span>Save</span>
+                </div>
+            </button>
+            <button type="button" class="align-end" mat-button color="warn">
+                <div>
+                    <mat-icon>backspace</mat-icon>
+                    <span>Discard</span>
+                </div>
+            </button>
+        </div>
+        <div *ngIf="mode === EDIT_MODE" [@controlsSwitch]>
+            <button type="button" mat-flat-button color="primary">
+                <div>
+                    <mat-icon>save</mat-icon>
+                    <span>Update</span>
+                </div>
+            </button>
+            <button type="button" mat-stroked-button color="accent">
+                <mat-icon>settings_backup_restore</mat-icon>
+                <span>Revert</span>
+            </button>
+            <button type="button" class="align-end" mat-button color="warn">
+                <div>
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete</span>
+                </div>
+            </button>
+        </div>
+    </section>
+</form>

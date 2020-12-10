@@ -5,8 +5,10 @@ import {finalize, first} from 'rxjs/operators';
 import {ManualProgressBarService} from '../progress-bar/manual-progress-bar.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs';
+import {ADD_MODE, EDIT_MODE} from '../category/category-form/category-form.component';
 
 export const ACTIVE_CLASS = 'list-active';
+export const SIDE_NAV_WIDTH = '50%';
 
 @Component({
     selector: 'app-category-manager',
@@ -70,7 +72,7 @@ export class CategoryManagerComponent implements OnInit {
     }
 
     openSidenav() {
-        this.sidenav.nativeElement.style.width = '50%';
+        this.sidenav.nativeElement.style.width = SIDE_NAV_WIDTH;
         this.showFab = false;
     }
 
@@ -136,5 +138,9 @@ export class CategoryManagerComponent implements OnInit {
 
     private clearAdd() {
         this.service.add = null;
+    }
+
+    get formMode(): string {
+        return !!this.currentAdd ? ADD_MODE : !!this.currentEdit ? EDIT_MODE : null;
     }
 }

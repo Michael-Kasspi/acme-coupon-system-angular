@@ -56,15 +56,16 @@
                     matTooltipClass="custom-tooltip"
                     matTooltipShowDelay="400"
                     (click)="closeSidenavEdit()"
-                    color="warn">
-                <mat-icon>
+                    color="accent">
+                <mat-icon style="font-weight: bold">
                     clear
                 </mat-icon>
             </button>
         </div>
     </nav>
-    <app-category-form></app-category-form>
-    test
+    <section class="form-container">
+        <app-category-form [mode]="formMode"></app-category-form>
+    </section>
 </div>
 <button class="fab"
         [class.show-fab]="showFab"
