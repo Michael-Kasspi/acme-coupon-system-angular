@@ -1,0 +1,66 @@
+<div #main class="main">
+    <div class="list-base">
+        <ul>
+            <li #listRow
+                matRipple
+                [matRippleTrigger]="listContent"
+                class="list-row"
+                (click)="selectRow(listRow);"
+                *ngFor="let category of categories">
+                <div #listContent class="list-content" (click)="editCategory(category)">
+                    <div class="list-text">{{category}}</div>
+                </div>
+                <div class="list-buttons"
+                     (mousedown)="setActiveRow(listRow)"
+                     (mouseup)="removeActiveRow(listRow)">
+                    <button
+                        (click)="editCategory(category)"
+                        matTooltipShowDelay="600"
+                        matTooltip="Edit"
+                        matTooltipClass="custom-tooltip"
+                        color="accent"
+                        mat-icon-button>
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button
+                        matTooltipShowDelay="600"
+                        matTooltip="Coupons of category"
+                        matTooltipClass="custom-tooltip"
+                        color="accent"
+                        mat-icon-button>
+                        <mat-icon>list</mat-icon>
+                    </button>
+                    <button
+                        matTooltipShowDelay="600"
+                        matTooltip="Delete"
+                        matTooltipClass="custom-tooltip"
+                        color="warn"
+                        mat-icon-button>
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div #sidenav class="sidenav">
+    <nav color="primary" mat-tab-nav-bar style="min-width: 300px">
+        <a mat-tab-link active="true">New</a>
+        <a mat-tab-link disabled>Edit</a>
+        <div class="drawer-close-btn-wrapper">
+            <button mat-icon-button
+                    (click)="closeSidenav()"
+                    color="primary">
+                <mat-icon>
+                    clear
+                </mat-icon>
+            </button>
+        </div>
+    </nav>
+</div>
+<button class="fab"
+        [class.show-fab]="showFab"
+        (click)="openSidenav()"
+        mat-fab color="accent">
+    <mat-icon>add</mat-icon>
+</button>

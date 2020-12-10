@@ -50,6 +50,13 @@ mat-chip > mat-icon {
     text-overflow: ellipsis;
     white-space: normal;
     -webkit-line-clamp: 2;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
 }
 
 .company-logo {

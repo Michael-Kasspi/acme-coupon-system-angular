@@ -1,0 +1,125 @@
+@import '~@angular/material/theming';
+
+:host {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.fab {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    margin: 32px;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.2s, opacity 0.2s linear;
+}
+
+.show-fab {
+    visibility: visible;
+    opacity: 1;
+}
+
+.sidenav {
+    width: 0;
+    position: sticky;
+    z-index: 1;
+    margin-top: 32px;
+    top: 0;
+    right: 0;
+    background-color: #fff;
+    overflow-x: hidden;
+    transition: 0.5s;
+}
+
+.main {
+    transition: margin-left .5s;
+    padding: 32px;
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+nav {
+    background: white;
+}
+
+.drawer-close-btn-wrapper {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 16px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-base {
+    background: white;
+    flex: 1 1 300px;
+    max-width: 500px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    @include mat-elevation(2);
+    border-radius: 4px;
+    height: 100%;
+    overflow: auto;
+    box-sizing: border-box;
+}
+
+.list-row {
+    height: 48px;
+    padding: 0 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: space-between;
+    outline: unset;
+}
+
+.list-row:hover:not(.list-active) {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.list-row:focus {
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+.list-row:focus:hover, .list-base:active .list-active {
+    background-color: rgba(0, 0, 0, 0.12);
+}
+
+.list-content {
+    height: 100%;
+    flex: 1;
+    align-items: center;
+    display: flex;
+    box-sizing: border-box;
+    padding-right: 16px;
+}
+
+.list-text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    -webkit-line-clamp: 1;
+}
+
+.list-buttons {
+    display: none;
+}
+
+.list-row:hover .list-buttons, .list-row:focus .list-buttons {
+    display: block;
+}
