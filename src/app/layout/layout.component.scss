@@ -1,7 +1,6 @@
 :host {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+    display: block;
+    height: 100vh;
 }
 
 .sidenav-menu {
@@ -12,16 +11,9 @@
     width: 375px;
 }
 
-.layout {
-    box-sizing: border-box;
-}
-
-.toolbar-container {
-    flex: 0 1 auto;
-}
-
 .body {
-    flex: 1 1 auto;
+    height: calc(100% - 65px);
+    box-sizing: border-box;
 }
 
 .content {
@@ -31,10 +23,8 @@
 }
 
 .footer {
-    width: 100%;
+    margin-top: auto;
     height: 55px;
-    display: block;
-    flex: 0 1 auto;
 }
 
 .page-content {

@@ -1,13 +1,15 @@
 @import '~@angular/material/theming';
 
 .toolbar {
+    position: sticky;
+    top: 0;
+    left: 0;
     background-color: white;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-direction: row;
     height: 65px;
-    position: relative;
     @include mat-elevation(2);
     z-index: 10;
 }
