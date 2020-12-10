@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TitleService} from '../title/title.service';
 import {AdminService} from './services/admin.service';
-import {CategoryClient} from '../category-manager/category.client.interface';
 import {CategoryManagerService} from '../category-manager/category-manager.service';
 
 @Component({
@@ -15,7 +14,7 @@ export class AdminComponent implements OnInit {
     constructor(
         private titleService: TitleService,
         private adminService: AdminService,
-        private categoryManagerService: CategoryManagerService
+        private categoryManagerService: CategoryManagerService,
     ) {
         categoryManagerService.client = adminService;
     }
