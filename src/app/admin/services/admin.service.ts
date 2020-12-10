@@ -2,18 +2,18 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpEvent} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {EndpointService} from '../../endpoint/endpoint.service';
-import {UserType} from '../../model/UserType';
 import {CouponRestService} from '../../coupon/services/interfaces/CouponRestService';
 import {Coupon} from '../../model/Coupon';
 import {Category} from '../../model/Category';
 import {map} from 'rxjs/operators';
 import {Company} from '../../model/Company';
 import {Account} from '../../model/Account';
+import {CategoryClient} from '../../category-manager/category.client.interface';
 
 @Injectable({
     providedIn: 'root'
 })
-export class AdminService implements CouponRestService {
+export class AdminService implements CouponRestService, CategoryClient {
 
     constructor(
         private client: HttpClient,
@@ -161,5 +161,44 @@ export class AdminService implements CouponRestService {
             `${this.endpoint.url}admin/accounts/${id}`,
             {withCredentials: true}
         ).pipe(map(account => new Account(account)));
+    }
+
+    addCategory(category: Category): Observable<Category> {
+        if (!category) {
+            return throwError('Unable to add category without category object');
+        }
+        return this.client.post<Category>(
+            `${this.endpoint.url}admin/categories`,
+            {withCredentials: true}
+        ).pipe(map(category => new Category(category)));
+    }
+
+    deleteCategory(id: number): Observable<void> {
+        if (!id || isNaN(id)) {
+            throwError('Unable to delete category without Id');
+        }
+        return this.client.delete<void>(
+            `${this.endpoint.url}admin/categories/${id}`,
+            {withCredentials: true})
+    }
+
+    getCategory(id: number): Observable<Category> {
+        if (!id || isNaN(id)) {
+            throwError('Unable to get category without Id');
+        }
+        return this.client.get<Category>(
+            `${this.endpoint.url}admin/categories/${id}`,
+            {withCredentials: true}
+        ).pipe(map(category => new Category(category)))
+    }
+
+    updateCategory(category: Category): Observable<Category> {
+        if (!category) {
+            return throwError('Unable to update category without category object');
+        }
+        return this.client.put<Category>(
+            `${this.endpoint.url}admin/categories`,
+            {withCredentials: true}
+        ).pipe(map(category => new Category(category)));
     }
 }
