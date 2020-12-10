@@ -14,7 +14,11 @@ const routes: Routes = [{
         {
             path: 'coupons',
             loadChildren: () => import('../coupon/coupon-manager/coupon-manager.module').then(m => m.CouponManagerModule)
-        }
+        },
+        {
+            path: 'categories',
+            loadChildren: () => import('../category-manager/category-manager.module').then(m => m.CategoryManagerModule)
+        },
     ]
 },];
 
