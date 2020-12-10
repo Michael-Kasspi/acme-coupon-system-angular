@@ -1,15 +1,15 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { CategoryManagerRoutingModule } from './category-manager-routing.module';
-import { CategoryManagerComponent } from './category-manager.component';
-import {MatListModule} from '@angular/material/list';
+import {CategoryManagerRoutingModule} from './category-manager-routing.module';
+import {CategoryManagerComponent} from './category-manager.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatRippleModule} from '@angular/material/core';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {CategoryFormModule} from '../category/category-form/category-form.module';
 
 
 @NgModule({
@@ -17,13 +17,13 @@ import {MatTabsModule} from '@angular/material/tabs';
     imports: [
         CommonModule,
         CategoryManagerRoutingModule,
-        MatListModule,
         MatIconModule,
         MatButtonModule,
         MatRippleModule,
         MatTooltipModule,
-        MatSidenavModule,
-        MatTabsModule
+        MatTabsModule,
+        MatProgressSpinnerModule,
+        CategoryFormModule,
     ]
 })
 export class CategoryManagerModule { }

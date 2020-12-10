@@ -4,13 +4,14 @@ import {Category} from '../model/Category';
 import {finalize, first} from 'rxjs/operators';
 import {ManualProgressBarService} from '../progress-bar/manual-progress-bar.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {Observable} from 'rxjs';
 
 export const ACTIVE_CLASS = 'list-active';
 
 @Component({
     selector: 'app-category-manager',
     templateUrl: './category-manager.component.html',
-    styleUrls: ['./category-manager.component.scss']
+    styleUrls: ['./category-manager.component.scss'],
 })
 export class CategoryManagerComponent implements OnInit {
 
@@ -19,12 +20,12 @@ export class CategoryManagerComponent implements OnInit {
 
     showFab: boolean = true;
 
-    categories: Category[] = null;
+    categories: Category[] = undefined;
 
     constructor(
         private service: CategoryManagerService,
         private progressBar: ManualProgressBarService,
-        private route: ActivatedRoute,
+        private activatedRoute: ActivatedRoute,
         private router: Router
     ) {
     }
@@ -38,7 +39,21 @@ export class CategoryManagerComponent implements OnInit {
         this.service
             .getAllCategories()
             .pipe(first())
-            .subscribe(categories => this.categories = categories);
+            .subscribe(
+                categories => this.categories = categories,
+                error => this.categories = null
+            );
+    }
+
+    openSidenavEdit() {
+        this.activatedRoute.queryParamMap.subscribe(params => {
+                const id = +params.get('edit');
+                if (id) {
+                    this.fetchCategory(id)
+                        .subscribe(category => this.service.edit = category);
+                }
+            }
+        );
     }
 
     selectRow(listRow: HTMLLIElement) {
@@ -65,24 +80,32 @@ export class CategoryManagerComponent implements OnInit {
     }
 
     editCategory(category: Category) {
+        this.service.add = null;
         if (this.categories) {
             this.service.edit = category;
             this.router.navigate(
                 ['./'],
-                {relativeTo: this.route, queryParams: {edit: category.id}})
+                {relativeTo: this.activatedRoute, queryParams: {edit: category.id}})
                 .then(() => this.openSidenav());
-            return;
+        } else {
+            this.fetchCategory(category.id);
         }
+    }
+
+    private fetchCategory(id: number): Observable<Category> {
         this.progressBar.status = true;
-        this.service
-            .getCategory(category.id)
+        return this.service
+            .getCategory(id)
             .pipe(
                 first(),
                 finalize(() => {
                     this.progressBar.status = false;
                     this.openSidenav();
-                }))
-            .subscribe(console.log);
+                }));
+    }
+
+    get currentAdd(): Category {
+        return this.service.add;
     }
 
     get currentEdit(): Category {
@@ -90,14 +113,28 @@ export class CategoryManagerComponent implements OnInit {
     }
 
     closeSidenavEdit() {
-        this.service.edit = null;
-        this.router.navigate(
-            ['./'],
-            {relativeTo: this.route, queryParams: {edit: null}});
+        this.clearAdd();
+        this.clearEdit();
         this.closeSidenav();
     }
 
-    openSidenavEdit() {
-        /* TODO: implement resolver */
+    private clearEdit() {
+        this.service.edit = null;
+        this.router.navigate(
+            ['./'],
+            {relativeTo: this.activatedRoute, queryParams: {edit: null}});
+    }
+
+    openSidenavAdd() {
+        if (this.currentAdd) {
+            return;
+        }
+        this.clearEdit();
+        this.service.add = new Category();
+        this.openSidenav();
+    }
+
+    private clearAdd() {
+        this.service.add = null;
     }
 }

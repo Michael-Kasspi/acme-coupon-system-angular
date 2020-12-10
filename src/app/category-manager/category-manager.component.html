@@ -1,5 +1,8 @@
 <div #main class="main">
     <div class="list-base">
+        <div *ngIf="categories === undefined" class="spinner-container">
+            <mat-spinner></mat-spinner>
+        </div>
         <ul>
             <li #listRow
                 matRipple
@@ -45,22 +48,30 @@
 </div>
 <div #sidenav class="sidenav">
     <nav color="primary" mat-tab-nav-bar style="min-width: 300px">
-        <a mat-tab-link>New</a>
+        <a (click)="openSidenavAdd()" mat-tab-link [active]="!!currentAdd">New</a>
         <a mat-tab-link [active]="!!currentEdit" [disabled]="!currentEdit">Edit</a>
         <div class="drawer-close-btn-wrapper">
             <button mat-icon-button
+                    matTooltip="Close"
+                    matTooltipClass="custom-tooltip"
+                    matTooltipShowDelay="400"
                     (click)="closeSidenavEdit()"
-                    color="primary">
+                    color="warn">
                 <mat-icon>
                     clear
                 </mat-icon>
             </button>
         </div>
     </nav>
+    <app-category-form></app-category-form>
+    test
 </div>
 <button class="fab"
         [class.show-fab]="showFab"
-        (click)="openSidenav()"
+        (click)="openSidenavAdd()"
+        matTooltip="Create new category"
+        matTooltipClass="custom-tooltip"
+        matTooltipShowDelay="500"
         mat-fab color="accent">
     <mat-icon>add</mat-icon>
 </button>

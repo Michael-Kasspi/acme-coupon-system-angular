@@ -10,6 +10,7 @@ export class CategoryManagerService {
 
     private _client: CategoryClient = null;
     private _edit: Category = null;
+    private _add: Category;
 
     constructor() {
     }
@@ -32,5 +33,13 @@ export class CategoryManagerService {
 
     set edit(value: Category) {
         this._edit = value;
+    }
+
+    get add(): Category {
+        return this._add;
+    }
+
+    set add(value: Category) {
+        this._add = value;
     }
 }
