@@ -1,4 +1,9 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {CategoryManagerService} from './category-manager.service';
+import {Category} from '../model/Category';
+import {finalize, first} from 'rxjs/operators';
+import {ManualProgressBarService} from '../progress-bar/manual-progress-bar.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 export const ACTIVE_CLASS = 'list-active';
 
@@ -14,12 +19,26 @@ export class CategoryManagerComponent implements OnInit {
 
     showFab: boolean = true;
 
-    categories: String[] = [];
+    categories: Category[] = null;
 
-    constructor() {
+    constructor(
+        private service: CategoryManagerService,
+        private progressBar: ManualProgressBarService,
+        private route: ActivatedRoute,
+        private router: Router
+    ) {
     }
 
     ngOnInit(): void {
+        this.getAllCategories();
+        this.openSidenavEdit();
+    }
+
+    getAllCategories() {
+        this.service
+            .getAllCategories()
+            .pipe(first())
+            .subscribe(categories => this.categories = categories);
     }
 
     selectRow(listRow: HTMLLIElement) {
@@ -45,7 +64,40 @@ export class CategoryManagerComponent implements OnInit {
         this.showFab = true;
     }
 
-    editCategory(category: String) {
-        this.openSidenav();
+    editCategory(category: Category) {
+        if (this.categories) {
+            this.service.edit = category;
+            this.router.navigate(
+                ['./'],
+                {relativeTo: this.route, queryParams: {edit: category.id}})
+                .then(() => this.openSidenav());
+            return;
+        }
+        this.progressBar.status = true;
+        this.service
+            .getCategory(category.id)
+            .pipe(
+                first(),
+                finalize(() => {
+                    this.progressBar.status = false;
+                    this.openSidenav();
+                }))
+            .subscribe(console.log);
+    }
+
+    get currentEdit(): Category {
+        return this.service.edit;
+    }
+
+    closeSidenavEdit() {
+        this.service.edit = null;
+        this.router.navigate(
+            ['./'],
+            {relativeTo: this.route, queryParams: {edit: null}});
+        this.closeSidenav();
+    }
+
+    openSidenavEdit() {
+        /* TODO: implement resolver */
     }
 }

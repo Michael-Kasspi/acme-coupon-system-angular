@@ -8,7 +8,7 @@
                 (click)="selectRow(listRow);"
                 *ngFor="let category of categories">
                 <div #listContent class="list-content" (click)="editCategory(category)">
-                    <div class="list-text">{{category}}</div>
+                    <div class="list-text">{{category.name}}</div>
                 </div>
                 <div class="list-buttons"
                      (mousedown)="setActiveRow(listRow)"
@@ -45,11 +45,11 @@
 </div>
 <div #sidenav class="sidenav">
     <nav color="primary" mat-tab-nav-bar style="min-width: 300px">
-        <a mat-tab-link active="true">New</a>
-        <a mat-tab-link disabled>Edit</a>
+        <a mat-tab-link>New</a>
+        <a mat-tab-link [active]="!!currentEdit" [disabled]="!currentEdit">Edit</a>
         <div class="drawer-close-btn-wrapper">
             <button mat-icon-button
-                    (click)="closeSidenav()"
+                    (click)="closeSidenavEdit()"
                     color="primary">
                 <mat-icon>
                     clear
