@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {TitleService} from '../title/title.service';
 import {AdminService} from './services/admin.service';
-import {CategoryClient} from '../category-manager/category.client.interface';
 import {CategoryManagerService} from '../category-manager/category-manager.service';
+
 
 @Component({
     selector: 'app-admin',
