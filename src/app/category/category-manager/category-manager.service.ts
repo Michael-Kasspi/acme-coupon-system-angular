@@ -24,6 +24,18 @@ export class CategoryManagerService {
         return this._client.getCategory(id);
     }
 
+    saveCategory(category: Category): Observable<Category> {
+        return this._client.addCategory(category);
+    }
+
+    updateCategory(category: Category): Observable<Category> {
+        return this._client.updateCategory(category);
+    }
+
+    deleteCategory(category: Category): Observable<void> {
+        return this._client.deleteCategory(category.id);
+    }
+
     set client(value: CategoryClient) {
         this._client = value;
     }
