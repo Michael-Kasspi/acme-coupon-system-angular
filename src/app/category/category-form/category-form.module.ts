@@ -7,6 +7,7 @@ import {ImageManagerModule} from '../../image-manager/image-manager.module';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {ReactiveFormsModule} from '@angular/forms';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import {ReactiveFormsModule} from '@angular/forms';
         ImageManagerModule,
         MatButtonModule,
         MatIconModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatProgressSpinnerModule
     ],
   exports: [CategoryFormComponent]
 })
