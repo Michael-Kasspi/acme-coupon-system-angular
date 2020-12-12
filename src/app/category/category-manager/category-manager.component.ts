@@ -55,20 +55,7 @@ export class CategoryManagerComponent implements OnInit {
                         .subscribe(category => this.service.edit = category);
                 }
             }
-        );
-    }
-
-    selectRow(listRow: HTMLLIElement) {
-        listRow.tabIndex = -1;
-        listRow.focus();
-    }
-
-    setActiveRow(listRow: HTMLLIElement) {
-        listRow.classList.add(ACTIVE_CLASS);
-    }
-
-    removeActiveRow(listRow: HTMLLIElement) {
-        listRow.classList.remove(ACTIVE_CLASS);
+        });
     }
 
     openSidenav() {
