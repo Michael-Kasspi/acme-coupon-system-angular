@@ -1,11 +1,11 @@
-<form>
+<form [formGroup]="form">
     <section>
         <mat-form-field id="name" appearance="fill">
             <mat-label>Name</mat-label>
-            <input #nameInput id="nameInput" matInput>
+            <input #nameInput formControlName="name" id="nameInput" matInput>
             <mat-hint>The display name of the category</mat-hint>
             <mat-hint align="end">
-                {{nameInput.value?.length || 0}}/{{nameInput.maxLength}}
+                {{nameInput.value?.length || 0}}/{{NAME_CHAR_MAX}}
             </mat-hint>
         </mat-form-field>
     </section>
@@ -13,6 +13,7 @@
         <mat-form-field id="description" appearance="fill">
             <mat-label>Description</mat-label>
             <textarea
+                formControlName="description"
                 #descriptionInput
                 placeholder="Description"
                 matInput
@@ -20,7 +21,7 @@
                 cdkTextareaAutosize></textarea>
             <mat-hint>A brief description about the category</mat-hint>
             <mat-hint align="end">
-                {{descriptionInput.value?.length || 0}}/{{descriptionInput.maxLength}}
+                {{descriptionInput.value?.length || 0}}/{{DESC_CHAR_MAX}}
             </mat-hint>
         </mat-form-field>
     </section>
