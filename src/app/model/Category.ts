@@ -12,7 +12,7 @@ export class Category implements Deserializable{
         }
     }
 
-    get serialize(): Object {
+    serialize(): Object {
         return {
             id: this.id,
             name: this.name,
