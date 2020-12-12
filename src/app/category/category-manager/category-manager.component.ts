@@ -83,7 +83,7 @@ export class CategoryManagerComponent implements OnInit {
                 {relativeTo: this.activatedRoute, queryParams: {edit: category.id}})
                 .then(() => this.openSidenav());
         } else {
-            this.fetchCategory(category.id);
+            this.fetchCategory(category.id).subscribe(category => this.service.edit = category);
         }
     }
 
