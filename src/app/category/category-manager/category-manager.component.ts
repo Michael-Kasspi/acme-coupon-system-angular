@@ -29,7 +29,8 @@ export class CategoryManagerComponent implements OnInit {
         public service: CategoryManagerService,
         private progressBar: ManualProgressBarService,
         private activatedRoute: ActivatedRoute,
-        private router: Router
+        private router: Router,
+        private cdf: ChangeDetectorRef
     ) {
     }
 
@@ -61,6 +62,7 @@ export class CategoryManagerComponent implements OnInit {
     openSidenav() {
         this.sidenav.nativeElement.style.width = SIDE_NAV_WIDTH;
         this.showFab = false;
+        this.cdf.detectChanges();
     }
 
     closeSidenav(): Observable<any> {
