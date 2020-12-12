@@ -4,15 +4,16 @@
         [matRippleTrigger]="listContent"
         class="list-row"
         (click)="selectRow(listRow);"
-        *ngFor="let category of categories" @listMod>
-        <div #listContent class="list-content" (click)="edit(category)">
+        *ngFor="let category of categories; let i=index" @listMod>
+        <div #listContent class="list-content" (click)="edit(category, i)">
             <div class="list-text">{{category.name}}</div>
         </div>
         <div class="list-buttons"
              (mousedown)="setActiveRow(listRow)"
              (mouseup)="removeActiveRow(listRow)">
             <button
-                (click)="edit(category)"
+                (click)="edit(category, i)"
+                [disabled]="i === lockRow && locked"
                 matTooltipShowDelay="600"
                 matTooltip="Edit"
                 matTooltipClass="custom-tooltip"
@@ -22,6 +23,7 @@
             </button>
             <button
                 (click)="list(category)"
+                [disabled]="i === lockRow && locked"
                 matTooltipShowDelay="600"
                 matTooltip="Coupons of category"
                 matTooltipClass="custom-tooltip"
@@ -30,7 +32,8 @@
                 <mat-icon>list</mat-icon>
             </button>
             <button
-                (click)="delete(category)"
+                (click)="delete(category, i)"
+                [disabled]="i === lockRow && locked"
                 matTooltipShowDelay="600"
                 matTooltip="Delete"
                 matTooltipClass="custom-tooltip"

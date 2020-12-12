@@ -47,6 +47,12 @@ export class CategoryListComponent implements OnInit {
     @Input()
     categories: Category[] = undefined;
 
+    @Input()
+    lockRow: number = undefined;
+
+    @Input()
+    locked: boolean = false;
+
     constructor() {
     }
 
@@ -66,7 +72,8 @@ export class CategoryListComponent implements OnInit {
         listRow.classList.remove(ACTIVE_CLASS);
     }
 
-    edit(category: Category) {
+    edit(category: Category, lockRow: number) {
+        this.lockRow = lockRow;
         this.editEvent.emit(category);
         this.selectOrEditEvent.emit(category);
     }
@@ -76,7 +83,8 @@ export class CategoryListComponent implements OnInit {
         this.selectOrEditEvent.emit(category);
     }
 
-    delete(category: Category) {
+    delete(category: Category, row: number) {
+        this.lockRow = row;
         this.deleteEvent.emit(category);
     }
 
