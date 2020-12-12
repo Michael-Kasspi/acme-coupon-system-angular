@@ -3,6 +3,7 @@
         <app-category-list
             *ngIf="categories !== undefined else spinner" @fadeOut
             [categories]="categories"
+            (selectOrEdit)="editCategory($event)">
         </app-category-list>
     </div>
 </div>
