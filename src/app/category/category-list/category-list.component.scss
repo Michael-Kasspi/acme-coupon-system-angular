@@ -1,0 +1,54 @@
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-row {
+    height: 48px;
+    padding: 0 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: space-between;
+    outline: unset;
+}
+
+.list-row:hover:not(.list-active) {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+.list-row:focus {
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+.list-row:focus:hover, .list-base:active .list-active {
+    background-color: rgba(0, 0, 0, 0.12);
+}
+
+.list-content {
+    height: 100%;
+    flex: 1;
+    align-items: center;
+    display: flex;
+    box-sizing: border-box;
+    padding-right: 16px;
+}
+
+.list-text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    -webkit-line-clamp: 1;
+}
+
+.list-buttons {
+    display: none;
+}
+
+.list-row:hover .list-buttons, .list-row:focus .list-buttons {
+    display: block;
+}
