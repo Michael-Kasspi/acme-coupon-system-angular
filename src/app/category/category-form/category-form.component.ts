@@ -115,22 +115,24 @@ export class CategoryFormComponent implements OnInit, OnChanges {
                 {value: this?.category?.name || '', disabled: false},
                 [
                     Validators.required,
-                    Validators.min(NAME_CHAR_MIN),
-                    Validators.max(NAME_CHAR_MAX)
+                    Validators.minLength(NAME_CHAR_MIN),
+                    Validators.maxLength(NAME_CHAR_MAX)
                 ]),
             description: new FormControl({value: this?.category?.description || '', disabled: false},
                 [
-                    Validators.max(DESC_CHAR_MAX)
+                    Validators.maxLength(DESC_CHAR_MAX)
                 ])
         });
     }
 
     save(): void {
-        this.saveEvent.emit(this.form.value);
+        this.saveEvent.emit(this.getCategory());
     }
 
     update(): void {
-        this.updateEvent.emit(this.form.value);
+        const category = this.getCategory();
+        category.id = this.category.id;
+        this.updateEvent.emit(category);
     }
 
     revert(): void {
@@ -153,5 +155,9 @@ export class CategoryFormComponent implements OnInit, OnChanges {
 
     get description(): AbstractControl {
         return this.form.get('description');
+    }
+
+    private getCategory(): Category {
+        return new Category(this.form.value);
     }
 }
