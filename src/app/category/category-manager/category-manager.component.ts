@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {CategoryManagerService} from './category-manager.service';
 import {Category} from '../../model/Category';
 import {delay, finalize, first} from 'rxjs/operators';
@@ -6,6 +6,7 @@ import {ManualProgressBarService} from '../../progress-bar/manual-progress-bar.s
 import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {ADD_MODE, EDIT_MODE} from '../category-form/category-form.component';
+import {animate, style, transition, trigger} from '@angular/animations';
 
 export const ACTIVE_CLASS = 'list-active';
 export const SIDE_NAV_WIDTH = '50%';
@@ -15,8 +16,22 @@ export const SIDE_NAV_TRANSITION_MS = 500;
     selector: 'app-category-manager',
     templateUrl: './category-manager.component.html',
     styleUrls: ['./category-manager.component.scss'],
+    animations: [
+        trigger('fadeIn', [
+            transition(':enter', [
+                style({opacity: 0.4}),
+                animate('0.4s ease-in', style({opacity: 1}))
+            ])
+        ]),
+        trigger('fadeOut', [
+            transition(':leave', [
+                style({opacity: 1}),
+                animate('0.2s ease', style({opacity: 0}))
+            ])
+        ])
+    ]
 })
-export class CategoryManagerComponent implements OnInit {
+export class CategoryManagerComponent implements OnInit, AfterViewInit {
 
     @ViewChild('sidenav')
     sidenav: ElementRef = null;
@@ -24,6 +39,10 @@ export class CategoryManagerComponent implements OnInit {
     showFab: boolean = true;
 
     categories: Category[] = undefined;
+
+    querying: boolean = false;
+    processing: boolean = false;
+    process: string = null;
 
     constructor(
         public service: CategoryManagerService,
@@ -36,6 +55,9 @@ export class CategoryManagerComponent implements OnInit {
 
     ngOnInit(): void {
         this.getAllCategories();
+    }
+
+    ngAfterViewInit(): void {
         this.openSidenavEdit();
     }
 
@@ -53,7 +75,9 @@ export class CategoryManagerComponent implements OnInit {
         this.activatedRoute.queryParamMap.subscribe(params => {
             const id = +params.get('edit');
             if (id) {
+                this.querying = true;
                 this.fetchCategory(id)
+                    .pipe(finalize(() => this.querying = false))
                     .subscribe(category => this.service.edit = category);
             }
         });
