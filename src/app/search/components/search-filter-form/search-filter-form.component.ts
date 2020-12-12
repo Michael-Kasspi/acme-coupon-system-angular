@@ -445,6 +445,8 @@ export class SearchFilterFormComponent implements OnInit, AfterViewInit {
                 return;
             }
 
+
+            // @ts-ignore
             const entry = entries.find(entry => entry[filterField.toString()] + '' === filterTerm.toString());
             if (entry) {
                 filterOption.value = entry;
