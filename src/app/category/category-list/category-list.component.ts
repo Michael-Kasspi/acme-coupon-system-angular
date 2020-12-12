@@ -1,11 +1,31 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Category} from '../../model/Category';
-import {ACTIVE_CLASS} from '../category-manager/category-manager.component';
+import {animate, style, transition, trigger} from '@angular/animations';
+
+export const ACTIVE_CLASS = 'list-active';
 
 @Component({
     selector: 'app-category-list',
     templateUrl: './category-list.component.html',
-    styleUrls: ['./category-list.component.scss']
+    styleUrls: ['./category-list.component.scss'],
+    animations: [trigger('listMod', [
+        transition(':enter', [
+            style({height: 0, opacity: 0}),
+            animate('0.4s ease', style({
+                height: '48px',
+                opacity: 1
+            }))
+        ]),
+        transition(':leave', [
+            style({
+                opacity: 1,
+            }),
+            animate('0.3s ease-out', style({
+                opacity: 0,
+                height: 0
+            }))
+        ])
+    ])]
 })
 export class CategoryListComponent implements OnInit {
 

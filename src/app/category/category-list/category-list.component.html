@@ -4,7 +4,7 @@
         [matRippleTrigger]="listContent"
         class="list-row"
         (click)="selectRow(listRow);"
-        *ngFor="let category of categories">
+        *ngFor="let category of categories" @listMod>
         <div #listContent class="list-content" (click)="edit(category)">
             <div class="list-text">{{category.name}}</div>
         </div>
