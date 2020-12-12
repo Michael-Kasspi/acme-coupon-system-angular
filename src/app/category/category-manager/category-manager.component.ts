@@ -8,7 +8,6 @@ import {Observable} from 'rxjs';
 import {ADD_MODE, EDIT_MODE} from '../category-form/category-form.component';
 import {animate, style, transition, trigger} from '@angular/animations';
 
-export const ACTIVE_CLASS = 'list-active';
 export const SIDE_NAV_WIDTH = '50%';
 export const SIDE_NAV_TRANSITION_MS = 500;
 
