@@ -25,7 +25,7 @@ export class CategoryManagerComponent implements OnInit {
     categories: Category[] = undefined;
 
     constructor(
-        private service: CategoryManagerService,
+        public service: CategoryManagerService,
         private progressBar: ManualProgressBarService,
         private activatedRoute: ActivatedRoute,
         private router: Router
@@ -106,14 +106,6 @@ export class CategoryManagerComponent implements OnInit {
                 }));
     }
 
-    get currentAdd(): Category {
-        return this.service.add;
-    }
-
-    get currentEdit(): Category {
-        return this.service.edit;
-    }
-
     closeSidenavEdit() {
         this.clearAdd();
         this.clearEdit();
@@ -128,7 +120,7 @@ export class CategoryManagerComponent implements OnInit {
     }
 
     openSidenavAdd() {
-        if (this.currentAdd) {
+        if (this.service.add) {
             return;
         }
         this.clearEdit();
@@ -141,6 +133,6 @@ export class CategoryManagerComponent implements OnInit {
     }
 
     get formMode(): string {
-        return !!this.currentAdd ? ADD_MODE : !!this.currentEdit ? EDIT_MODE : null;
+        return !!this.service.add ? ADD_MODE : !!this.service.edit ? EDIT_MODE : null;
     }
 }
