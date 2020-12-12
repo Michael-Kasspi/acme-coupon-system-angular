@@ -96,15 +96,10 @@ export class CategoryManagerComponent implements OnInit {
     }
 
     private fetchCategory(id: number): Observable<Category> {
-        this.progressBar.status = true;
+        this.openSidenav();
         return this.service
             .getCategory(id)
-            .pipe(
-                first(),
-                finalize(() => {
-                    this.progressBar.status = false;
-                    this.openSidenav();
-                }));
+            .pipe(first());
     }
 
     closeSidenavEdit() {
