@@ -9,6 +9,7 @@ import {ADD_MODE, EDIT_MODE} from '../category-form/category-form.component';
 
 export const ACTIVE_CLASS = 'list-active';
 export const SIDE_NAV_WIDTH = '50%';
+export const SIDE_NAV_TRANSITION_MS = 500;
 
 @Component({
     selector: 'app-category-manager',
@@ -63,9 +64,14 @@ export class CategoryManagerComponent implements OnInit {
         this.showFab = false;
     }
 
-    closeSidenav() {
-        this.sidenav.nativeElement.style.width = '0';
-        this.showFab = true;
+    closeSidenav(): Observable<any> {
+        return new Observable(consumer => {
+            this.sidenav.nativeElement.style.transition = `${SIDE_NAV_TRANSITION_MS}ms`;
+            this.sidenav.nativeElement.style.width = '0';
+            this.showFab = true;
+            consumer.next();
+        }).pipe(first(), delay(SIDE_NAV_TRANSITION_MS));
+
     }
 
     editCategory(category: Category) {
@@ -94,9 +100,10 @@ export class CategoryManagerComponent implements OnInit {
     }
 
     closeSidenavEdit() {
-        this.clearAdd();
-        this.clearEdit();
-        this.closeSidenav();
+        this.closeSidenav().subscribe(_ => {
+            this.clearAdd();
+            this.clearEdit();
+        });
     }
 
     private clearEdit() {
