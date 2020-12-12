@@ -74,16 +74,23 @@ export class CategoryManagerComponent implements OnInit {
     }
 
     editCategory(category: Category) {
+        this.querying = true;
         this.service.add = null;
-        if (this.categories) {
-            this.service.edit = category;
-            this.router.navigate(
-                ['./'],
-                {relativeTo: this.activatedRoute, queryParams: {edit: category.id}})
-                .then(() => this.openSidenav());
-        } else {
-            this.fetchCategory(category.id).subscribe(category => this.service.edit = category);
-        }
+        this.router.navigate(
+            ['./'],
+            {relativeTo: this.activatedRoute, queryParams: {edit: category.id}})
+            .then(() => {
+                if (this.categories) {
+                    this.service.edit = category;
+                    this.openSidenav();
+                    setTimeout(() => this.querying = false, 350);
+                } else {
+                    this.fetchCategory(category.id)
+                        .pipe(finalize(() => this.querying = false))
+                        .subscribe(category => this.service.edit = category);
+                }
+            });
+
     }
 
     private fetchCategory(id: number): Observable<Category> {
