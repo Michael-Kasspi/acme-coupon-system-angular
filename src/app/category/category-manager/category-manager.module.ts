@@ -5,12 +5,12 @@ import {CategoryManagerRoutingModule} from './category-manager-routing.module';
 import {CategoryManagerComponent} from './category-manager.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
-import {MatRippleModule} from '@angular/material/core';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {CategoryFormModule} from '../category-form/category-form.module';
 import {CategoryListModule} from '../category-list/category-list.module';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -20,12 +20,12 @@ import {CategoryListModule} from '../category-list/category-list.module';
         CategoryManagerRoutingModule,
         MatIconModule,
         MatButtonModule,
-        MatRippleModule,
         MatTooltipModule,
         MatTabsModule,
         MatProgressSpinnerModule,
         CategoryFormModule,
         CategoryListModule,
+        MatProgressBarModule,
     ]
 })
 export class CategoryManagerModule { }
