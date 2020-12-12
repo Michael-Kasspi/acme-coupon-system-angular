@@ -50,11 +50,10 @@ export class CategoryManagerComponent implements OnInit {
 
     openSidenavEdit() {
         this.activatedRoute.queryParamMap.subscribe(params => {
-                const id = +params.get('edit');
-                if (id) {
-                    this.fetchCategory(id)
-                        .subscribe(category => this.service.edit = category);
-                }
+            const id = +params.get('edit');
+            if (id) {
+                this.fetchCategory(id)
+                    .subscribe(category => this.service.edit = category);
             }
         });
     }
