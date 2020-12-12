@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TitleService} from '../title/title.service';
 import {AdminService} from './services/admin.service';
-import {CategoryManagerService} from '../category-manager/category-manager.service';
+import {CategoryManagerService} from '../category/category-manager/category-manager.service';
 
 
 @Component({

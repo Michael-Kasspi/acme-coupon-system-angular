@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {CategoryClient} from './category.client.interface';
 import {Observable} from 'rxjs';
-import {Category} from '../model/Category';
+import {Category} from '../../model/Category';
 
 @Injectable({
     providedIn: 'root'
@@ -10,7 +10,8 @@ export class CategoryManagerService {
 
     private _client: CategoryClient = null;
     private _edit: Category = null;
-    private _add: Category;
+    private _add: Category = null;
+    private _category: Category = null;
 
     constructor() {
     }
@@ -33,6 +34,7 @@ export class CategoryManagerService {
 
     set edit(value: Category) {
         this._edit = value;
+        this._category = value;
     }
 
     get add(): Category {
@@ -41,5 +43,14 @@ export class CategoryManagerService {
 
     set add(value: Category) {
         this._add = value;
+        this._category = value;
+    }
+
+    get category(): Category {
+        return this._category;
+    }
+
+    set category(value: Category) {
+        this._category = value;
     }
 }

@@ -8,7 +8,7 @@ import {Category} from '../../model/Category';
 import {map} from 'rxjs/operators';
 import {Company} from '../../model/Company';
 import {Account} from '../../model/Account';
-import {CategoryClient} from '../../category-manager/category.client.interface';
+import {CategoryClient} from '../../category/category-manager/category.client.interface';
 
 @Injectable({
     providedIn: 'root'

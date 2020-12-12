@@ -9,7 +9,8 @@ import {MatRippleModule} from '@angular/material/core';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {CategoryFormModule} from '../category/category-form/category-form.module';
+import {CategoryFormModule} from '../category-form/category-form.module';
+import {CategoryListModule} from '../category-list/category-list.module';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import {CategoryFormModule} from '../category/category-form/category-form.module
         MatTabsModule,
         MatProgressSpinnerModule,
         CategoryFormModule,
+        CategoryListModule,
     ]
 })
 export class CategoryManagerModule { }

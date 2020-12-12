@@ -1,11 +1,10 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {CategoryManagerService} from './category-manager.service';
-import {Category} from '../model/Category';
-import {finalize, first} from 'rxjs/operators';
 import {ManualProgressBarService} from '../progress-bar/manual-progress-bar.service';
+import {Category} from '../../model/Category';
+import {delay, finalize, first} from 'rxjs/operators';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs';
-import {ADD_MODE, EDIT_MODE} from '../category/category-form/category-form.component';
 
 export const ACTIVE_CLASS = 'list-active';
 export const SIDE_NAV_WIDTH = '50%';
