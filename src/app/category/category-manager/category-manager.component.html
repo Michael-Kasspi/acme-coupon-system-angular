@@ -1,9 +1,8 @@
 <div class="main">
     <div class="list-base">
-        <div *ngIf="categories === undefined" class="spinner-container">
-            <mat-spinner></mat-spinner>
-        </div>
-        <app-category-list [categories]="categories" (selectOrEdit)="editCategory($event)">
+        <app-category-list
+            *ngIf="categories !== undefined else spinner" @fadeOut
+            [categories]="categories"
         </app-category-list>
     </div>
 </div>
@@ -42,3 +41,8 @@
         mat-fab color="accent">
     <mat-icon>add</mat-icon>
 </button>
+<ng-template #spinner>
+    <div class="spinner">
+        <mat-spinner></mat-spinner>
+    </div>
+</ng-template>
