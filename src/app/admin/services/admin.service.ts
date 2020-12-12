@@ -169,6 +169,7 @@ export class AdminService implements CouponRestService, CategoryClient {
         }
         return this.client.post<Category>(
             `${this.endpoint.url}admin/categories`,
+            category.serialize,
             {withCredentials: true}
         ).pipe(map(category => new Category(category)));
     }
@@ -179,17 +180,17 @@ export class AdminService implements CouponRestService, CategoryClient {
         }
         return this.client.delete<void>(
             `${this.endpoint.url}admin/categories/${id}`,
-            {withCredentials: true})
+            {withCredentials: true});
     }
 
     getCategory(id: number): Observable<Category> {
         if (!id || isNaN(id)) {
-            throwError('Unable to get category without Id');
+            return throwError('Unable to get category without Id');
         }
         return this.client.get<Category>(
             `${this.endpoint.url}admin/categories/${id}`,
             {withCredentials: true}
-        ).pipe(map(category => new Category(category)))
+        ).pipe(map(category => new Category(category)));
     }
 
     updateCategory(category: Category): Observable<Category> {
@@ -198,6 +199,7 @@ export class AdminService implements CouponRestService, CategoryClient {
         }
         return this.client.put<Category>(
             `${this.endpoint.url}admin/categories`,
+            category.serialize,
             {withCredentials: true}
         ).pipe(map(category => new Category(category)));
     }
