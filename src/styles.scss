@@ -1,3 +1,10 @@
+@import '~@angular/material/theming';
+@import "~src/custom-theme";
+
+$primary: map-get($custom-theme, primary);
+$accent: map-get($custom-theme, accent);
+$warn: map-get($custom-theme, warn);
+
 /* You can add global styles to this file, and also import other style files */
 
 html, body {
@@ -86,3 +93,10 @@ mat-slide-toggle.filter-toggle .mat-slide-toggle-bar {
 .sidenav mat-form-field#description .mat-form-field-flex {
     min-height: 96px !important;
 }
+
+.fab--white.mat-fab.mat-accent {
+    background-color: white !important;
+    color: mat-color($primary);
+}
+
+
