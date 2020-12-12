@@ -155,4 +155,8 @@ export class CategoryManagerComponent implements OnInit, AfterViewInit {
     get formMode(): string {
         return !!this.service.add ? ADD_MODE : !!this.service.edit ? EDIT_MODE : null;
     }
+    retryAllCategories() {
+        this.categories = undefined;
+        this.getAllCategories();
+    }
 }

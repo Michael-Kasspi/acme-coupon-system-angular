@@ -1,8 +1,24 @@
 <div class="main">
     <div class="list-base">
+        <div class="mat-typography header">
+            <h2 *ngIf="categories && !categories?.length else amount">No categories found</h2>
+            <button (click)="openSidenavAdd()" mat-raised-button color="primary">
+                <mat-icon>add_box</mat-icon>
+                <span>New</span>
+            </button>
+        </div>
+        <div *ngIf="null === categories" class="mat-typography header">
+            <h2>There was an error loading the categories</h2>
+            <button (click)="retryAllCategories()" mat-raised-button color="primary">
+                <mat-icon>refresh</mat-icon>
+                <span>Retry</span>
+            </button>
+        </div>
         <app-category-list
             *ngIf="categories !== undefined else spinner" @fadeOut
             [categories]="categories"
+            [locked]="lockDeleteRow"
+            (delete)="deleteCategoryFromList($event)"
             (selectOrEdit)="editCategory($event)">
         </app-category-list>
     </div>
@@ -27,13 +43,17 @@
     <section class="form-container">
         <app-category-form [processing]="processing"
                            [process]="process"
+                           (save)="saveCategory($event)"
+                           (update)="updateCategory($event)"
+                           (delete)="deleteCategoryFromEdit($event)"
                            *ngIf="!!service.category else spinner" @fadeIn
                            [mode]="formMode"
                            [category]="service.category"></app-category-form>
-        <mat-progress-bar [mode]="processing ? 'indeterminate' : 'query'" *ngIf="processing || querying" @fadeOut></mat-progress-bar>
+        <mat-progress-bar [mode]="processing ? 'indeterminate' : 'query'" *ngIf="processing || querying"
+                          @fadeOut></mat-progress-bar>
     </section>
 </div>
-<button class="fab"
+<button class="fab fab--white"
         [class.show-fab]="showFab"
         (click)="openSidenavAdd()"
         matTooltip="Create new category"
@@ -46,4 +66,7 @@
     <div class="spinner">
         <mat-spinner></mat-spinner>
     </div>
+</ng-template>
+<ng-template #amount>
+    <h2>Categories: {{categories?.length || 0}}</h2>
 </ng-template>

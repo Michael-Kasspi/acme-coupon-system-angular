@@ -1,10 +1,30 @@
 @import '~@angular/material/theming';
+@import "~src/custom-theme";
+
+$primary: map-get($custom-theme, primary);
 
 :host {
     height: 100%;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+}
+
+.header {
+    color: mat-color($primary);
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    justify-content: space-between;
+}
+
+.header h2 {
+    font-weight: 500;
+    margin: 0;
+}
+
+.header button mat-icon {
+    margin-right: 12px;
 }
 
 .fab {
@@ -75,7 +95,7 @@ ul {
 .list-base {
     background: white;
     flex: 1 1 300px;
-    max-width: 500px;
+    max-width: 576px;
     padding-top: 8px;
     padding-bottom: 8px;
     @include mat-elevation(2);
