@@ -52,5 +52,7 @@ export class CategoryManagerService {
 
     set category(value: Category) {
         this._category = value;
+        this._add = value;
+        this._edit = value;
     }
 }
