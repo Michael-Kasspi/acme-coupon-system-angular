@@ -25,9 +25,12 @@
         </div>
     </nav>
     <section class="form-container">
-        <app-category-form *ngIf="!!service.category" [mode]="formMode"
+        <app-category-form [processing]="processing"
+                           [process]="process"
+                           *ngIf="!!service.category else spinner" @fadeIn
+                           [mode]="formMode"
                            [category]="service.category"></app-category-form>
-        <div *ngIf="!service.category"></div>
+        <mat-progress-bar [mode]="processing ? 'indeterminate' : 'query'" *ngIf="processing || querying" @fadeOut></mat-progress-bar>
     </section>
 </div>
 <button class="fab"
