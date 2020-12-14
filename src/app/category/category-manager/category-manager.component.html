@@ -39,6 +39,7 @@
     <nav color="primary" mat-tab-nav-bar style="min-width: 300px">
         <a (click)="openSidenavAdd()" mat-tab-link [active]="!!service.add">New</a>
         <a mat-tab-link [active]="!!service.edit" [disabled]="!service.edit">Edit</a>
+        <a mat-tab-link [active]="notFound" *ngIf="notFound">Error</a>
         <div class="drawer-close-btn-wrapper">
             <button mat-icon-button
                     matTooltip="Close"
@@ -58,7 +59,7 @@
                            (save)="saveCategory($event)"
                            (update)="updateCategory($event)"
                            (delete)="deleteCategoryFromEdit($event)"
-                           *ngIf="!!service.category else spinner" @fadeIn
+                           *ngIf="!!service.category else notFoundMessage" @fadeIn
                            [mode]="formMode"
                            [category]="service.category"></app-category-form>
         <mat-progress-bar [mode]="processing ? 'indeterminate' : 'query'" *ngIf="processing || querying"
@@ -79,4 +80,8 @@
         <mat-spinner></mat-spinner>
     </div>
 </ng-template>
+<ng-template #notFoundMessage>
+    <div *ngIf="notFound else spinner" class="error-message mat-typography">
+        <h3>The category is not found.</h3>
+    </div>
 </ng-template>

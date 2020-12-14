@@ -45,7 +45,8 @@ export class CategoryManagerComponent implements OnInit, AfterViewInit {
     querying: boolean = false;
     processing: boolean = false;
     process: string = null;
-    lockDeleteRow: boolean;
+    lockDeleteRow: boolean = false;
+    notFound: boolean = false;
 
     constructor(
         public service: CategoryManagerService,
@@ -82,8 +83,12 @@ export class CategoryManagerComponent implements OnInit, AfterViewInit {
             if (id) {
                 this.querying = true;
                 this.fetchCategory(id)
-                    .pipe(finalize(() => this.querying = false))
-                    .subscribe(category => this.service.edit = category);
+                    .pipe(first(), finalize(() => this.querying = false))
+                    .subscribe(
+                        category => this.service.edit = category,
+                        error => {
+                            this.notFound = true;
+                        });
             }
         });
     }
@@ -217,6 +222,7 @@ export class CategoryManagerComponent implements OnInit, AfterViewInit {
         this.closeSidenav().subscribe(_ => {
             this.clearAdd();
             this.clearEdit();
+            this.notFound = false;
         });
     }
 
@@ -234,6 +240,7 @@ export class CategoryManagerComponent implements OnInit, AfterViewInit {
         this.clearEdit();
         this.service.add = new Category();
         this.openSidenav();
+        this.notFound = false;
     }
 
     private clearAdd() {
