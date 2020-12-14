@@ -2,9 +2,14 @@
     <section>
         <mat-form-field id="name" appearance="fill">
             <mat-label>Name</mat-label>
-            <input required #nameInput placeholder="Appliance..." formControlName="name" id="nameInput" matInput>
-            <mat-hint>Minimum 3 characters for the name</mat-hint>
+            <input
                 [errorStateMatcher]="maxLengthAndNameMatcher"
+                required
+                #nameInput
+                placeholder="Appliance..."
+                formControlName="name"
+                id="nameInput"
+                matInput>
             <mat-hint>
                 <span *ngIf="!name.pending else pendingMessage">Minimum 3 characters for the name</span>
                 <ng-template #pendingMessage>
@@ -42,19 +47,22 @@
                 {{descriptionInput.value?.length || 0}}/{{DESC_CHAR_MAX}}
             </mat-hint>
             <mat-error *ngIf="description?.invalid">
-                <span *ngIf="description?.errors.maxlength">The maximum length of the description is {{DESC_CHAR_MAX}}</span>
+                <span
+                    *ngIf="description?.errors.maxlength">The maximum length of the description is {{DESC_CHAR_MAX}}</span>
             </mat-error>
         </mat-form-field>
     </section>
     <section class="controls">
         <div *ngIf="mode === ADD_MODE " [@controlsSwitch]>
-            <button (click)="save()" [disabled]="processing || form.invalid" type="button" mat-flat-button color="primary">
+            <button (click)="save()" [disabled]="processing || form.pending || form.invalid" type="button"
+                    mat-flat-button color="primary">
                 <div>
                     <mat-icon *ngIf="process !== PROC_SAVE else spinner">add_box</mat-icon>
                     <span>{{process !== PROC_SAVE ? 'Save' : 'Saving...'}}</span>
                 </div>
             </button>
-            <button (click)="discard()" [disabled]="processing" type="button" class="align-end" mat-button color="warn">
+            <button (click)="discard()" [disabled]="processing || !form.touched" type="button" class="align-end"
+                    mat-button color="warn">
                 <div>
                     <mat-icon>backspace</mat-icon>
                     <span>Discard</span>
@@ -62,13 +70,15 @@
             </button>
         </div>
         <div *ngIf="mode === EDIT_MODE" [@controlsSwitch]>
-            <button (click)="update()" [disabled]="processing || form.invalid" type="button" mat-flat-button color="primary">
+            <button (click)="update()" [disabled]="processing || form.invalid || form.pending || form.pristine" type="button"
+                    mat-flat-button color="primary">
                 <div>
                     <mat-icon *ngIf="process !== PROC_UPDATE else spinner">save</mat-icon>
                     <span>{{process !== PROC_UPDATE ? 'Update' : 'Updating...' }}</span>
                 </div>
             </button>
-            <button (click)="revert()" [disabled]="processing" type="button" mat-stroked-button color="accent">
+            <button (click)="revert()" [disabled]="processing || !form.dirty" type="button" mat-stroked-button
+                    color="accent">
                 <mat-icon>settings_backup_restore</mat-icon>
                 <span>Revert</span>
             </button>
