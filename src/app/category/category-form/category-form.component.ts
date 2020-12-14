@@ -85,6 +85,9 @@ export class CategoryFormComponent implements OnInit, OnChanges {
     @Output('discard')
     discardEvent = new EventEmitter<any>();
 
+    @Output('revertOrDiscard')
+    revertOrDiscardEvent = new EventEmitter<any>();
+
     @Output('swap')
     swapEvent = new EventEmitter<Category>();
 
@@ -144,13 +147,13 @@ export class CategoryFormComponent implements OnInit, OnChanges {
     }
 
     revert(): void {
-        this.initForm();
         this.revertEvent.emit();
+        this.revertOrDiscardEvent.emit();
     }
 
     discard(): void {
-        this.initForm();
         this.discardEvent.emit();
+        this.revertOrDiscardEvent.emit();
     }
 
     delete(): void {
