@@ -1,11 +1,11 @@
 import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {CategoryManagerService} from './category-manager.service';
 import {Category} from '../../model/Category';
-import {delay, filter, finalize, first, flatMap, map, tap} from 'rxjs/operators';
+import {concatMap, delay, filter, finalize, first, flatMap, tap, timeout} from 'rxjs/operators';
 import {ManualProgressBarService} from '../../progress-bar/manual-progress-bar.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Observable} from 'rxjs';
-import {ADD_MODE, EDIT_MODE, PROC_DELETE, PROC_SAVE, PROC_UPDATE} from '../category-form/category-form.component';
+import {Observable, of} from 'rxjs';
+import {ADD_MODE, CategoryFormComponent, EDIT_MODE, PROC_DELETE, PROC_SAVE, PROC_UPDATE} from '../category-form/category-form.component';
 import {animate, style, transition, trigger} from '@angular/animations';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatDialog} from '@angular/material/dialog';
@@ -13,6 +13,8 @@ import {WarningDialogComponent} from '../../dialog/warning-dialog/warning-dialog
 
 export const SIDE_NAV_WIDTH = '50%';
 export const SIDE_NAV_TRANSITION_MS = 500;
+
+export const REQUEST_TIMEOUT_MS = 5000;
 
 @Component({
     selector: 'app-category-manager',
@@ -37,11 +39,10 @@ export class CategoryManagerComponent implements OnInit, AfterViewInit {
 
     @ViewChild('sidenav')
     sidenav: ElementRef = null;
-
+    @ViewChild(CategoryFormComponent)
+    categoryFormComponent: CategoryFormComponent = null;
     showFab: boolean = true;
-
     categories: Category[] = undefined;
-
     querying: boolean = false;
     processing: boolean = false;
     process: string = null;
@@ -60,21 +61,20 @@ export class CategoryManagerComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit(): void {
-        this.getAllCategories();
+        this.clearAdd();
+        this.clearEdit();
+        this.getAllCategories().pipe(timeout(REQUEST_TIMEOUT_MS)).subscribe();
     }
 
     ngAfterViewInit(): void {
         this.openSidenavEdit();
     }
 
-    getAllCategories() {
-        this.service
+    getAllCategories(): Observable<Category[]> {
+        return this.service
             .getAllCategories()
-            .pipe(first())
-            .subscribe(
-                categories => this.categories = categories,
-                error => this.categories = null
-            );
+            .pipe(first(), tap(categories => this.categories = categories,
+                error => this.categories = null));
     }
 
     openSidenavEdit() {
@@ -110,18 +110,20 @@ export class CategoryManagerComponent implements OnInit, AfterViewInit {
     }
 
     editCategory(category: Category): void {
-        this.querying = true;
-        this.service.add = null;
-        this.setQueryParams(category.id).then(() => {
-            if (this.categories) {
-                this.service.edit = category;
-                this.openSidenav();
-                setTimeout(() => this.querying = false, 350);
-            } else {
-                this.fetchCategory(category.id)
-                    .pipe(finalize(() => this.querying = false))
-                    .subscribe(category => this.service.edit = category);
-            }
+        this.discardChanges().pipe(first(), filter(discard => discard)).subscribe(_ => {
+            this.querying = true;
+            this.service.add = null;
+            this.setQueryParams(category.id).then(() => {
+                if (this.categories) {
+                    this.service.edit = category;
+                    this.openSidenav();
+                    setTimeout(() => this.querying = false, 350);
+                } else {
+                    this.fetchCategory(category.id)
+                        .pipe(finalize(() => this.querying = false))
+                        .subscribe(category => this.service.edit = category);
+                }
+            });
         });
 
     }
@@ -176,7 +178,13 @@ export class CategoryManagerComponent implements OnInit, AfterViewInit {
     deleteCategoryFromList(category: Category): void {
         this.deleteWarningDialog().pipe(flatMap(_ => {
             this.lockDeleteRow = true;
-            this.progressBar.status = true;
+            const editCategory = this.service.edit;
+            if (editCategory && editCategory.id === category.id) {
+                this.processing = true;
+                this.process = PROC_DELETE;
+            } else {
+                this.progressBar.status = true;
+            }
             return this.service.deleteCategory(category);
         }), finalize(() => {
             this.onCategoryDeletedFinalize(category);
@@ -219,7 +227,9 @@ export class CategoryManagerComponent implements OnInit, AfterViewInit {
     }
 
     closeSidenavEdit() {
-        this.closeSidenav().subscribe(_ => {
+        this.discardChanges().pipe(concatMap(value => {
+            return this.closeSidenav();
+        })).subscribe(_ => {
             this.clearAdd();
             this.clearEdit();
             this.notFound = false;
@@ -237,10 +247,12 @@ export class CategoryManagerComponent implements OnInit, AfterViewInit {
         if (this.service.add) {
             return;
         }
-        this.clearEdit();
-        this.service.add = new Category();
-        this.openSidenav();
         this.notFound = false;
+        this.discardChanges().subscribe(_ => {
+            this.clearEdit();
+            this.service.add = new Category();
+            this.openSidenav();
+        });
     }
 
     private clearAdd() {
@@ -259,7 +271,37 @@ export class CategoryManagerComponent implements OnInit, AfterViewInit {
 
     retryAllCategories() {
         this.categories = undefined;
-        this.getAllCategories();
+        this.getAllCategories().subscribe();
+    }
+
+    canDeactivate(): Observable<boolean> | boolean {
+        return this.discardChanges().pipe(tap(_ => {
+            this.progressBar.status = true;
+        }));
+    }
+
+    private discardChanges() {
+        if (this?.categoryFormComponent?.form.dirty) {
+            this.progressBar.status = false;
+            return this.discardChangesDialog().pipe(first(), filter(discard => discard));
+        }
+        return of(true);
+    }
+
+    private discardChangesDialog(): Observable<boolean> {
+        return this.dialog.open(WarningDialogComponent, {
+            data: {
+                title: 'Confirm discard changes',
+                body: 'Are you sure you want to discard changes?',
+                action: 'Discard'
+            }
+        }).afterClosed();
+    }
+
+    revertOrDiscardCategoryForm() {
+        this.discardChanges().subscribe(_ => this.categoryFormComponent.initForm());
+    }
+
     refreshList() {
         this.progressBar.status = true;
         this.getAllCategories().pipe(finalize(() => this.progressBar.status = false))

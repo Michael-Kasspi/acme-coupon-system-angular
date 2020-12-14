@@ -59,6 +59,7 @@
                            (save)="saveCategory($event)"
                            (update)="updateCategory($event)"
                            (delete)="deleteCategoryFromEdit($event)"
+                           (revertOrDiscard)="revertOrDiscardCategoryForm()"
                            *ngIf="!!service.category else notFoundMessage" @fadeIn
                            [mode]="formMode"
                            [category]="service.category"></app-category-form>
