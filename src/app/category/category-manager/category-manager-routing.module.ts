@@ -2,11 +2,13 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 
 import {CategoryManagerComponent} from './category-manager.component';
+import {CanDeactivateGuard} from '../../can-deactivate/can-deactivate.guard';
 
 const routes: Routes = [
     {
         path: '',
-        component: CategoryManagerComponent
+        component: CategoryManagerComponent,
+        canDeactivate: [CanDeactivateGuard]
     }
 ];
 

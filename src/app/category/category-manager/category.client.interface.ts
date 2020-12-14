@@ -13,4 +13,5 @@ export interface CategoryClient {
 
     deleteCategory(id: number): Observable<void>;
 
+    isCategoryNameExists(name: String): Observable<boolean>
 }

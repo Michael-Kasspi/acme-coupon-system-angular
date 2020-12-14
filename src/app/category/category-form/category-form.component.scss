@@ -53,6 +53,10 @@ button mat-icon {
     margin-right: 10px;
 }
 
-mat-spinner {
+button mat-spinner {
     margin-right: 12px;
+}
+
+mat-form-field mat-spinner {
+    margin: 0 4px;
 }

@@ -36,6 +36,10 @@ export class CategoryManagerService {
         return this._client.deleteCategory(category.id);
     }
 
+    isCategoryNameExists(name: string): Observable<boolean> {
+        return this._client.isCategoryNameExists(name);
+    }
+
     set client(value: CategoryClient) {
         this._client = value;
     }

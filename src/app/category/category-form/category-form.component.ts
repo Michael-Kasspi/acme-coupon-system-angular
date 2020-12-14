@@ -2,6 +2,8 @@ import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges
 import {animate, style, transition, trigger} from '@angular/animations';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Category} from '../../model/Category';
+import {CategoryNameAsyncValidatorService} from './category-name-async-validator.service';
+import {MaxLengthAndDuplicateErrorStateMatcher} from '../../error-state-matchers/max-length-and-duplicate-error-state-matcher';
 
 export const ADD_MODE = 'add';
 export const EDIT_MODE = 'edit';
@@ -88,7 +90,9 @@ export class CategoryFormComponent implements OnInit, OnChanges {
 
     form: FormGroup = null;
 
-    constructor() {
+    maxLengthAndNameMatcher = new MaxLengthAndDuplicateErrorStateMatcher();
+
+    constructor(private categoryNameValidator: CategoryNameAsyncValidatorService) {
     }
 
     ngOnInit(): void {
@@ -113,11 +117,15 @@ export class CategoryFormComponent implements OnInit, OnChanges {
         this.form = new FormGroup({
             name: new FormControl(
                 {value: this?.category?.name || '', disabled: false},
-                [
-                    Validators.required,
-                    Validators.minLength(NAME_CHAR_MIN),
-                    Validators.maxLength(NAME_CHAR_MAX)
-                ]),
+                {
+                    validators: [
+                        Validators.required,
+                        Validators.minLength(NAME_CHAR_MIN),
+                        Validators.maxLength(NAME_CHAR_MAX)
+                    ], asyncValidators: [
+                        this.categoryNameValidator.validate.bind(this.categoryNameValidator)
+                    ]
+                }),
             description: new FormControl({value: this?.category?.description || '', disabled: false},
                 [
                     Validators.maxLength(DESC_CHAR_MAX)

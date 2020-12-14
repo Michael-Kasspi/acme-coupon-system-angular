@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpEvent} from '@angular/common/http';
+import {HttpClient, HttpEvent, HttpParams} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {EndpointService} from '../../endpoint/endpoint.service';
 import {CouponRestService} from '../../coupon/services/interfaces/CouponRestService';
@@ -202,5 +202,16 @@ export class AdminService implements CouponRestService, CategoryClient {
             category.serialize(),
             {withCredentials: true}
         ).pipe(map(category => new Category(category)));
+    }
+
+    isCategoryNameExists(name: string): Observable<boolean> {
+        if (!name) {
+            return throwError('Unable to find category by name without name');
+        }
+
+        return this.client.get<boolean>(
+            `${this.endpoint.url}admin/categories/names/`,
+            {withCredentials: true, params: new HttpParams().set('name', name)}
+        );
     }
 }

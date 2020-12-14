@@ -73,6 +73,9 @@ export class CategoryListComponent implements OnInit {
     }
 
     edit(category: Category, lockRow: number) {
+        if (!category.id) {
+            return;
+        }
         this.lockRow = lockRow;
         this.editEvent.emit(category);
         this.selectOrEditEvent.emit(category);

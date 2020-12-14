@@ -23,8 +23,12 @@ $primary: map-get($custom-theme, primary);
     margin: 0;
 }
 
-.header button mat-icon {
+.header button mat-icon:not(:last-child) {
     margin-right: 12px;
+}
+
+.header button:not(:last-child) {
+    margin-right: 16px
 }
 
 .fab {
@@ -107,21 +111,28 @@ ul {
 
 .form-container {
     position: relative;
-    padding: 32px 16px 16px 16px;
+    padding: 16px;
 }
 
-.spinner {
+app-category-form {
+    margin-top: 16px;
+}
+
+.spinner, .error-message {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.form-container .spinner {
+.form-container .spinner, .error-message {
     height: 266px;
 }
 
 .list-base .spinner {
     margin: 64px 0;
+}
+
+.error-message {
 }
 
 mat-progress-bar {

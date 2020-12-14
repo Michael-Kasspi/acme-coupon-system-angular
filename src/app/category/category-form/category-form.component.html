@@ -4,6 +4,13 @@
             <mat-label>Name</mat-label>
             <input required #nameInput placeholder="Appliance..." formControlName="name" id="nameInput" matInput>
             <mat-hint>Minimum 3 characters for the name</mat-hint>
+                [errorStateMatcher]="maxLengthAndNameMatcher"
+            <mat-hint>
+                <span *ngIf="!name.pending else pendingMessage">Minimum 3 characters for the name</span>
+                <ng-template #pendingMessage>
+                    Checking name availability...
+                </ng-template>
+            </mat-hint>
             <mat-hint align="end">
                 {{nameInput.value?.length || 0}}/{{NAME_CHAR_MAX}}
             </mat-hint>
@@ -11,7 +18,13 @@
                 <span *ngIf="name?.errors?.required">The name of the category is a must</span>
                 <span *ngIf="name?.errors?.minlength">The minimum length of the name is {{NAME_CHAR_MIN}}</span>
                 <span *ngIf="name?.errors?.maxlength">The maximum length of the name is {{NAME_CHAR_MAX}}</span>
+                <span *ngIf="name?.errors?.duplicate">This category name already exists</span>
             </mat-error>
+            <mat-spinner
+                matSuffix
+                *ngIf="name.pending"
+                color="accent"
+                diameter="22"></mat-spinner>
         </mat-form-field>
     </section>
     <section>
