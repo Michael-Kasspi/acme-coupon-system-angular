@@ -1,11 +1,23 @@
 <div class="main">
     <div class="list-base">
         <div class="mat-typography header">
-            <h2 *ngIf="categories && !categories?.length else amount">No categories found</h2>
-            <button (click)="openSidenavAdd()" mat-raised-button color="primary">
-                <mat-icon>add_box</mat-icon>
-                <span>New</span>
-            </button>
+            <h2 *ngIf="categories && !categories?.length">No categories found</h2>
+            <div *ngIf="categories !== undefined" @fadeIn>
+                <button
+                    matTooltip="Refresh"
+                    (click)="refreshList()"
+                    matTooltipClass="custom-tooltip"
+                    matTooltipShowDelay="250"
+                    mat-icon-button>
+                    <mat-icon>cached</mat-icon>
+                </button>
+                <button [disabled]="!!service.add" (click)="openSidenavAdd()"
+                        mat-flat-button
+                        color="primary">
+                    <mat-icon>add_box</mat-icon>
+                    <span>New</span>
+                </button>
+            </div>
         </div>
         <div *ngIf="null === categories" class="mat-typography header">
             <h2>There was an error loading the categories</h2>
@@ -67,6 +79,4 @@
         <mat-spinner></mat-spinner>
     </div>
 </ng-template>
-<ng-template #amount>
-    <h2>Categories: {{categories?.length || 0}}</h2>
 </ng-template>

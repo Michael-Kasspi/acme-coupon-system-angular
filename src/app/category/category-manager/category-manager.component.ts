@@ -253,5 +253,9 @@ export class CategoryManagerComponent implements OnInit, AfterViewInit {
     retryAllCategories() {
         this.categories = undefined;
         this.getAllCategories();
+    refreshList() {
+        this.progressBar.status = true;
+        this.getAllCategories().pipe(finalize(() => this.progressBar.status = false))
+            .subscribe(_ => this.snackBar.open('The list has been refreshed'));
     }
 }
